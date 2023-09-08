@@ -1,7 +1,7 @@
 # Authors: Aaron Wu, Howard Tai
 
 # Script containing helper functions for accessing and navigating the MoonBoard web-site
-import itertools.dropwhile
+import itertools.dropwhile as dropwhile
 import numpy as np
 import copy
 import pickle
