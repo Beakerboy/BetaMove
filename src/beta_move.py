@@ -1,6 +1,6 @@
 import argparse
 import pandas as pd
-import pandas.dataframe as df
+import pandas.DataFrame as df
 from typing import TypeVar
 
 
