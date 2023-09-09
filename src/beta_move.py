@@ -15,6 +15,12 @@ class BetaMove:
         self._left = {}
         self._right = {}
 
+    def set_left(left) -> None:
+        self._left = left
+
+    def set_right(left) -> None:
+        self._right = right
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     app = new BetaMove()
