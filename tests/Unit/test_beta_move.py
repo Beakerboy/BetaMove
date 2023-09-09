@@ -1,5 +1,5 @@
 import pytest
-from beta_move import BetaMove
+from beta_move.beta_move import BetaMove
 
 def test_constructor() -> None:
     path = "./foo.txt"
