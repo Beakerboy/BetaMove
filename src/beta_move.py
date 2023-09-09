@@ -16,10 +16,10 @@ class BetaMove:
         self._left = {}
         self._right = {}
 
-    def set_left(left: df) -> None:
+    def set_left(self: T, left: df) -> None:
         self._left = left
 
-    def set_right(left: df) -> None:
+    def set_right(self: T, left: df) -> None:
         self._right = right
 
 def main() -> None:
