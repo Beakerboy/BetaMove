@@ -19,13 +19,20 @@ class BetaMove:
     def set_left(self: T, left: df) -> None:
         self._left = left
 
-    def set_right(self: T, left: df) -> None:
+    def set_right(self: T, right: df) -> None:
         self._right = right
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("-l", "--left",
+                        help="The left hand difficulty file name.")
+    parser.add_argument("-r", "--right",
+                        help="The right hand difficulty file name.")
+    parser.add_argument("-o", "--output",
+                        help="The output file name.")
+    args = parser.parse_args()
     app = BetaMove()
-    LeftHandfeatures = pd.read_csv(left_hold_feature_path, dtype=str)
-    RightHandfeatures = pd.read_csv(right_hold_feature_path, dtype=str)
+    LeftHandfeatures = pd.read_csv(args.left, dtype=str)
+    RightHandfeatures = pd.read_csv(args.right, dtype=str)
     app.set_left(LeftHandfeatures)
     app.set_right(RightHandfeatures)
