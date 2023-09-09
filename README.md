@@ -11,7 +11,7 @@ pip install git+https://github.com/Beakerboy/BetaMove@dev
 
 ## Getting Started
 A list of moonboard problems must be supplied. These can either be downloaded using the Moonboard API, or the archived data dump that is supplied with the source code can be used.
-```
+
 To run the program
 ```
 python beta_move.py -l LEFT_HAND_DIFFICULTY -r ] [-o OUTPUT] [-x EXTRA] directory
