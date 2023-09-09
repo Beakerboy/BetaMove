@@ -17,3 +17,8 @@ class BetaMove:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    app = new BetaMove()
+    LeftHandfeatures = pd.read_csv(left_hold_feature_path, dtype=str)
+    RightHandfeatures = pd.read_csv(right_hold_feature_path, dtype=str)
+    app.set_left(LeftHandfeatures)
+    app.set_right(RightHandfeatures)
