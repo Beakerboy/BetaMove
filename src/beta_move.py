@@ -9,7 +9,7 @@ T = TypeVar('T', bound='BetaMove')
 
 class BetaMove:
 
-    #class default constructor
+    # class default constructor
     def __init__(self: T) -> None:
 
         # Instance Attributes
