@@ -40,7 +40,7 @@ def main() -> None:
     for index in right_hand_features.index:
         lh_feature_item = left_hand_features.loc[index]
         lh_feature_dict[(int(lh_feature_item['X_coord']), int(lh_feature_item['Y_coord']))] = np.array(
-            list(LeftHandfeature_item['Difficulties'])).astype(int)
+            list(lh_feature_item['Difficulties'])).astype(int)
         rh_feature_item = right_hand_features.loc[index]
         rh_feature_dict[(int(rh_feature_item['X_coord']), int(rh_feature_item['Y_coord']))] = np.array(
             list(rh_feature_item['Difficulties'])).astype(int)
