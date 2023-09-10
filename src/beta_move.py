@@ -22,6 +22,7 @@ class BetaMove:
     def set_right(self: T, right: dict) -> None:
         self._right = right
 
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--left",
@@ -36,11 +37,17 @@ def main() -> None:
     right_hand_features = pd.read_csv(args.right, dtype=str)
     rh_feature_dict = {}
     lh_feature_dict = {}
-    
+
     for index in right_hand_features.index:
         lh_feature_item = left_hand_features.loc[index]
-        lh_feature_dict[(int(lh_feature_item['X_coord']), int(lh_feature_item['Y_coord']))] = np.array(
-            list(lh_feature_item['Difficulties'])).astype(int)
+        lh_feature_dict[
+            (
+                int(lh_feature_item['X_coord']),
+                int(lh_feature_item['Y_coord'])
+            )
+        ] = np.array(
+            list(lh_feature_item['Difficulties'])
+        ).astype(int)
         rh_feature_item = right_hand_features.loc[index]
         rh_feature_dict[(int(rh_feature_item['X_coord']), int(rh_feature_item['Y_coord']))] = np.array(
             list(rh_feature_item['Difficulties'])).astype(int)
