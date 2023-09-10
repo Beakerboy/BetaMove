@@ -34,7 +34,7 @@ def main() -> None:
     args = parser.parse_args()
     app = BetaMove()
 
-    def transform(file):
+    def transform(file: str) -> dict:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
