@@ -1,6 +1,5 @@
 import argparse
 import pandas as pd
-from pandas import DataFrame as df
 from typing import TypeVar
 
 
@@ -16,10 +15,10 @@ class BetaMove:
         self._left = {}
         self._right = {}
 
-    def set_left(self: T, left: df) -> None:
+    def set_left(self: T, left: dict) -> None:
         self._left = left
 
-    def set_right(self: T, right: df) -> None:
+    def set_right(self: T, right: dict) -> None:
         self._right = right
 
 def main() -> None:
@@ -34,5 +33,16 @@ def main() -> None:
     app = BetaMove()
     LeftHandfeatures = pd.read_csv(args.left, dtype=str)
     RightHandfeatures = pd.read_csv(args.right, dtype=str)
-    app.set_left(LeftHandfeatures)
-    app.set_right(RightHandfeatures)
+    RightHandfeature_dict = {}
+    LeftHandfeature_dict = {}
+    
+    for index in RightHandfeatures.index:
+        LeftHandfeature_item = LeftHandfeatures.loc[index]
+        LeftHandfeature_dict[(int(LeftHandfeature_item['X_coord']), int(LeftHandfeature_item['Y_coord']))] = np.array(
+            list(LeftHandfeature_item['Difficulties'])).astype(int)
+        RightHandfeature_item = RightHandfeatures.loc[index]
+        RightHandfeature_dict[(int(RightHandfeature_item['X_coord']), int(RightHandfeature_item['Y_coord']))] = np.array(
+            list(RightHandfeature_item['Difficulties'])).astype(int)
+
+    app.set_left(LeftHandfeature_dict)
+    app.set_right(RightHandfeature_dict)
