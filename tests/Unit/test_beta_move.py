@@ -57,13 +57,29 @@ def test_misc() -> None:
                     "Description": "D18",
                     "IsStart": false,
                     "IsEnd": true
+                },
+                {
+                    "Id": 2119230,
+                    "Description": "E8",
+                    "IsStart": false,
+                    "IsEnd": false
                 }
-, {"Id": 2119230, "Description": "E8", "IsStart": false,
- "IsEnd": false}], "grade": "6C+", "UserGrade": null, "i
-sBenchmark": false, "repeats": 0, "ProblemType": null, "
-IsMaster": false, "setter": {"Id": "93A38FE2-1B2B-4B0F-9
-B70-9A77BAE976B8", "Nickname": "halladay", "Firstname": 
-"Jason", "Lastname": "Halladay", "City": "Los Alamos", "
-Country": "United States", "ProfileImageUrl": "/Content/
-Account/Users/Profile/93A38FE2-1B2B-4B0F-9B70-9A77BAE976
-B8.gif?637231996892206329", "CanShareData": true}}}
+            ],
+            "grade": "6C+",
+            "UserGrade": null,
+            "isBenchmark": false,
+            "repeats": 0,
+            "ProblemType": null,
+            "IsMaster": false,
+            "setter": {
+                "Id": "93A38FE2-1B2B-4B0F-9B70-9A77BAE976B8",
+                "Nickname": "halladay",
+                "Firstname": "Jason",
+                "Lastname": "Halladay",
+                "City": "Los Alamos",
+                "Country": "United States",
+                "ProfileImageUrl": "/Content/Account/Users/Profile/93A38FE2-1B2B-4B0F-9B70-9A77BAE976B8.gif?637231996892206329",
+                "CanShareData": true
+            }
+        }
+    }
