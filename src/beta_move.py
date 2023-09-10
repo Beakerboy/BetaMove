@@ -33,10 +33,9 @@ def main() -> None:
                         help="The output file name.")
     args = parser.parse_args()
     app = BetaMove()
-    lh_features = pd.read_csv(args.left, dtype=str)
-    right_hand_features = pd.read_csv(args.right, dtype=str)
 
-    def transform(features):
+    def transform(file):
+        features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
             item = features.loc[index]
@@ -49,5 +48,5 @@ def main() -> None:
                 list(item['Difficulties'])
             ).astype(int)
 
-    app.set_left(transform(lh_features))
-    app.set_right(transform(rh_features))
+    app.set_left(transform(args.left))
+    app.set_right(transform(args.right))
