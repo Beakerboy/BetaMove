@@ -32,18 +32,18 @@ def main() -> None:
                         help="The output file name.")
     args = parser.parse_args()
     app = BetaMove()
-    LeftHandfeatures = pd.read_csv(args.left, dtype=str)
-    RightHandfeatures = pd.read_csv(args.right, dtype=str)
-    RightHandfeature_dict = {}
-    LeftHandfeature_dict = {}
+    left_hand_features = pd.read_csv(args.left, dtype=str)
+    right_hand_features = pd.read_csv(args.right, dtype=str)
+    rh_feature_dict = {}
+    lh_feature_dict = {}
     
-    for index in RightHandfeatures.index:
-        LeftHandfeature_item = LeftHandfeatures.loc[index]
-        LeftHandfeature_dict[(int(LeftHandfeature_item['X_coord']), int(LeftHandfeature_item['Y_coord']))] = np.array(
+    for index in right_hand_features.index:
+        lh_feature_item = left_hand_features.loc[index]
+        lh_feature_dict[(int(lh_feature_item['X_coord']), int(lh_feature_item['Y_coord']))] = np.array(
             list(LeftHandfeature_item['Difficulties'])).astype(int)
-        RightHandfeature_item = RightHandfeatures.loc[index]
-        RightHandfeature_dict[(int(RightHandfeature_item['X_coord']), int(RightHandfeature_item['Y_coord']))] = np.array(
-            list(RightHandfeature_item['Difficulties'])).astype(int)
+        rh_feature_item = right_hand_features.loc[index]
+        rh_feature_dict[(int(rh_feature_item['X_coord']), int(rh_feature_item['Y_coord']))] = np.array(
+            list(rh_feature_item['Difficulties'])).astype(int)
 
-    app.set_left(LeftHandfeature_dict)
-    app.set_right(RightHandfeature_dict)
+    app.set_left(lh_feature_dict)
+    app.set_right(rh_feature_dict)
