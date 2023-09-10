@@ -40,7 +40,7 @@ def main() -> None:
         dict = {}
         for index in features.index:
             item = features.loc[index]
-             dict[
+            dict[
                 (
                     int(item['X_coord']),
                     int(item['Y_coord'])
