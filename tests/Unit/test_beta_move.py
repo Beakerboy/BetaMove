@@ -1,3 +1,4 @@
+import pandas as pd
 from beta_move import BetaMove
 
 
@@ -8,7 +9,33 @@ def test_constructor() -> None:
 def test_lh_set() -> None:
 
 def test_status() ->None:
-    input = {"342797": {"problem_name": "CHATS", "info": ["Movement Crew", "16 climbers have repeated this problem", "6B+ (User grade 6B+)", "Feet follow hands", ""], "url": "https://moonboard.com/Problems/View/342797/chats", "num_empty": 1, "num_stars": 2, "moves": [{"Id": 1922790, "Description": "F5", "IsStart": true, "IsEnd": false}, {"Id": 1922791, "Description": "E8", "IsStart": false, "IsEnd": false}, {"Id": 1922792, "Description": "H10", "IsStart": false, "IsEnd": false}, {"Id": 1922793, "Description": "D12", "IsStart": false, "IsEnd": false}, {"Id": 1922794, "Description": "E13", "IsStart": false, "IsEnd": false}, {"Id": 1922795, "Description": "A9", "IsStart": false, "IsEnd": false}, {"Id": 1922796, "Description": "C15", "IsStart": false, "IsEnd": false}, {"Id": 1922797, "Description": "B16", "IsStart": false, "IsEnd": false}, {"Id": 1922798, "Description": "D18", "IsStart": false, "IsEnd": true}], "grade": "6B+", "UserGrade": "6B+", "isBenchmark": false, "repeats": 16, "ProblemType": null, "IsMaster": false, "setter": {"Id": "1B5E4B63-91A0-4792-88AC-EEFFE4C027D4", "Nickname": "Movement Crew", "Firstname": "Movement", "Lastname": "Crew", "City": "Boulder", "Country": "USA", "ProfileImageUrl": "/Content/Account/Images/default-profile.png?637231832387360726", "CanShareData": true}}}
+    input = {
+        "342797": {
+            "problem_name": "CHATS",
+            "info": ["Movement Crew", "16 climbers have repeated this problem", "6B+ (User grade 6B+)", "Feet follow hands", ""],
+            "url": "https://moonboard.com/Problems/View/342797/chats",
+            "num_empty": 1,
+            "num_stars": 2,
+            "moves": [
+                {"Id": 1922790, "Description": "F5", "IsStart": true, "IsEnd": false},
+                {"Id": 1922791, "Description": "E8", "IsStart": false, "IsEnd": false},
+                {"Id": 1922792, "Description": "H10", "IsStart": false, "IsEnd": false},
+                {"Id": 1922793, "Description": "D12", "IsStart": false, "IsEnd": false},
+                {"Id": 1922794, "Description": "E13", "IsStart": false, "IsEnd": false},
+                {"Id": 1922795, "Description": "A9", "IsStart": false, "IsEnd": false},
+                {"Id": 1922796, "Description": "C15", "IsStart": false, "IsEnd": false},
+                {"Id": 1922797, "Description": "B16", "IsStart": false, "IsEnd": false},
+                {"Id": 1922798, "Description": "D18", "IsStart": false, "IsEnd": true}
+            ],
+            "grade": "6B+",
+            "UserGrade": "6B+",
+            "isBenchmark": false,
+            "repeats": 16,
+            "ProblemType": null,
+            "IsMaster": false,
+            "setter": {"Id": "1B5E4B63-91A0-4792-88AC-EEFFE4C027D4", "Nickname": "Movement Crew", "Firstname": "Movement", "Lastname": "Crew", "City": "Boulder", "Country": "USA", "ProfileImageUrl": "/Content/Account/Images/default-profile.png?637231832387360726", "CanShareData": true}
+        }
+    }
 
    expected = [[ 5., 4.,  9.,  4. , 1.,  1.,  5.,  4.,  1.,  0.],
                [ 0.,  2.,  4.,  2.,  0.,  0.,  4.,  7.,  0.,  0.],
@@ -19,9 +46,14 @@ def test_status() ->None:
                [ 1.,  4.,  3.,  1.,  0.,  0.,  2., 14.,  0.,  0.],
                [ 2.,  5.,  2.,  1.,  0.,  0.,  1., 15.,  0.,  0.],
                [ 2.,  6.,  8.,  6.,  2.,  0.,  3., 17.,  0.,  1.]]
-
-     app = BetaMove()
-     
+    app = BetaMove()
+    file = ../data/hold_features_2016_LH.csv
+    features = pd.read_csv(file, dtype=str)
+    dict = {}
+    for index in features.index:
+        item = features.loc[index]
+         dict[(int(item['X_coord']), int(item['Y_coord']))] = np.array(list(item['Difficulties'])).astype(int)
+    app.set_left(transform(args.left))
 
 def test_misc() -> None:
     input = {
