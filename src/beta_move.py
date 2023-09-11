@@ -22,7 +22,7 @@ class BetaMove:
     def set_right(self: T, right: dict) -> None:
         self._right = right
 
-    def get_left() -> dict:
+    def get_left(self: T) -> dict:
         return self._left
 
 def main() -> None:
