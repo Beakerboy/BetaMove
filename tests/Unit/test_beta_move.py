@@ -18,7 +18,7 @@ def test_lh_set() -> None:
     app.set_left(dict)
     left = app.get_left()
     assert len(left) == 140
-    assert left[[0, 4]] == [0, 1, 2, 3]
+    assert left[(0, 4)] == [0, 1, 2, 3]
     assert left[[0, 10]] == [0]
 
 def test_status() ->None:
