@@ -27,6 +27,7 @@ class BetaMove:
     def get_left(self: T) -> dict:
         return self._left_features
 
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("-l", "--left",
