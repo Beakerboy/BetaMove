@@ -7,6 +7,13 @@ def test_constructor() -> None:
     assert isinstance(app, BetaMove)
 
 def test_lh_set() -> None:
+    file = ../data/hold_features_2016_LH.csv
+    features = pd.read_csv(file, dtype=str)
+    dict = {}
+    for index in features.index:
+        item = features.loc[index]
+         dict[(int(item['X_coord']), int(item['Y_coord']))] = np.array(list(item['Difficulties'])).astype(int)
+    app.set_left(transform(args.left))
 
 def test_status() ->None:
     input = {
@@ -47,13 +54,6 @@ def test_status() ->None:
                [ 2.,  5.,  2.,  1.,  0.,  0.,  1., 15.,  0.,  0.],
                [ 2.,  6.,  8.,  6.,  2.,  0.,  3., 17.,  0.,  1.]]
     app = BetaMove()
-    file = ../data/hold_features_2016_LH.csv
-    features = pd.read_csv(file, dtype=str)
-    dict = {}
-    for index in features.index:
-        item = features.loc[index]
-         dict[(int(item['X_coord']), int(item['Y_coord']))] = np.array(list(item['Difficulties'])).astype(int)
-    app.set_left(transform(args.left))
 
 def test_misc() -> None:
     input = {
