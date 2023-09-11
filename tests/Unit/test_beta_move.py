@@ -8,6 +8,7 @@ def test_constructor() -> None:
     assert isinstance(app, BetaMove)
 
 def test_lh_set() -> None:
+    app = BetaMove()
     file = "../data/hold_features_2016_LH.csv"
     features = pd.read_csv(file, dtype=str)
     dict = {}
