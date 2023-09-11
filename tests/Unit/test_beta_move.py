@@ -21,7 +21,7 @@ def test_lh_set() -> None:
     assert left[(0, 4)] == [4]
     assert left[(0, 10)] == [1]
 
-def test_status() ->None:
+def test_status() -> None:
     expected = [
         [5., 4., 9., 4., 1., 1., 5., 4., 1., 0.],
         [0., 2., 4., 2., 0., 0., 4., 7., 0., 0.],
