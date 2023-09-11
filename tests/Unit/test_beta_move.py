@@ -7,6 +7,22 @@ def test_constructor() -> None:
 
 def test_lh_set() -> None:
 
+def test_status() ->None:
+    input = {"342797": {"problem_name": "CHATS", "info": ["Movement Crew", "16 climbers have repeated this problem", "6B+ (User grade 6B+)", "Feet follow hands", ""], "url": "https://moonboard.com/Problems/View/342797/chats", "num_empty": 1, "num_stars": 2, "moves": [{"Id": 1922790, "Description": "F5", "IsStart": true, "IsEnd": false}, {"Id": 1922791, "Description": "E8", "IsStart": false, "IsEnd": false}, {"Id": 1922792, "Description": "H10", "IsStart": false, "IsEnd": false}, {"Id": 1922793, "Description": "D12", "IsStart": false, "IsEnd": false}, {"Id": 1922794, "Description": "E13", "IsStart": false, "IsEnd": false}, {"Id": 1922795, "Description": "A9", "IsStart": false, "IsEnd": false}, {"Id": 1922796, "Description": "C15", "IsStart": false, "IsEnd": false}, {"Id": 1922797, "Description": "B16", "IsStart": false, "IsEnd": false}, {"Id": 1922798, "Description": "D18", "IsStart": false, "IsEnd": true}], "grade": "6B+", "UserGrade": "6B+", "isBenchmark": false, "repeats": 16, "ProblemType": null, "IsMaster": false, "setter": {"Id": "1B5E4B63-91A0-4792-88AC-EEFFE4C027D4", "Nickname": "Movement Crew", "Firstname": "Movement", "Lastname": "Crew", "City": "Boulder", "Country": "USA", "ProfileImageUrl": "/Content/Account/Images/default-profile.png?637231832387360726", "CanShareData": true}}}
+
+   expected = [[ 5., 4.,  9.,  4. , 1.  1.  5.  4.  1.  0.],
+ [ 0.  2.  4.  2.  0.  0.  4.  7.  0.  0.],
+ [ 1.  5.  2.  0.  0.  0.  0.  8.  0.  0.],
+ [ 0.  0.  4.  9.  4.  0.  7.  9.  0.  0.],
+ [ 0.  0.  6.  4.  4.  0.  3. 11.  0.  0.],
+ [ 0.  3.  6.  3.  0.  0.  4. 12.  0.  0.],
+ [ 1.  4.  3.  1.  0.  0.  2. 14.  0.  0.],
+ [ 2.  5.  2.  1.  0.  0.  1. 15.  0.  0.],
+ [ 2.,  6.  8.  6.  2.  0.  3., 17., 0., 1.]]
+
+     app = BetaMove()
+     
+
 def test_misc() -> None:
     input = {
         "367894": {
