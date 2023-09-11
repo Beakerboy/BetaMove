@@ -15,7 +15,7 @@ def test_lh_set() -> None:
     for index in features.index:
         item = features.loc[index]
         dict[(int(item['X_coord']), int(item['Y_coord']))] = np.array(list(item['Difficulties'])).astype(int)
-    app.set_left(transform(args.left))
+    app.set_left(dict)
     assert app.get_left() == 3
 
 def test_status() ->None:
