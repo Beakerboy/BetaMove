@@ -16,7 +16,9 @@ def test_lh_set() -> None:
         item = features.loc[index]
         dict[(int(item['X_coord']), int(item['Y_coord']))] = np.array(list(item['Difficulties'])).astype(int)
     app.set_left(dict)
-    assert app.get_left() == 3
+    left = app.get_left()
+    assert left.len() == 140
+    assert left[[0, 4]] == [0, 1, 2, 3]
 
 def test_status() ->None:
     expected = [
