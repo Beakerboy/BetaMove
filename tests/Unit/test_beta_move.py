@@ -7,6 +7,7 @@ def test_constructor() -> None:
     app = BetaMove()
     assert isinstance(app, BetaMove)
 
+
 def test_lh_set() -> None:
     app = BetaMove()
     file = "data/hold_features_2016_LH.csv"
@@ -20,6 +21,7 @@ def test_lh_set() -> None:
     assert len(left) == 140
     assert left[(0, 4)] == [4]
     assert left[(0, 10)] == [1]
+
 
 def test_status() -> None:
     expected = [
