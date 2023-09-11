@@ -13,17 +13,19 @@ class BetaMove:
     def __init__(self: T) -> None:
 
         # Instance Attributes
-        self._left = {}
-        self._right = {}
+
+        # Difficulty assesments for each hold if using left or right hand
+        self._left_features = {}
+        self._right_features = {}
 
     def set_left(self: T, left: dict) -> None:
-        self._left = left
+        self._left_features = left
 
     def set_right(self: T, right: dict) -> None:
-        self._right = right
+        self._right_features = right
 
     def get_left(self: T) -> dict:
-        return self._left
+        return self._left_features
 
 def main() -> None:
     parser = argparse.ArgumentParser()
