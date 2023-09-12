@@ -44,7 +44,7 @@ class Climb:
         if hold[2] and self._finish_holds == 2:
             raise Exception("Too many finish holds")
         if hold[1] and int(hold[0][1:]) < 18:
-            raise Exception("Finish hold must be on top 6 row") 
+            raise Exception("Finish hold must be on top row (18). Hold is on row " + hold[0][1:]) 
         if self._moves.len() > 14:
             raise Exception("Too many holds")
         # Mini Moonboard will need different criteria
