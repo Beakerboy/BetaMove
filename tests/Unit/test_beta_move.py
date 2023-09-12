@@ -12,7 +12,6 @@ def test_constructor() -> None:
 
 
 def test_lh_set() -> None:
-
     file = "data/hold_features_2016_LH.csv"
     features = pd.read_csv(file, dtype=str)
     dict = {}
@@ -29,6 +28,23 @@ def test_lh_set() -> None:
 
 
 def test_status() -> None:
+    file = "data/hold_features_2016_LH.csv"
+    features = pd.read_csv(file, dtype=str)
+    lh = {}
+    for index in features.index:
+        item = features.loc[index]
+        lh[
+            (int(item['X_coord']), int(item['Y_coord']))
+        ] = np.array(list(item['Difficulties'])).astype(int)
+    file = "data/hold_features_2016_RH.csv"
+    features = pd.read_csv(file, dtype=str)
+    rh = {}
+    for index in features.index:
+        item = features.loc[index]
+        rh[
+            (int(item['X_coord']), int(item['Y_coord']))
+        ] = np.array(list(item['Difficulties'])).astype(int)
+
     expected = [
         [5., 4., 9., 4., 1., 1., 5., 4., 1., 0.],
         [0., 2., 4., 2., 0., 0., 4., 7., 0., 0.],
