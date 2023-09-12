@@ -14,8 +14,9 @@ A list of moonboard problems must be supplied. These can either be downloaded us
 
 To run the program
 ```
-python beta_move.py -l LEFT_HAND_DIFFICULTY -r RIGHT_HAND_DIFFICULTY -o OUTPUT
+python beta_move.py filename -l LEFT_HAND_DIFFICULTY -r RIGHT_HAND_DIFFICULTY -o OUTPUT
 positional arguments:
+  filename              A json file of climbing problems to analyze.
   -l                    A csv file that lists the difficulty score (1-9?) of each hold using the left hand.
   -r                    A csv file that lists the difficulty score (1-9?) of each hold using the right hand.
   -o OUTPUT, --output OUTPUT
