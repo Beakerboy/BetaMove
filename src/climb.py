@@ -29,8 +29,9 @@ class Climb:
 
     # Setters and Getters
     def set_id(self: T, id: str) -> None:
+        if re.match("[1-9][0-9]*", id) != id:
+            raise exception
         self._id = id
-        # validate int as string
 
     def set_name(self: T, name: str) -> None:
         self._name = name
