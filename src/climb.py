@@ -37,7 +37,8 @@ class Climb:
         self._grade = grade
 
     def url(self: T) -> str:
-        return "https://moonboard.com/Problems/View/"+ self._id + "/" + self._name.lower()
+        string = "https://moonboard.com/Problems/View/"
+        return string + self._id + "/" + self._name.lower()
 
     @classmethod
     def from_json(cls: Type[T], id: int, data: dict) -> T:
