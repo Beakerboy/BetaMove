@@ -36,14 +36,16 @@ class Climb:
         self._name = name
 
     def add_hold(self: T, hold: list) -> None:
-        if hold[1] and hold[2]:
-            raise exception
         if hold[1] and self._start_holds == 2:
-            raise exception
+            raise Exception("Too many start holds")
+        if hold[1] and int(hold[0][1:]) > 6:
+            raise Exception("Start Hold must be in lower 6 rows") 
         if hold[2] and self._finish_holds == 2:
-            raise exception
+            raise Exception("Too many finish holds")
+        if hold[1] and int(hold[0][1:]) < 18:
+            raise Exception("Finish hold must be on top 6 row") 
         if self._moves.len() > 14:
-            raise exception
+            raise Exception("Too many holds")
         # Mini Moonboard will need different criteria
         if re.match("[A-K]([1-9]|[1][0-8])", hold[0]) != hold[0]:
             raise exception
@@ -70,12 +72,11 @@ class Climb:
         climb._name = data["problem_name"]
         climb._grade = data["grade"]
         for hold in data["moves"]:
-            climb._holds.append(
+            climb.add_hold(
                 [
                     hold["Description"],
                     hold["IsStart"],
                     hold["IsEnd"]
                 ]
             )
-        # Validate number of start, number of end, total holds.
         return climb
