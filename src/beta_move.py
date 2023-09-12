@@ -64,8 +64,8 @@ def main() -> None:
     # Load the json file
     f = open(args.filename)
     data = json.load(f)
-    for problem in data:
-        climb = Climb.from_json(problem)
+    for id in data:
+        climb = Climb.from_json(id, data[id])
         movement = app.cretae_movement(climb)
         # write movement to output
     
