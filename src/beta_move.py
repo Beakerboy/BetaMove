@@ -12,19 +12,13 @@ T = TypeVar('T', bound='BetaMove')
 class BetaMove:
 
     # class default constructor
-    def __init__(self: T) -> None:
+    def __init__(self: T, lh: dict, rh: dict) -> None:
 
         # Instance Attributes
 
         # Difficulty assesments for each hold if using left or right hand
-        self._left_features = {}
-        self._right_features = {}
-
-    def set_left(self: T, left: dict) -> None:
-        self._left_features = left
-
-    def set_right(self: T, right: dict) -> None:
-        self._right_features = right
+        self._left_features = lh
+        self._right_features = rh
 
     def get_left(self: T) -> dict:
         return self._left_features
@@ -44,7 +38,6 @@ def main() -> None:
     parser.add_argument("-o", "--output",
                         help="The output file name.")
     args = parser.parse_args()
-    app = BetaMove()
 
     def transform(file: str) -> dict:
         features = pd.read_csv(file, dtype=str)
@@ -60,9 +53,7 @@ def main() -> None:
                 list(item['Difficulties'])
             ).astype(int)
 
-    app.set_left(transform(args.left))
-    app.set_right(transform(args.right))
-
+    app = BetaMove(transform(args.left), transform(args.right))
     # Load the json file
     f = open(args.filename)
     data = json.load(f)
