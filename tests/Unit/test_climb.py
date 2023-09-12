@@ -10,7 +10,7 @@ def test_constructor() -> None:
 
 
 def test_factory() -> None:
-    data = json.load('''{
+    data = json.loads('''{
         "1": {
             "grade": "5+",
             "problem_name": "Foo",
