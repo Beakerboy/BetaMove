@@ -1,4 +1,5 @@
 import argparse
+import json
 import numpy as np
 import pandas as pd
 from typing import TypeVar
@@ -33,6 +34,7 @@ class BetaMove:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
+    parser.add_argument("filename")
     parser.add_argument("-l", "--left",
                         help="The left hand difficulty file name.")
     parser.add_argument("-r", "--right",
@@ -60,8 +62,9 @@ def main() -> None:
     app.set_right(transform(args.right))
 
     # Load the json file
-    json = "{}"
-    foreach problem in json:
+    f = open(args.filename)
+    data = json.load(f)
+    for problem in data:
         climb = Climb.from_json(problem)
         movement = app.cretae_movement(climb)
         # write movement to output
