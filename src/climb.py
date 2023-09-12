@@ -48,7 +48,7 @@ class Climb:
         if len(self._holds) > 14:
             raise Exception("Too many holds")
         # Mini Moonboard will need different criteria
-        if re.match("[A-K]([1-9]|[1][0-8])", hold[0]) != hold[0]:
+        if re.match("[A-K]([1-9]|([1][0-8]))", hold[0]) != hold[0]:
             raise Exception("Incorrect location format. Value is " + hold[0])
         self._holds.append(hold)
         if (hold[1]):
