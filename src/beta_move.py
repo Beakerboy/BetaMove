@@ -29,24 +29,6 @@ class BetaMove:
 
     def create_movement(data: list) -> list:
         movement = []
-        grade_map = {
-            '5+': -2, #V2
-            '6A': -1, #V3
-            '6A+': -1, #V3
-            '6B': 0,  # V4
-            '6B+': 0, # V4
-            '6C': 1,  # V5
-            '6C+': 1, # V5
-            '7A': 2,  # V6
-            '7A+': 3, # V7
-            '7B': 4,  # V8
-            '7B+': 4, # V8
-            '7C': 5,  # V9
-            '7C+': 6, # V10
-            '8A': 7,  # V11
-            '8A+': 8, # V12
-            '8B': 9,  # V13
-        }
         return movement
 
 def main() -> None:
