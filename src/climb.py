@@ -43,7 +43,7 @@ class Climb:
             raise Exception("Start Hold must be in lower 6 rows") 
         if hold[2] and self._finish_holds == 2:
             raise Exception("Too many finish holds")
-        if hold[1] and int(hold[0][1:]) < 18:
+        if hold[2] and int(hold[0][1:]) < 18:
             raise Exception("Finish hold must be on top row (18). Hold is on row " + hold[0][1:]) 
         if self._moves.len() > 14:
             raise Exception("Too many holds")
