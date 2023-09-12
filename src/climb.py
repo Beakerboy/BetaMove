@@ -44,6 +44,7 @@ class Climb:
             raise exception
         if self._moves.len() > 14:
             raise exception
+        # Mini Moonboard will need different criteria
         if re.match("[A-K]([1-9]|[1][0-8])", hold[0]) != hold[0]:
             raise exception
         self._moves.append(hold)
