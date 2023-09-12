@@ -27,7 +27,8 @@ class BetaMove:
     def get_left(self: T) -> dict:
         return self._left_features
 
-    def create_movement(data: str) -> None:
+    def create_movement(data: list) -> list:
+        movement = []
         grade_map = {
             '5+': -2, #V2
             '6A': -1, #V3
@@ -46,7 +47,7 @@ class BetaMove:
             '8A+': 8, # V12
             '8B': 9,  # V13
         }
-
+        return movement
 
 def main() -> None:
     parser = argparse.ArgumentParser()
