@@ -11,7 +11,7 @@ class Climb:
 
         # Instance Attributes
         # The moonboard ID
-        self._id = 0
+        self._id = "0"
 
         # The problem name
         self._name = ""
@@ -24,7 +24,7 @@ class Climb:
         self._grade = ""
 
     # Setters and Getters
-    def set_id(self: T, id: int) -> None:
+    def set_id(self: T, id: str) -> None:
         self._id = id
 
     def set_name(self: T, name: str) -> None:
