@@ -1,6 +1,9 @@
+
+import json
 import numpy as np
 import pandas as pd
 from beta_move import BetaMove
+from climb import Climb
 
 
 def test_constructor() -> None:
@@ -37,5 +40,8 @@ def test_status() -> None:
         [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
         [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
     ]
-    app = BetaMove()
-    # Open 342797.json
+    app = BetaMove(lh, rh)
+    f = open('tests/Unit/342797.json')
+    data = json.load(f)
+    climb = Climb.from_json(data)
+    assert app.create_movement(climb) == expected
