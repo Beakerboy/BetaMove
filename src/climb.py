@@ -7,7 +7,7 @@ T = TypeVar('T', bound='Climb')
 class Climb:
 
     # class default constructor
-    def __init__(self: T):
+    def __init__(self: T) -> None:
 
         # Instance Attributes
         # The moonboard ID
@@ -44,5 +44,11 @@ class Climb:
         climb._name = data.problem_name
         climb._grade = data.grade
         for hold in data.moves:
-            climb._holds.append(list(hold["Description"], hold["IsStart"], hold["IsEnd"]))
+            climb._holds.append(
+                list(
+                    hold["Description"],
+                    hold["IsStart"],
+                    hold["IsEnd"]
+                )
+            )
         return climb
