@@ -44,5 +44,5 @@ class Climb:
         climb._name = data.problem_name
         climb._grade = data.grade
         for hold in data.moves:
-            self._holds.append(list(hold["Description"], hold["IsStart"], hold["IsEnd"]))
+            climb._holds.append(list(hold["Description"], hold["IsStart"], hold["IsEnd"]))
         return climb
