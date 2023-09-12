@@ -59,5 +59,5 @@ def main() -> None:
     data = json.load(f)
     for id in data:
         climb = Climb.from_json(id, data[id])
-        movement = app.cretae_movement(climb)
+        movement = app.create_movement(climb)
         # write movement to output
