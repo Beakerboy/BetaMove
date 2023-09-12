@@ -30,7 +30,7 @@ class Climb:
     # Setters and Getters
     def set_id(self: T, id: str) -> None:
         if re.match("[1-9][0-9]*", id) != id:
-            raise exception
+            raise Exception("Incorrect id format")
         self._id = id
 
     def set_name(self: T, name: str) -> None:
@@ -49,7 +49,7 @@ class Climb:
             raise Exception("Too many holds")
         # Mini Moonboard will need different criteria
         if re.match("[A-K]([1-9]|[1][0-8])", hold[0]) != hold[0]:
-            raise exception
+            raise Exception("Incorrect location format.")
         self._moves.append(hold)
         if (hold[1]):
             self._start_holds += 1
