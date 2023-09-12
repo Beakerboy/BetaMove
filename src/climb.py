@@ -1,4 +1,4 @@
-from typing import TypeVar
+from typing import TypeVar, Type
 
 
 T = TypeVar('T', bound='Climb')
