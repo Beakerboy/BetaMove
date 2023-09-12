@@ -45,10 +45,10 @@ class Climb:
         climb._grade = data["grade"]
         for hold in data["moves"]:
             climb._holds.append(
-                list(
+                [
                     hold["Description"],
                     hold["IsStart"],
                     hold["IsEnd"]
-                )
+                ]
             )
         return climb
