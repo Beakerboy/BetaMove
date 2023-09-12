@@ -59,5 +59,5 @@ def test_status() -> None:
     app = BetaMove(lh, rh)
     f = open('tests/Unit/342797.json')
     data = json.load(f)
-    climb = Climb.from_json(342797, data["342797"])
+    climb = Climb.from_json("342797", data["342797"])
     # assert app.create_movement(climb) == expected
