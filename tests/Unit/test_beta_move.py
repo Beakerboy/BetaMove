@@ -12,7 +12,7 @@ def test_constructor() -> None:
 
 
 def test_lh_set() -> None:
-    app = BetaMove()
+
     file = "data/hold_features_2016_LH.csv"
     features = pd.read_csv(file, dtype=str)
     dict = {}
@@ -21,7 +21,7 @@ def test_lh_set() -> None:
         dict[
             (int(item['X_coord']), int(item['Y_coord']))
         ] = np.array(list(item['Difficulties'])).astype(int)
-    app.set_left(dict)
+    app = BetaMove(dict, dict)
     left = app.get_left()
     assert len(left) == 140
     assert left[(0, 4)] == [4]
