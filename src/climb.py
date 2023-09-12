@@ -30,8 +30,8 @@ class Climb:
     def set_name(self: T, name: str) -> None:
         self._name = name
 
-    def add_move(self: T, move: dict) -> None:
-        self._moves.append(move)
+    def add_hold(self: T, hold: dict) -> None:
+        self._moves.append(hold)
 
     def set_grade(self: T, grade: str) -> None:
         self._grade = grade
