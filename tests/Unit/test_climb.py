@@ -26,7 +26,12 @@ def test_factory() -> None:
 
 # Setters and Getters
 
-def test_bad_column() -> None:
+position_data = [
+    "Z1", "a9", "7", "A19"
+]
+
+@pytest.mark.parametrize("data", position_data)
+def test_bad_column(data: str) -> None:
     climb = Climb()
     with pytest.raises(Exception):
-        climb.add_hold(["Z1", False, False])
+        climb.add_hold([data, False, False])
