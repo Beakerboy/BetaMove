@@ -45,17 +45,16 @@ class Climb:
             raise Exception("Too many finish holds")
         if hold[2] and int(hold[0][1:]) < 18:
             raise Exception("Finish hold must be on top row (18). Hold is on row " + hold[0][1:]) 
-        if self._moves.len() > 14:
+        if self._holds.len() > 14:
             raise Exception("Too many holds")
         # Mini Moonboard will need different criteria
         if re.match("[A-K]([1-9]|[1][0-8])", hold[0]) != hold[0]:
             raise Exception("Incorrect location format.")
-        self._moves.append(hold)
+        self._holds.append(hold)
         if (hold[1]):
             self._start_holds += 1
         if (hold[2]):
             self._finish_holds += 1
-        # Validate x and Y
 
     def set_grade(self: T, grade: str) -> None:
         self._grade = grade
