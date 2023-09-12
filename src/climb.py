@@ -11,17 +11,17 @@ class Climb:
 
         # Instance Attributes
         # The moonboard ID
-        def self._id = 0
+        self._id = 0
 
         # The problem name
-        def self._name = ""
+        self._name = ""
 
         # The list of allowed holds with start and end
-        def self._holds = []
+        self._holds = []
 
         # The grade
         # The JSON object has three grades; grade, info[2] and UserGrade
-        def self._grade = ""
+        self._grade = ""
 
     # Setters and Getters
     def set_id(self: T, id: int) -> None:
