@@ -7,7 +7,7 @@ from climb import Climb
 
 
 def test_constructor() -> None:
-    app = BetaMove()
+    app = BetaMove({}, {})
     assert isinstance(app, BetaMove)
 
 
