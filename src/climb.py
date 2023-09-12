@@ -17,9 +17,10 @@ class Climb:
         def self._name = ""
 
         # The list of allowed holds with start and end
-        def self._moves = []
+        def self._holds = []
 
         # The grade
+        # The JSON object has three grades; grade, info[2] and UserGrade
         def self._grade = ""
 
     # Setters and Getters
@@ -36,6 +37,11 @@ class Climb:
         self._grade = grade
 
     @classmethod
-    def from_json(cls: Type[T], json:str) -> T:
+    def from_json(cls: Type[T], id: int, data: dict) -> T:
         # parse data and set attributes
-        return cls
+        climb = cls()
+        climb._id = id
+        climb._name = data.problem_name
+        climb._grade = data.grade
+        for hold in data.moves:
+            self._holds.append(list(hold["Description"], hold["IsStart"], hold["IsEnd"]))
