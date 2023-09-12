@@ -9,7 +9,7 @@ def test_constructor() -> None:
 
 
 def test_factory() -> None:
-    data = {
+    data = json.load('''{
         "1": {
             "grade": "5+",
             "problem_name": "Foo",
@@ -19,7 +19,7 @@ def test_factory() -> None:
                 {"Description": "A8", "IsStart": false, "IsEnd": false}
             ]
         }
-    }
+    }''')
     climb = Climb.from_json(data)
     assert climb.get_name() == "Foo"
 
