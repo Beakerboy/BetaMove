@@ -27,7 +27,7 @@ class BetaMove:
     def get_left(self: T) -> dict:
         return self._left_features
 
-    def create_movement(data: list) -> list:
+    def create_movement(problem: Climb) -> list:
         movement = []
         return movement
 
@@ -58,3 +58,12 @@ def main() -> None:
 
     app.set_left(transform(args.left))
     app.set_right(transform(args.right))
+
+    # Load the json file
+    json = "{}"
+    foreach problem in json:
+        climb = Climb.from_json(problem)
+        movement = app.cretae_movement(climb)
+        # write movement to output
+    
+    
