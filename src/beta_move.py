@@ -29,9 +29,10 @@ class BetaMove:
     def get_left(self: T) -> dict:
         return self._left_features
 
-    def create_movement(problem: Climb) -> list:
+    def create_movement(self: T, problem: Climb) -> list:
         movement = []
         return movement
+
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -69,5 +70,3 @@ def main() -> None:
         climb = Climb.from_json(id, data[id])
         movement = app.cretae_movement(climb)
         # write movement to output
-    
-    
