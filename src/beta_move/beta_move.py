@@ -2,7 +2,7 @@ import argparse
 import json
 import numpy as np
 import pandas as pd
-from climb import Climb
+from beta_move.climb import Climb
 from typing import TypeVar
 
 
