@@ -20,6 +20,7 @@ class Moonboard:
         self._features = {}
 
         self._angle = 40
+        self._height = 18
 
     def get_features(self: T, position: list) -> list:
         """
@@ -45,7 +46,7 @@ class Moonboard:
         """
         How tall is the board
         """
-        return 18
+        return self._height
 
     def width(self: T) -> int:
         """
