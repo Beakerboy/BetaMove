@@ -1,6 +1,6 @@
 import json
 import pytest
-from climb import Climb
+from beta_move.climb import Climb
 
 
 # Construction
