@@ -75,9 +75,9 @@ class Climb:
     def from_json(cls: Type[T], id: int, data: dict) -> T:
         # parse data and set attributes
         climb = cls()
-        climb._id = id
-        climb._name = data["problem_name"]
-        climb._grade = data["grade"]
+        climb.set_id(id)
+        climb.set_name(data["problem_name"])
+        climb.set_grade(data["grade"])
         for hold in data["moves"]:
             climb.add_hold(
                 [
