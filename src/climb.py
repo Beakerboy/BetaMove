@@ -67,7 +67,7 @@ class Climb:
     def url(self: T) -> str:
         url = "https://moonboard.com/Problems/View/"
         return url + self._id + "/" + self._name.lower()
-        
+
     @classmethod
     def from_json(cls: Type[T], id: int, data: dict) -> T:
         # parse data and set attributes
