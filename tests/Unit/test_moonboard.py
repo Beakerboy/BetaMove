@@ -9,7 +9,7 @@ def test_constructor() -> None:
 
 def test_height() -> None:
     board = Moonboard()
-    assert board.get_height(( == 18
+    assert board.get_height() == 18
 
 
 def test_width() -> None:
