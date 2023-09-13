@@ -76,3 +76,12 @@ def test_too_many_ends() -> None:
     climb.add_hold(["B18", False, True])
     with pytest.raises(Exception):
         climb.add_hold(["C18", False, True])
+
+
+def test_too_many_holds() -> None:
+    climb = Climb()
+    for i in range(12):
+        climb.add_hold(["A" + str(i + 1), False, False])
+    with pytest.raises(Exception):
+        climb.add_hold(["A14", False, False])
+        
