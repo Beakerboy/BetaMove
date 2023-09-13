@@ -79,7 +79,8 @@ class Climb:
         Verify that the climb meets the minimum expectations.
         Has at least one start, one end, and one other hold.
         """
-        return self._start_holds > 0 and self._finish_holds > 0
+        check = self.num_holds() - self._start_holds - self._finish_holds > 0
+        return check and self._start_holds > 0 and self._finish_holds > 0
 
     @classmethod
     def from_json(cls: Type[T], id: int, data: dict) -> T:
