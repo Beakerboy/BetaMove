@@ -71,6 +71,9 @@ class Climb:
         url = "https://moonboard.com/Problems/View/"
         return url + self._id + "/" + self._name.lower()
 
+    def num_holds(self: T) -> int:
+        return len(self._holds)
+
     @classmethod
     def from_json(cls: Type[T], id: int, data: dict) -> T:
         # parse data and set attributes
