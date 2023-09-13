@@ -56,8 +56,9 @@ def main() -> None:
     app = BetaMove(transform(args.left), transform(args.right))
     # Load the json file
     f = open(args.filename)
+    f_out = open(args.output", "a")
     data = json.load(f)
     for id in data:
         climb = Climb.from_json(id, data[id])
         movement = app.create_movement(climb)
-        # write movement to output
+        f_out.write(movement)
