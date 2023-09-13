@@ -35,3 +35,15 @@ def test_bad_column(data: str) -> None:
     climb = Climb()
     with pytest.raises(Exception):
         climb.add_hold([data, False, False])
+
+
+def test_bad_end() -> None:
+    climb = Climb()
+    with pytest.raises(Exception):
+        climb.add_hold(["A16", False, True])
+
+
+def test_bad_start() -> None:
+    climb = Climb()
+    with pytest.raises(Exception):
+        climb.add_hold(["A16", True, False])
