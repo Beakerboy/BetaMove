@@ -74,6 +74,9 @@ class Climb:
     def num_holds(self: T) -> int:
         return len(self._holds)
 
+    def validate() -> boolean:
+        return self._start_holds > 0 and self._finish_holds > 0
+
     @classmethod
     def from_json(cls: Type[T], id: int, data: dict) -> T:
         # parse data and set attributes
