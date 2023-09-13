@@ -43,6 +43,7 @@ def test_valid() -> None:
     climb.add_hold(["A9", False, False])
     assert climb.is_valid()
 
+
 position_data = [
     "Z1", "a9", "7", "A19"
 ]
