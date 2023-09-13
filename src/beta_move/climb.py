@@ -29,7 +29,8 @@ class Climb:
 
     # Setters and Getters
     def set_id(self: T, id: str) -> None:
-        if re.match("[1-9][0-9]*", id).group(0) != id:
+        _rex = re.compile("[1-9][0-9]*")
+        if not _rex.fullmatch(id):
             raise Exception("Incorrect id format")
         self._id = id
 
