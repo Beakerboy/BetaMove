@@ -62,7 +62,7 @@ def test_bad_id(data: str) -> None:
         climb.set_id("01")
 
 
-dev test_too_many_starts() -> None:
+def test_too_many_starts() -> None:
     climb = Climb()
     climb.add_hold(["A1", True, False])
     climb.add_hold(["A2", True, False])
@@ -70,7 +70,7 @@ dev test_too_many_starts() -> None:
         climb.add_hold(["A3", True, False])
 
 
-dev test_too_many_ends() -> None:
+def test_too_many_ends() -> None:
     climb = Climb()
     climb.add_hold(["A18", False, True])
     climb.add_hold(["B18", False, True])
