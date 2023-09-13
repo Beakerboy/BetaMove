@@ -49,7 +49,7 @@ class Climb:
             raise Exception("Too many holds")
         # Mini Moonboard will need different criteria
         _rex = re.compile("[A-K]([1-9]|(1[0-8]))")
-        if _rex.fullmatch(hold[0]):
+        if not _rex.fullmatch(hold[0]):
             raise Exception("Incorrect location format. Value is " + hold[0])
         self._holds.append(hold)
         if (hold[1]):
