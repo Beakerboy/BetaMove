@@ -1,5 +1,4 @@
 import json
-import numpy as np
 from beta_move.climb import Climb
 from typing import TypeVar
 
