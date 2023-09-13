@@ -74,7 +74,7 @@ class Climb:
     def num_holds(self: T) -> int:
         return len(self._holds)
 
-    def is_valid() -> boolean:
+    def is_valid() -> bool:
         """
         Verify that the climb meets the minimum expectations.
         Has at least one start, one end, and one other hold.
