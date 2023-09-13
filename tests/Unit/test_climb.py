@@ -29,6 +29,7 @@ position_data = [
     "Z1", "a9", "7", "A19"
 ]
 
+
 @pytest.mark.parametrize("data", position_data)
 def test_bad_column(data: str) -> None:
     climb = Climb()
