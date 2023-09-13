@@ -1,4 +1,3 @@
-import json
 from beta_move.climb import Climb
 from typing import TypeVar
 
