@@ -36,6 +36,9 @@ class Climb:
     def set_name(self: T, name: str) -> None:
         self._name = name
 
+    def get_name(self: T) -> str:
+        return self._name
+
     def add_hold(self: T, hold: list) -> None:
         if hold[1] and self._start_holds == 2:
             raise Exception("Too many start holds")
