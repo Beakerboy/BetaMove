@@ -1,7 +1,7 @@
 from typing import TypeVar, Type
 
 
-T = TypeVar('T', bound='Climb')
+T = TypeVar('T', bound='Moonboard')
 
 
 class Moonboard:
