@@ -45,7 +45,7 @@ class Moonboard:
         """
         How tall is the board
         """
-       return 18
+        return 18
 
     def width(self: T) -> int:
         """
