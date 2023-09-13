@@ -42,13 +42,13 @@ class Moonboard:
         Check is a hold is present on the board at a given lication
         """
 
-    def height(self: T) -> int:
+    def get_height(self: T) -> int:
         """
         How tall is the board
         """
         return self._height
 
-    def width(self: T) -> int:
+    def get_width(self: T) -> int:
         """
         How wide is the board
         """
