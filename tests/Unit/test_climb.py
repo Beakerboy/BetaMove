@@ -80,8 +80,8 @@ def test_too_many_ends() -> None:
 
 def test_too_many_holds() -> None:
     climb = Climb()
-    for i in range(12):
+    for i in range(13):
         climb.add_hold(["A" + str(i + 1), False, False])
     with pytest.raises(Exception):
-        climb.add_hold(["A14", False, False])
+        climb.add_hold(["A15", False, False])
         
