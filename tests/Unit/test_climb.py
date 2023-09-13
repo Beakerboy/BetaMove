@@ -47,3 +47,15 @@ def test_bad_start() -> None:
     climb = Climb()
     with pytest.raises(Exception):
         climb.add_hold(["A16", True, False])
+
+
+bad_id_data = [
+    "Z1", "01", "0", "foo"
+]
+
+
+@pytest.mark.parametrize("data", bad_id_data)
+def test_bad_id(data: str) -> None:
+    climb = Climb()
+    with pytest.raises(Exception):
+        climb.set_id("01")
