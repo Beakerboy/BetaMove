@@ -2,8 +2,8 @@
 import json
 import numpy as np
 import pandas as pd
-from beta_move import BetaMove
-from climb import Climb
+from beta_move.beta_move import BetaMove
+from beta_move.climb import Climb
 
 
 def test_constructor() -> None:
