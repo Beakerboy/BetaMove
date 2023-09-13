@@ -1,5 +1,6 @@
 import argparse
 import json
+import pandas as pd
 from beta_move.beta_move import BetaMove
 from beta_move.moonboard import Moonboard
 
