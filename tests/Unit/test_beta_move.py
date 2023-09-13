@@ -62,3 +62,4 @@ def test_status() -> None:
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
     assert expected == expected
+    assert climb == climb
