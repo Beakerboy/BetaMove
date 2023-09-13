@@ -14,4 +14,4 @@ def test_height() -> None:
 
 def test_width() -> None:
     board = Moonboard()
-    assert board.width == 110
+    assert board.width == 11
