@@ -28,9 +28,9 @@ def test_factory() -> None:
 
 def test_num_holds() -> None:
     climb = Climb()
-    assert climb.num_holds == 0
+    assert climb.num_holds() == 0
     climb.add_hold(["A1", True, False])
-    assert climb.num_holds == 1
+    assert climb.num_holds() == 1
 
 
 position_data = [
