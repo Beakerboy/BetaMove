@@ -11,17 +11,15 @@ def test_constructor() -> None:
 
 def test_factory() -> None:
     data = json.loads('''{
-        "1": {
-            "grade": "5+",
-            "problem_name": "Foo",
-            "moves": [
-                {"Description": "A1", "IsStart": true, "IsEnd": false},
-                {"Description": "A18", "IsStart": false, "IsEnd": true},
-                {"Description": "A8", "IsStart": false, "IsEnd": false}
-            ]
-        }
+        "grade": "5+",
+        "problem_name": "Foo",
+        "moves": [
+            {"Description": "A1", "IsStart": true, "IsEnd": false},
+            {"Description": "A18", "IsStart": false, "IsEnd": true},
+            {"Description": "A8", "IsStart": false, "IsEnd": false}
+        ]
     }''')
-    climb = Climb.from_json(data)
+    climb = Climb.from_json("1", data)
     assert climb.get_name() == "Foo"
 
 
