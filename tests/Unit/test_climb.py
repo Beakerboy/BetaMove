@@ -21,6 +21,7 @@ def test_factory() -> None:
     }''')
     climb = Climb.from_json("1", data)
     assert climb.get_name() == "Foo"
+    assert climb.url() = "https://moonboard.com/Problems/View/1/foo"
 
 
 # Setters and Getters
