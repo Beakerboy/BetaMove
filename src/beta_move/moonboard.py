@@ -4,7 +4,7 @@ from typing import TypeVar, Type
 T = TypeVar('T', bound='Climb')
 
 
-class Moonboard
+class Moonboard:
 
     # class default constructor
     def __init__(self: T) -> None:
