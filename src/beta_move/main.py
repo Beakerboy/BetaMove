@@ -1,4 +1,5 @@
 from beta_move.beta_move import BetaMove
+from beta_move.moonboard import Moonboard
 
 
 def main() -> None:
@@ -26,6 +27,8 @@ def main() -> None:
                 list(item['Difficulties'])
             ).astype(int)
 
+    # Create moonboard with he specified layout
+    # Create movement generator.
     app = BetaMove(transform(args.left), transform(args.right))
     # Load the json file
     f = open(args.filename)
@@ -33,5 +36,6 @@ def main() -> None:
     data = json.load(f)
     for id in data:
         climb = Climb.from_json(id, data[id])
+        # validate climb against moonboard.
         movement = app.create_movement(climb)
         f_out.write(movement)
