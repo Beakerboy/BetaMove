@@ -18,7 +18,7 @@ class Climb:
         self._name = ""
 
         # The list of allowed holds with start and end
-        self._holds = []
+        self._holds = {}
 
         # The grade
         # The JSON object has three grades; grade, info[2] and UserGrade
@@ -57,7 +57,12 @@ class Climb:
         if not _rex.fullmatch(hold[0]):
             raise Exception("Incorrect location format. Value is " + hold[0])
         # Check if hold is already in list
-        self._holds.append(hold)
+        x_value = ord(hold[0][0]) - ord("A")
+        y_value = int(hold[0][1:]) - 1
+        index = list(x_value, y_value)
+        if holds.has_key(index):
+            raise Exception("A hold at list location already exists.")
+        self._holds[index] = hold
         if (hold[1]):
             self._start_holds += 1
         if (hold[2]):
