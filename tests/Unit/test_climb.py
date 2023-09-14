@@ -102,3 +102,10 @@ def test_too_many_holds() -> None:
         climb.add_hold(["A" + str(i + 1), False, False])
     with pytest.raises(Exception):
         climb.add_hold(["A15", False, False])
+
+
+def test_add_duplicate_hold() -> None:
+    climb = Climb()
+    climb.add_hold(["A1", True, False])
+    with pytest.raises(Exception):
+        climb.add_hold(["A1", False, False])
