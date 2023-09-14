@@ -59,10 +59,9 @@ class Climb:
         # Check if hold is already in list
         x_value = ord(hold[0][0]) - ord("A")
         y_value = int(hold[0][1:]) - 1
-        index = list(x_value, y_value)
-        if self._holds.has_key(index):
+        if self._holds.has_key([x_value, y_value]):
             raise Exception("A hold at list location already exists.")
-        self._holds[index] = hold
+        self._holds[x_value, y_value] = hold
         if (hold[1]):
             self._start_holds += 1
         if (hold[2]):
