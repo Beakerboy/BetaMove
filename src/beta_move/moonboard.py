@@ -60,7 +60,7 @@ class Moonboard:
         """
         return 11
 
-    def _transform(file: str) -> dict:
+    def _transform(self: T, file: str) -> dict:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
