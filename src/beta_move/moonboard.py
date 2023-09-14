@@ -8,20 +8,20 @@ T = TypeVar('T', bound='Moonboard')
 class Moonboard:
 
     # class default constructor
-    def __init__(self: T, year = 2016: int, angle = 40: int) -> None:
+    def __init__(self: T, year: int = 2016, angle: int = 40) -> None:
 
         # Instance Attributes
         # Left Hand Difficulties
-        self._lh = {}
+        self._lh: dict = {}
 
         # Right Hand Difficulties
-        self._rh = {}
+        self._rh: dict = {}
 
         # Hold Features
         self._features = {}
 
-        self._angle = angle
-        self._height = 18
+        self._angle: int = angle
+        self._height: int = 18
         if year == 2016:
             self._lh = self._transform("data/hold_features_2016_LH.csv")
             self._lh = self._transform("data/hold_features_2016_RH.csv")
