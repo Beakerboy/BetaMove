@@ -59,7 +59,7 @@ class Climb:
         x_value = ord(hold[0][0]) - ord("A")
         y_value = int(hold[0][1:]) - 1
         if (x_value, y_value) in self._start_holds
-            or (x_value, y_value) in self._mid_holds:
+            or (x_value, y_value) in self._mid_holds
             or (x_value, y_value) in self._end_holds:
             raise Exception("A hold at list location already exists.")
         if (hold[1]):
