@@ -74,4 +74,4 @@ class Moonboard:
             ] = np.array(
                 list(item['Difficulties'])
             ).astype(int)
-            return dict
+        return dict
