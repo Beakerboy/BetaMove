@@ -87,8 +87,8 @@ class Climb:
         return url + self._id + "/" + self._name.lower()
 
     def num_holds(self: T) -> int:
-        return (len(self._start_holds) 
-                + len(self._mid_holds) 
+        return (len(self._start_holds)
+                + len(self._mid_holds)
                 + len(self._end_holds))
 
     def num_starts(self: T) -> int:
@@ -102,8 +102,8 @@ class Climb:
         Verify that the climb meets the minimum expectations.
         Has at least one start, one end, and one other hold.
         """
-        return (len(self._mid_holds) > 0 
-                and self.num_starts() > 0 
+        return (len(self._mid_holds) > 0
+                and self.num_starts() > 0
                 and self.num_finish() > 0)
 
     @classmethod
