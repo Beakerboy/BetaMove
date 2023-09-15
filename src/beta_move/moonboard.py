@@ -46,7 +46,7 @@ class Moonboard:
 
     def hold_exists(self: T, position: list) -> bool:
         """
-        Check is a hold is present on the board at a given lication
+        Check a hold is present on the board at a given location
         """
 
     def get_height(self: T) -> int:
