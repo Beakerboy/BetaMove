@@ -18,14 +18,13 @@ class Climb:
         self._name = ""
 
         # The list of allowed holds with start and end
-        self._holds = {}
+        self._start_holds = {}
+        self._mid_holds = {}
+        self._end_holds = {}
 
         # The grade
         # The JSON object has three grades; grade, info[2] and UserGrade
         self._grade = ""
-
-        self._start_holds = 0
-        self._finish_holds = 0
 
     # Setters and Getters
     def set_id(self: T, id: str) -> None:
@@ -61,14 +60,18 @@ class Climb:
         y_value = int(hold[0][1:]) - 1
         if (x_value, y_value) in self._holds:
             raise Exception("A hold at list location already exists.")
-        self._holds[x_value, y_value] = hold
         if (hold[1]):
-            self._start_holds += 1
-        if (hold[2]):
-            self._finish_holds += 1
+            self._start_holds[x_value, y_value] = hold
+        else if (hold[2]):
+            self._end_holds[x_value, y_value] = hold
+        else:
+            self._mid_holds[x_value, y_value] = hold
 
     def get_holds(self: T) -> dict:
-        return self._holds
+        start = self._start_holds.sort(lambda x: x[1])
+        mid = self._mid_holds.sort(lambda x: x[1])
+        end = self._end_holds.sort(lambda x: x[1])
+        return start +  mid + end
 
     def set_grade(self: T, grade: str) -> None:
         self._grade = grade
@@ -79,13 +82,13 @@ class Climb:
         return url + self._id + "/" + self._name.lower()
 
     def num_holds(self: T) -> int:
-        return len(self._holds)
+        return len(self._start_holds) + len(self._mid_holds) + len(self._end_holds)
 
     def num_starts(self: T) -> int:
-        return self._start_holds
+        return len(self._start_holds)
 
     def num_finish(self: T) -> int:
-        return self._finish_holds
+        return len(self._end_holds)
 
     def is_valid(self: T) -> bool:
         """
