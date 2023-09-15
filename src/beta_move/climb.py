@@ -67,6 +67,9 @@ class Climb:
         if (hold[2]):
             self._finish_holds += 1
 
+    def get_holds(self: T) -> dict:
+        return self._holds
+
     def set_grade(self: T, grade: str) -> None:
         self._grade = grade
         # Validate acceptible values
