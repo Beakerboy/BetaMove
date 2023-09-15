@@ -69,7 +69,7 @@ class Climb:
             self._mid_holds.append((x_value, y_value))
         self._holds[x_value, y_value] = hold
 
-    def get_holds(self: T) -> dict:
+    def get_holds(self: T) -> list:
         start = self._start_holds.sort(key = lambda x: x[1])
         mid = self._mid_holds.sort(key = lambda x: x[1])
         end = self._end_holds.sort(key = lambda x: x[1])
