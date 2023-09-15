@@ -40,16 +40,16 @@ class Climb:
         return self._name
 
     def add_hold(self: T, hold: list) -> None:
-        if hold[1] and self._start_holds == 2:
+        if hold[1] and len(self._start_holds) == 2:
             raise Exception("Too many start holds")
         if hold[1] and int(hold[0][1:]) > 6:
             raise Exception("Start Hold must be in lower 6 rows")
-        if hold[2] and self._finish_holds == 2:
+        if hold[2] and len(self._end_holds) == 2:
             raise Exception("Too many finish holds")
         if hold[2] and int(hold[0][1:]) < 18:
             msg = "Finish hold must be on top row (18). Hold is on row "
             raise Exception(msg + hold[0][1:])
-        if len(self._holds) == 14:
+        if len(self.num_holds()) == 14:
             raise Exception("Too many holds")
         # Mini Moonboard will need different criteria
         _rex = re.compile("[A-K]([1-9]|(1[0-8]))")
@@ -95,8 +95,7 @@ class Climb:
         Verify that the climb meets the minimum expectations.
         Has at least one start, one end, and one other hold.
         """
-        check = self.num_holds() - self._start_holds - self._finish_holds > 0
-        return check and self._start_holds > 0 and self._finish_holds > 0
+        return len(self._mid_holds) > 0 and self.num_starts() > 0 and self.num_finish() > 0
 
     @classmethod
     def from_json(cls: Type[T], id: int, data: dict) -> T:
