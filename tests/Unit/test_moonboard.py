@@ -17,6 +17,11 @@ def test_width() -> None:
     assert board.get_width() == 11
 
 
-def test_get_features() ->None:
+def test_get_features() -> None:
     board = Moonboard()
     assert all(board.get_features((5, 4)) == [5, 4, 9, 4, 1, 1])
+
+
+def test_lh_difficulty() -> None
+    board = Moonboard()
+    assert board.get_lh_difficulty((0, 17)) == 5
