@@ -18,9 +18,10 @@ class Climb:
         self._name = ""
 
         # The list of allowed holds with start and end
-        self._start_holds = {}
-        self._mid_holds = {}
-        self._end_holds = {}
+        self._holds = {}
+        self._start_holds = []
+        self._mid_holds = []
+        self._end_holds = []
 
         # The grade
         # The JSON object has three grades; grade, info[2] and UserGrade
@@ -58,16 +59,15 @@ class Climb:
         # Check if hold is already in list
         x_value = ord(hold[0][0]) - ord("A")
         y_value = int(hold[0][1:]) - 1
-        if ((x_value, y_value) in self._start_holds
-            or (x_value, y_value) in self._mid_holds
-            or (x_value, y_value) in self._end_holds):
+        if has_key(self._holds, (x_value, y_value)):
             raise Exception("A hold at list location already exists.")
         if (hold[1]):
-            self._start_holds[x_value, y_value] = hold
+            self._start_holds.append((x_value, y_value))
         elif (hold[2]):
-            self._end_holds[x_value, y_value] = hold
+            self._end_holds.append((x_value, y_value))
         else:
-            self._mid_holds[x_value, y_value] = hold
+            self._mid_holds.append((x_value, y_value))
+        self._holds[x_value, y_value] = hold
 
     def get_holds(self: T) -> dict:
         start = self._start_holds.sort(lambda x: x[1])
