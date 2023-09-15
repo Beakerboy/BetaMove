@@ -26,6 +26,7 @@ class BetaMove:
                 x_vectors[6:8, i] = [x, y]
                 i += 1
             x_vectors[8:, 0:climb.num_starts()] = np.array([[1], [0]])
-            x_vectors[8:, climb.num_holds() - climb.num_finish():] = np.array([[0], [1]])
+            num_non_end = climb.num_holds() - climb.num_finish()
+            x_vectors[8:, num_non_end:] = np.array([[0], [1]])
 
         return x_vectors
