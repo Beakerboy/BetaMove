@@ -15,3 +15,8 @@ def test_height() -> None:
 def test_width() -> None:
     board = Moonboard()
     assert board.get_width() == 11
+
+
+def test_get_features() ->None:
+    board = Moonboard()
+    assert all(board.get_features((5, 4)) == [5, 4, 9, 4, 1, 1])
