@@ -15,7 +15,7 @@ class BetaMove:
         # Instance Attributes
         self._board = board
 
-    def create_movement(self: T, problem: Climb) -> list:
+    def create_movement(self: T, climb: Climb) -> list:
         # movement = []
         if climb.is_valid:
             for i, (x, y) in enumerate(climb.get_holds()):
