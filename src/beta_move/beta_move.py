@@ -21,7 +21,7 @@ class BetaMove:
             i = 0
             x_vectors = np.zeros((10, climb.num_holds()))
             holds = climb.get_holds()
-            for (x, y) in holds
+            for (x, y) in holds:
                 x_vectors[0:6, i] = self._board.get_features((x, y))
                 x_vectors[6:8, i] = [x, y]
                 i += 1
