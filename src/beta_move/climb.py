@@ -62,7 +62,7 @@ class Climb:
             raise Exception("A hold at list location already exists.")
         if (hold[1]):
             self._start_holds[x_value, y_value] = hold
-        else if (hold[2]):
+        elif (hold[2]):
             self._end_holds[x_value, y_value] = hold
         else:
             self._mid_holds[x_value, y_value] = hold
