@@ -26,7 +26,7 @@ class Moonboard:
         if year == 2016:
             self._lh = self._transform("data/hold_features_2016_LH.csv")
             self._rh = self._transform("data/hold_features_2016_RH.csv")
-            self._features = self._transform("data/hold_features_2016_LH.csv")
+            self._features = self._transform("data/hold_features.csv")
 
     def get_features(self: T, position: list) -> list:
         """
