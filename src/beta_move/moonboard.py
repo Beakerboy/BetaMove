@@ -32,6 +32,7 @@ class Moonboard:
         """
         Return the features for the hold at a particular location
         """
+        return self._features[position]
 
     def get_rh_difficulty(self: T, position: list) -> int:
         """
