@@ -18,7 +18,7 @@ class BetaMove:
     def create_movement(self: T, climb: Climb) -> list:
         # movement = []
         if climb.is_valid:
-            for i, (x, y) in enumerate(climb.get_holds()):
+            for i, (x, y) in enumerate(climb.get_holds()).items():
                 x_vectors = np.zeros((10, climb.num_holds()))
                 x_vectors[0:6, i] = self._board.get_features((x, y))
                 x_vectors[6:8, i] = [x, y]
