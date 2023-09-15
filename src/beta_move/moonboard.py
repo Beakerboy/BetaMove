@@ -38,11 +38,13 @@ class Moonboard:
         """
         Return the right hand difficulty for the hold at a particular location
         """
+        return self._rh[position]
 
     def get_lh_difficulty(self: T, position: list) -> int:
         """
         Return the left hand difficulty for the hold at a particular location
         """
+        return self._lh[position]
 
     def hold_exists(self: T, position: list) -> bool:
         """
