@@ -73,7 +73,7 @@ class Climb:
         start = self._start_holds.sort(key = lambda x: x[1])
         mid = self._mid_holds.sort(key = lambda x: x[1])
         end = self._end_holds.sort(key = lambda x: x[1])
-        return start +  mid + end
+        return start + mid + end
 
     def get_hold(self: T, location: tuple) -> dict:
         return self._holds[location]
