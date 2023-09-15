@@ -75,6 +75,9 @@ class Climb:
         end = self._end_holds.sort(lambda x: x[1])
         return start +  mid + end
 
+    def get_hold(self: T, location: tuple) -> dict:
+        return self._holds[location]
+
     def set_grade(self: T, grade: str) -> None:
         self._grade = grade
         # Validate acceptible values
