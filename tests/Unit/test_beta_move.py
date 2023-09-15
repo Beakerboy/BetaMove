@@ -8,7 +8,8 @@ from beta_move.moonboard import Moonboard
 
 
 def test_constructor() -> None:
-    app = BetaMove({}, {})
+    board = Moonboard(2016)
+    app = BetaMove(board)
     assert isinstance(app, BetaMove)
 
 
@@ -30,4 +31,4 @@ def test_status() -> None:
     f = open('tests/Unit/342797.json')
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
-    assert all(all(app.create_movement(climb).T == expected))
+    assert np.array_equiv(app.create_movement(climb).T,xpected)
