@@ -18,11 +18,12 @@ class BetaMove:
     def create_movement(self: T, climb: Climb) -> list:
         # movement = []
         if climb.is_valid:
-            for i, (x, y) in enumerate(climb.get_holds()).items():
+            i = 0
+            for (x, y) in climb.get_holds():
                 x_vectors = np.zeros((10, climb.num_holds()))
                 x_vectors[0:6, i] = self._board.get_features((x, y))
                 x_vectors[6:8, i] = [x, y]
                 x_vectors[8:, 0:climb.num_starts()] = np.array([[1], [0]])
                 x_vectors[8:, climb.num_holds() - climb.num_finish():] = np.array([[0], [1]])
-
+                i += 1
         return x_vectors
