@@ -81,6 +81,9 @@ class Climb:
     def num_holds(self: T) -> int:
         return len(self._holds)
 
+    def num_starts(self: T) -> int:
+        return self._start_holds
+
     def is_valid(self: T) -> bool:
         """
         Verify that the climb meets the minimum expectations.
