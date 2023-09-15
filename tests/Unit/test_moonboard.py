@@ -25,3 +25,8 @@ def test_get_features() -> None:
 def test_lh_difficulty() -> None:
     board = Moonboard()
     assert board.get_lh_difficulty((0, 17)) == 5
+
+
+def test_rh_difficulty() -> None:
+    board = Moonboard()
+    assert board.get_rh_difficulty((0, 15)) == 2
