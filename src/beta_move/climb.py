@@ -49,7 +49,7 @@ class Climb:
         if hold[2] and int(hold[0][1:]) < 18:
             msg = "Finish hold must be on top row (18). Hold is on row "
             raise Exception(msg + hold[0][1:])
-        if len(self.num_holds()) == 14:
+        if self.num_holds() == 14:
             raise Exception("Too many holds")
         # Mini Moonboard will need different criteria
         _rex = re.compile("[A-K]([1-9]|(1[0-8]))")
