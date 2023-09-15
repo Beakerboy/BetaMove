@@ -19,7 +19,7 @@ class BetaMove:
         # movement = []
         if climb.is_valid:
             for i, (x, y) in enumerate(climb.get_holds()):
-                x_vectors = np.zeros((10, n_hold))
+                x_vectors = np.zeros((10, climb.num_holds()))
                 x_vectors[0:6, i] = self._board.get_features((x, y)) # 6 hand features
                 x_vectors[6:8, i] = [x, y] #(x, y)
                 # for each hold set whether it is start/end based on index (as combined_list is start:mid:end)
