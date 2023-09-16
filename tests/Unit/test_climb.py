@@ -34,6 +34,13 @@ def test_num_holds() -> None:
     assert climb.num_holds() == 1
 
 
+def test_get_hold() -> None:
+    climb = Climb()
+    climb.add_hold(["A1", True, False])
+    hold = climb.get_hold((0, 0))
+    assert all(hold == ["A1", True, False])
+
+
 def test_valid() -> None:
     climb = Climb()
     assert not climb.is_valid()
