@@ -25,6 +25,11 @@ def test_status() -> None:
         [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
         [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
     ]
+    results = {
+        hold_index = [0, 0, 1, 3, 4, 5, 7, 8],
+        hands = ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH'],
+        success = 98.50396893
+    }
     board = Moonboard(2016)
     app = BetaMove(board)
     f = open('tests/Unit/342797.json')
