@@ -47,11 +47,11 @@ class BetaMove:
             self.handOperator.append(opList[1-zeroOrOne]) # indicate which hand
             self.holdsNotUsed.remove(self.getOrderFromHold(startHoldList[0]))   # Not consider match
             self.holdsNotUsed.remove(self.getOrderFromHold(startHoldList[1]))
-            
+ 
     def getAllHolds(self: T):
         """ return all avalible holds. N holds rows, 10 columns np array"""
         return self.allHolds
-    
+
     def addNextHand(self: T, nextHold, op):
         """ Operation to make add the next hold. Append handsequence and hand operation. nextHold is a hold. op is "LH" or "RH" """     
         hyperparameter = [1, 1]
@@ -92,12 +92,12 @@ class BetaMove:
     def getXYFromOrder(self: T, holdOrder):
         """return a coordinate tuple giving holdOrder (a num in processed data)"""
         return ((self.allHolds[holdOrder][6]), (self.allHolds[holdOrder][7])) 
-    
+
     def getleftHandOrder(self: T):
         """ Return a num of the last left hand hold's oreder (in processed data from bottom to top)"""
         lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
         return self.handSequence[int(lastIndexOfRight)]
-    
+
     def getrightHandOrder(self: T):
         """ Return a num of the last right hand hold's oreder (in processed data from bottom to top)"""
         lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
@@ -106,26 +106,25 @@ class BetaMove:
     def getleftHandHold(self: T):
         """ Return a np array of the last right hand hold (in processed data from bottom to top)"""
         return self.allHolds[self.getleftHandOrder()]
-    
+
     def getrightHandHold(self: T):
         """ Return a np array of the last right hand hold (in processed data from bottom to top)"""
         return self.allHolds[self.getrightHandOrder()]
-    
+
     def getOrderFromHold(self: T, hold):
         """ from a single hold (np array) to an order"""
         return np.where((self.allHolds == hold).all(1))[0] # Use np.where to get row indices
-    
+
     def getCom(self: T, hold1Order, hold2Order)-> tuple:
         """ Get the coordinate of COM using current both hands order"""
         xCom = (self.allHolds[hold1Order][6] + self.allHolds[hold2Order][6]) / 2
         yCom = (self.allHolds[hold1Order][7] + self.allHolds[hold2Order][7]) / 2
         return (xCom, yCom)
 
-        
     def getCurrentCom(self: T) -> tuple:
         """ Get the coordinate of COM based on current hand position"""
         return self.getCom(self.getleftHandOrder(), self.getrightHandOrder())
-    
+
     def getTwoOrderDistance(self: T, remainingHandOrder, nextHoldOrder) -> float:
         """ Given order 2, and 5. Output distance between"""
         originalCom = self.getCurrentCom()
@@ -135,22 +134,25 @@ class BetaMove:
     def orderToSeqOrder(self: T, order):
         """ Transform from order (in the all avalible holds sequence) to hand order (in the hand sequence)"""
         return self.handSequence.index(order)
-    
+
     def lastMoveSuccessRateByHold(self: T):
         operatorLeft = self.handOperator[self.orderToSeqOrder(self.getleftHandOrder())]
         operatorRight = self.handOperator[self.orderToSeqOrder(self.getrightHandOrder())]
         return self.successRateByHold(self.getleftHandHold(), operatorLeft) * self.successRateByHold(self.getrightHandHold(), operatorRight)
-    
+
     def successRateByHold(self: T, hold, operation) -> int:
         """ Evaluate the difficulty to hold on a hold applying LH or RH (op)"""
-        if operation == "LH": 
-            return self._board.get_lh_difficulty((hold[6], hold[7])) #Chiang's evaluation
+        if operation == "LH":
+            # Chiang's evaluation
+            return self._board.get_lh_difficulty((hold[6], hold[7]))
+
             # Duh's evaluation
             # return max((hold[0] + 2 * hold[1] + hold[2] + hold[5]) **1.2  , (hold[2] / 2 + hold[3] + hold[4])) / hyperparameter[1]  
         if operation == "RH":
-            return self._board.get_rh_difficulty((hold[6], hold[7])) #Chiang's evaluation
+            # Chiang's evaluation
+            return self._board.get_rh_difficulty((hold[6], hold[7]))
             # return max((hold[2] + 2 * hold[3] + hold[4] + hold[5]) **1.2 , (hold[0] + hold[1] + hold[2] / 2)) / hyperparameter[1]
-        
+
     def getStartHold(self: T) -> list:
         """return startHold list with 2 element of np array"""
         startHoldList = []
@@ -168,7 +170,7 @@ class BetaMove:
         if len(endHoldOrderList) == 1:
             endHoldOrderList.append(self.totalNumOfHold)
         return endHoldOrderList
-    
+
     def overallSuccessRate(self: T) -> float:
         """
         return the overall successful rate using the stored beta hand sequence
@@ -177,21 +179,21 @@ class BetaMove:
         overallScore = 1;
         for i, order in enumerate(self.handSequence): 
             overallScore = overallScore * self.successRateByHold(self.allHolds[order], self.handOperator[i])
-  
+
         for i in range(numOfHand - 1):
             # Penalty of do a big cross. Larger will drop the successRate   
             target_xy = self.getXYFromOrder(self.handSequence[i+1]) 
-            
+
             # update last L/R hand
             if self.handOperator[i] == "RH":
                 lastrightHandXY = self.getXYFromOrder(self.handSequence[i]) 
             if self.handOperator[i] == "LH":
                 lastleftHandXY = self.getXYFromOrder(self.handSequence[i])
-                
+
             if i == 1 and self.handSequence[0] == self.handSequence[1]:
                 # not sure
                 target_xy = (target_xy[0], target_xy[1] - 1)
-            
+
             if i >= 1 and self.handOperator[i+1] == "RH": 
                 original_xy = lastleftHandXY
                 center = (original_xy[0], original_xy[1])
