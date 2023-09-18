@@ -195,18 +195,18 @@ class BetaMove:
                 # not sure
                 target_xy = (target_xy[0], target_xy[1] - 1)
 
-            if i >= 1 and self.handOperator[i + 1] == "RH": 
+            if i >= 1 and self.handOperator[i + 1] == "RH":
                 original_xy = last_left_hand_xy
                 center = (original_xy[0], original_xy[1])
                 overall_score *= self.make_gaussian(target_xy, center, "LH")
-            if i >= 1 and self.handOperator[i + 1] == "LH": 
+            if i >= 1 and self.handOperator[i + 1] == "LH":
                 original_xy = last_right_hand_xy
                 center = (original_xy[0], original_xy[1])
                 overall_score *= self.make_gaussian(target_xy, center, "RH")
         self.overallSuccess = overall_score
-        
+
         return overall_score ** (3 / num_of_hand)
-    
+
     def setTrueBeta(self: T) -> bool:
         self.isTrueBeta = True
 
