@@ -204,7 +204,7 @@ class BetaMove:
     def getholdsNotUsed(self: T) -> list:
         return self.holdsNotUsed
 
-    def makeGaussian(cls: Type[T], targetXY: list, center: list, lasthand: str = "LH") -> float
+    def makeGaussian(cls: Type[T], targetXY: list, center: list, lasthand: str = "LH") -> float:
         """ Make a square gaussian filter to evaluate how possible of the relative distance between hands
         from target hand to remaining hand (center)
         fwhm is full-width-half-maximum, which can be thought of as an effective distance of dynamic range.
