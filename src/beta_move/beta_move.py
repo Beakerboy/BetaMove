@@ -209,9 +209,6 @@ class BetaMove:
         from target hand to remaining hand (center)
         fwhm is full-width-half-maximum, which can be thought of as an effective distance of dynamic range.
         """
-        x = targetXY[0]
-        y = targetXY[1]
-
         x0 = center[0]
         y0 = center[1]
         if lasthand == "RH":
@@ -229,4 +226,8 @@ class BetaMove:
         return guess1 + guess2
 
     def gauss(cls: Type[T], target, center, fwhm):
-        return np.exp(-4 * * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2)
+        x = target[0]
+        y = target[1]
+        x0 = center[0]
+        y0 = center[1]
+        return np.exp(-4 * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2)
