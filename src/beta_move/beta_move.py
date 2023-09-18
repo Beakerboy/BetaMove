@@ -175,36 +175,37 @@ class BetaMove:
         """
         return the overall successful rate using the stored beta hand sequence
         """
-        numOfHand = len(self.handSequence)
-        overallScore = 1;
-        for i, order in enumerate(self.handSequence): 
-            overallScore = overallScore * self.successRateByHold(self.allHolds[order], self.handOperator[i])
+        num_of_hand = len(self.handSequence)
+        overall_score = 1
+        for i, order in enumerate(self.handSequence):
+            overall_score *= self.successRateByHold(self.allHolds[order], self.handOperator[i])
 
         for i in range(numOfHand - 1):
-            # Penalty of do a big cross. Larger will drop the successRate   
-            target_xy = self.getXYFromOrder(self.handSequence[i+1]) 
+            # Penalty of do a big cross. Larger will drop the successRate
+            target_xy = self.getXYFromOrder(self.handSequence[i+1])
 
             # update last L/R hand
+            last_hand_xy = self.getXYFromOrder(self.handSequence[i])
             if self.handOperator[i] == "RH":
-                lastrightHandXY = self.getXYFromOrder(self.handSequence[i]) 
+                last_right_hand_xy = last_hand_xy
             if self.handOperator[i] == "LH":
-                lastleftHandXY = self.getXYFromOrder(self.handSequence[i])
+                last_left_hand_xy = last_hand_xy
 
             if i == 1 and self.handSequence[0] == self.handSequence[1]:
                 # not sure
                 target_xy = (target_xy[0], target_xy[1] - 1)
 
-            if i >= 1 and self.handOperator[i+1] == "RH": 
-                original_xy = lastleftHandXY
+            if i >= 1 and self.handOperator[i + 1] == "RH": 
+                original_xy = last_left_hand_xy
                 center = (original_xy[0], original_xy[1])
-                overallScore *= self.make_gaussian(target_xy, center, "LH")
-            if i >= 1 and self.handOperator[i+1] == "LH": 
-                original_xy = lastrightHandXY
+                overall_score *= self.make_gaussian(target_xy, center, "LH")
+            if i >= 1 and self.handOperator[i + 1] == "LH": 
+                original_xy = last_right_hand_xy
                 center = (original_xy[0], original_xy[1])
-                overallScore *= self.make_gaussian(target_xy, center, "RH")
-        self.overallSuccess = overallScore
+                overall_score *= self.make_gaussian(target_xy, center, "RH")
+        self.overallSuccess = overall_score
         
-        return overallScore ** (3 / numOfHand)
+        return overall_score ** (3 / num_of_hand)
     
     def setTrueBeta(self: T) -> bool:
         self.isTrueBeta = True
