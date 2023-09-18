@@ -190,10 +190,10 @@ class BetaMove:
             
             if i >= 1 and self.handOperator[i+1] == "RH": 
                 originalXY = lastleftHandXY
-                overallScore = overallScore * self.makeGaussian(targetXY, 3, (originalXY[0] , originalXY[1]), "LH")
+                overallScore = overallScore * self.makeGaussian(targetXY, (originalXY[0] , originalXY[1]), "LH")
             if i >= 1 and self.handOperator[i+1] == "LH": 
                 originalXY = lastrightHandXY
-                overallScore = overallScore * self.makeGaussian(targetXY, 3, (originalXY[0], originalXY[1]), "RH")
+                overallScore = overallScore * self.makeGaussian(targetXY, (originalXY[0], originalXY[1]), "RH")
         self.overallSuccess = overallScore    
         
         return overallScore ** (3/numOfHand) 
@@ -204,11 +204,12 @@ class BetaMove:
     def getholdsNotUsed(self: T):
         return self.holdsNotUsed
 
-    def makeGaussian(cls: Type[T], targetXY, fwhm = 3, center = None, lasthand = "LH"):
+    def makeGaussian(cls: Type[T], targetXY: list, center: list, lasthand: str = "LH"):
         """ Make a square gaussian filter to evaluate how possible of the relative distance between hands
         from target hand to remaining hand (center)
         fwhm is full-width-half-maximum, which can be thought of as an effective distance of dynamic range.
         """
+        fwhm = 3
         x0 = center[0]
         y0 = center[1]
         if lasthand == "RH":
@@ -225,7 +226,7 @@ class BetaMove:
             # -4*np.log(2) * ((x-(x0))**2 + (y-(y0+1))**2) / fwhm**2) * 0.3
         return guess1 + guess2
 
-    def gauss(cls: Type[T], target, center, fwhm):
+    def gauss(cls: Type[T], target: list, center: list, fwhm: int):
         x = target[0]
         y = target[1]
         x0 = center[0]
