@@ -115,18 +115,18 @@ class BetaMove:
         """ from a single hold (np array) to an order"""
         return np.where((self.allHolds == hold).all(1))[0] # Use np.where to get row indices
     
-    def getCom(self: T, hold1Order, hold2Order):
+    def getCom(self: T, hold1Order, hold2Order)-> tuple:
         """ Get the coordinate of COM using current both hands order"""
         xCom = (self.allHolds[hold1Order][6] + self.allHolds[hold2Order][6]) / 2
         yCom = (self.allHolds[hold1Order][7] + self.allHolds[hold2Order][7]) / 2
         return (xCom, yCom)
 
         
-    def getCurrentCom(self: T):
+    def getCurrentCom(self: T) -> tuple:
         """ Get the coordinate of COM based on current hand position"""
         return self.getCom(self.getleftHandOrder(), self.getrightHandOrder())
     
-    def getTwoOrderDistance(self: T, remainingHandOrder, nextHoldOrder):
+    def getTwoOrderDistance(self: T, remainingHandOrder, nextHoldOrder) -> float:
         """ Given order 2, and 5. Output distance between"""
         originalCom = self.getCurrentCom()
         finalCom = self.getCom(remainingHandOrder, nextHoldOrder)
@@ -141,7 +141,7 @@ class BetaMove:
         operatorRight = self.handOperator[self.orderToSeqOrder(self.getrightHandOrder())]
         return self.successRateByHold(self.getleftHandHold(), operatorLeft) * self.successRateByHold(self.getrightHandHold(), operatorRight)
     
-    def successRateByHold(self: T, hold, operation):
+    def successRateByHold(self: T, hold, operation) -> int:
         """ Evaluate the difficulty to hold on a hold applying LH or RH (op)"""
         if operation == "LH": 
             return self._board.get_lh_difficulty((hold[6], hold[7])) #Chiang's evaluation
@@ -151,7 +151,7 @@ class BetaMove:
             return self._board.get_rh_difficulty((hold[6], hold[7])) #Chiang's evaluation
             #return max((hold[2] + 2 * hold[3] + hold[4] + hold[5]) **1.2 , (hold[0] + hold[1] + hold[2] / 2)) / hyperparameter[1]
         
-    def getStartHold(self: T):
+    def getStartHold(self: T) -> list:
         """return startHold list with 2 element of np array"""
         startHoldList = []
         for hold in self.allHolds:
@@ -159,7 +159,7 @@ class BetaMove:
                 startHoldList.append(hold)
         return startHoldList
 
-    def getEndHoldOrder(self: T):
+    def getEndHoldOrder(self: T) -> list:
         """return endHold list with 2 element of np array"""
         endHoldOrderList = []
         for i in range(self.totalNumOfHold):
@@ -169,7 +169,7 @@ class BetaMove:
             endHoldOrderList.append(self.totalNumOfHold)
         return endHoldOrderList
     
-    def overallSuccessRate(self: T):
+    def overallSuccessRate(self: T) -> float:
         """return the overall successful rate using the stored beta hand sequence"""
         numOfHand = len(self.handSequence)
         overallScore = 1;
@@ -198,13 +198,13 @@ class BetaMove:
         
         return overallScore ** (3/numOfHand) 
     
-    def setTrueBeta(self: T):
+    def setTrueBeta(self: T) -> bool:
         self.isTrueBeta = True  
         
-    def getholdsNotUsed(self: T):
+    def getholdsNotUsed(self: T) -> list:
         return self.holdsNotUsed
 
-    def makeGaussian(cls: Type[T], targetXY: list, center: list, lasthand: str = "LH"):
+    def makeGaussian(cls: Type[T], targetXY: list, center: list, lasthand: str = "LH") -> float
         """ Make a square gaussian filter to evaluate how possible of the relative distance between hands
         from target hand to remaining hand (center)
         fwhm is full-width-half-maximum, which can be thought of as an effective distance of dynamic range.
@@ -226,7 +226,7 @@ class BetaMove:
             # -4*np.log(2) * ((x-(x0))**2 + (y-(y0+1))**2) / fwhm**2) * 0.3
         return guess1 + guess2
 
-    def gauss(cls: Type[T], target: list, center: list, fwhm: int):
+    def gauss(cls: Type[T], target: list, center: list, fwhm: int) -> float:
         x = target[0]
         y = target[1]
         x0 = center[0]
