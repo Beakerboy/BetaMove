@@ -146,10 +146,10 @@ class BetaMove:
         if operation == "LH": 
             return self._board.get_lh_difficulty((hold[6], hold[7])) #Chiang's evaluation
             # Duh's evaluation
-            #return max((hold[0] + 2 * hold[1] + hold[2] + hold[5]) **1.2  , (hold[2] / 2 + hold[3] + hold[4])) / hyperparameter[1]  
+            # return max((hold[0] + 2 * hold[1] + hold[2] + hold[5]) **1.2  , (hold[2] / 2 + hold[3] + hold[4])) / hyperparameter[1]  
         if operation == "RH":
             return self._board.get_rh_difficulty((hold[6], hold[7])) #Chiang's evaluation
-            #return max((hold[2] + 2 * hold[3] + hold[4] + hold[5]) **1.2 , (hold[0] + hold[1] + hold[2] / 2)) / hyperparameter[1]
+            # return max((hold[2] + 2 * hold[3] + hold[4] + hold[5]) **1.2 , (hold[0] + hold[1] + hold[2] / 2)) / hyperparameter[1]
         
     def getStartHold(self: T) -> list:
         """return startHold list with 2 element of np array"""
@@ -170,33 +170,39 @@ class BetaMove:
         return endHoldOrderList
     
     def overallSuccessRate(self: T) -> float:
-        """return the overall successful rate using the stored beta hand sequence"""
+        """
+        return the overall successful rate using the stored beta hand sequence
+        """
         numOfHand = len(self.handSequence)
         overallScore = 1;
         for i, order in enumerate(self.handSequence): 
             overallScore = overallScore * self.successRateByHold(self.allHolds[order], self.handOperator[i])
   
-        for i in range (numOfHand - 1):  # Penalty of do a big cross. Larger will drop the successRate   
-            targetXY = self.getXYFromOrder(self.handSequence[i+1]) 
+        for i in range (numOfHand - 1):
+            # Penalty of do a big cross. Larger will drop the successRate   
+            target_xy = self.getXYFromOrder(self.handSequence[i+1]) 
             
-            #update last L/R hand
+            # update last L/R hand
             if self.handOperator[i] == "RH":
                 lastrightHandXY = self.getXYFromOrder(self.handSequence[i]) 
-            if self.handOperator[i] == "LH":    
+            if self.handOperator[i] == "LH":
                 lastleftHandXY = self.getXYFromOrder(self.handSequence[i])
                 
-            if i == 1 and self.handSequence[0] == self.handSequence[1]:  ## not sure
-                targetXY = (targetXY[0], targetXY[1] - 1)
+            if i == 1 and self.handSequence[0] == self.handSequence[1]:
+                # not sure
+                target_xy = (target_xy[0], target_xy[1] - 1)
             
             if i >= 1 and self.handOperator[i+1] == "RH": 
-                originalXY = lastleftHandXY
-                overallScore = overallScore * self.make_gaussian(targetXY, (originalXY[0] , originalXY[1]), "LH")
+                original_xy = lastleftHandXY
+                center = (original_xy[0], original_xy[1])
+                overallScore *= self.make_gaussian(targetXY, center, "LH")
             if i >= 1 and self.handOperator[i+1] == "LH": 
-                originalXY = lastrightHandXY
-                overallScore = overallScore * self.make_gaussian(targetXY, (originalXY[0], originalXY[1]), "RH")
-        self.overallSuccess = overallScore    
+                original_xy = lastrightHandXY
+                center = (original_xy[0], original_xy[1])
+                overallScore *= self.make_gaussian(target_xy, center, "RH")
+        self.overallSuccess = overallScore
         
-        return overallScore ** (3/numOfHand) 
+        return overallScore ** (3 / numOfHand)
     
     def setTrueBeta(self: T) -> bool:
         self.isTrueBeta = True
@@ -205,10 +211,16 @@ class BetaMove:
         return self.holdsNotUsed
 
     @classmethod
-    def make_gaussian(cls: Type[T], target: list, center: list, lasthand: str = "LH") -> float:
-        """ Make a square gaussian filter to evaluate how possible of the relative distance between hands
-        from target hand to remaining hand (center)
-        fwhm is full-width-half-maximum, which can be thought of as an effective distance of dynamic range.
+    def make_gaussian(cls: Type[T],
+                      target: list,
+                      center: list,
+                      lasthand: str = "LH"
+                     ) -> float:
+        """ Make a square gaussian filter to evaluate how possible of the
+        relative distance between hands from target hand to remaining hand
+        (center)
+        fwhm is full-width-half-maximum, which can be thought of as an effective
+        distance of dynamic range.
         """
         fwhm = 3
         x0 = center[0]
