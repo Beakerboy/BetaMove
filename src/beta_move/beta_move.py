@@ -230,4 +230,6 @@ class BetaMove:
         y = target[1]
         x0 = center[0]
         y0 = center[1]
-        return np.exp(-4 * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2)
+        return np.exp(
+            -4 * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2
+        )
