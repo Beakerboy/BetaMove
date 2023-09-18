@@ -190,10 +190,10 @@ class BetaMove:
             
             if i >= 1 and self.handOperator[i+1] == "RH": 
                 originalXY = lastleftHandXY
-                overallScore = overallScore * self.makeGaussian(targetXY, (originalXY[0] , originalXY[1]), "LH")
+                overallScore = overallScore * self.make_gaussian(targetXY, (originalXY[0] , originalXY[1]), "LH")
             if i >= 1 and self.handOperator[i+1] == "LH": 
                 originalXY = lastrightHandXY
-                overallScore = overallScore * self.makeGaussian(targetXY, (originalXY[0], originalXY[1]), "RH")
+                overallScore = overallScore * self.make_gaussian(targetXY, (originalXY[0], originalXY[1]), "RH")
         self.overallSuccess = overallScore    
         
         return overallScore ** (3/numOfHand) 
@@ -205,7 +205,7 @@ class BetaMove:
         return self.holdsNotUsed
 
     @classmethod
-    def makeGaussian(cls: Type[T], targetXY: list, center: list, lasthand: str = "LH") -> float:
+    def make_gaussian(cls: Type[T], target: list, center: list, lasthand: str = "LH") -> float:
         """ Make a square gaussian filter to evaluate how possible of the relative distance between hands
         from target hand to remaining hand (center)
         fwhm is full-width-half-maximum, which can be thought of as an effective distance of dynamic range.
@@ -214,14 +214,14 @@ class BetaMove:
         x0 = center[0]
         y0 = center[1]
         if lasthand == "RH":
-            guess1 = cls.gauss(targetXY, [x0 - 3, y0 + 1.5], fwhm)
-            guess2 = cls.gauss(targetXY, [x0 + 1, y0 + .5], fwhm) * .4
+            guess1 = cls.gauss(target, [x0 - 3, y0 + 1.5], fwhm)
+            guess2 = cls.gauss(target, [x0 + 1, y0 + .5], fwhm) * .4
 
             # thirdGauss =  np.exp(
             # -4*np.log(2) * ((x-(x0))**2 + (y-(y0+1))**2) / fwhm**2) * 0.3
         if lasthand == "LH":
-            guess1 = cls.gauss(targetXY, [x0 + 3, y0 + 1.5], fwhm)
-            guess2 = cls.gauss(targetXY, [x0 - 1, y0 + .5], fwhm) * .4
+            guess1 = cls.gauss(target, [x0 + 3, y0 + 1.5], fwhm)
+            guess2 = cls.gauss(target, [x0 - 1, y0 + .5], fwhm) * .4
 
             # thirdGauss =  np.exp(
             # -4*np.log(2) * ((x-(x0))**2 + (y-(y0+1))**2) / fwhm**2) * 0.3
