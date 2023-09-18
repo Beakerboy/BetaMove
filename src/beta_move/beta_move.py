@@ -215,22 +215,18 @@ class BetaMove:
         x0 = center[0]
         y0 = center[1]
         if lasthand == "RH":
-            firstGauss = np.exp(
-                -4*np.log(2) * ((x-(x0-3))**2 + (y-(y0+1.5))**2) / fwhm**2
-            )
-            secondGauss = np.exp(
-                -4*np.log(2) * ((x-(x0+1))**2 + (y-(y0+0.5))**2) / fwhm**2
-            ) * 0.4
+            guess = self.gauss(targetXY, [x0 - 3, y0 + 1.5], fhwm)
+            guess2 = self.gauss(targetXY, [x0 + 1, y0 + .5], fhwm) * .4
+            
             # thirdGauss =  np.exp(
             # -4*np.log(2) * ((x-(x0))**2 + (y-(y0+1))**2) / fwhm**2) * 0.3
         if lasthand == "LH":
-            firstGauss = np.exp(
-                -4 * np.log(2) * ((x - x0 - 3) ** 2 + (y - y0 - 1.5) ** 2) / fwhm ** 2
-            )
-            secondGauss = np.exp(
-                -4 * np.log(2) * ((x - x0 + 1) ** 2 + (y - y0 - 0.5) ** 2) / fwhm ** 2
-            ) * 0.4
+            guess = self.gauss(targetXY, [x0 + 3, y0 + 1.5], fhwm)
+            guess2 = self.gauss(targetXY, [x0 - 1, y0 + .5], fhwm) * .4
+            
             # thirdGauss =  np.exp(
             # -4*np.log(2) * ((x-(x0))**2 + (y-(y0+1))**2) / fwhm**2) * 0.3
-        return firstGauss + secondGauss
-        
+        return guess1 + guess2
+
+    def gauss(cls: Type[T], target, center, fwhm):
+        return np.exp(-4 * * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2)
