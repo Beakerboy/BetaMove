@@ -54,6 +54,7 @@ class BetaMove:
     
     def addNextHand(self, nextHold, op):
         """ Operation to make add the next hold. Append handsequence and hand operation. nextHold is a hold. op is "LH" or "RH" """     
+        hyperparameter = [1, 1]
         if self.touchEndHold == 3: 
             self.handSequence.append(self.totalNumOfHold - 1)  
             if self.handSequence[-1] == "LH":
