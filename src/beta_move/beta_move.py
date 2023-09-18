@@ -178,7 +178,7 @@ class BetaMove:
         for i, order in enumerate(self.handSequence): 
             overallScore = overallScore * self.successRateByHold(self.allHolds[order], self.handOperator[i])
   
-        for i in range (numOfHand - 1):
+        for i in range(numOfHand - 1):
             # Penalty of do a big cross. Larger will drop the successRate   
             target_xy = self.getXYFromOrder(self.handSequence[i+1]) 
             
@@ -195,7 +195,7 @@ class BetaMove:
             if i >= 1 and self.handOperator[i+1] == "RH": 
                 original_xy = lastleftHandXY
                 center = (original_xy[0], original_xy[1])
-                overallScore *= self.make_gaussian(targetXY, center, "LH")
+                overallScore *= self.make_gaussian(target_xy, center, "LH")
             if i >= 1 and self.handOperator[i+1] == "LH": 
                 original_xy = lastrightHandXY
                 center = (original_xy[0], original_xy[1])
