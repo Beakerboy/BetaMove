@@ -218,7 +218,7 @@ class BetaMove:
             # thirdGauss =  np.exp(
             # -4*np.log(2) * ((x-(x0))**2 + (y-(y0+1))**2) / fwhm**2) * 0.3
         if lasthand == "LH":
-            guess1 = cls.gauss(targetXY, [x0 + 3, y0 + 1.5], whm)
+            guess1 = cls.gauss(targetXY, [x0 + 3, y0 + 1.5], fwhm)
             guess2 = cls.gauss(targetXY, [x0 - 1, y0 + .5], fwhm) * .4
             
             # thirdGauss =  np.exp(
