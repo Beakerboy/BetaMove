@@ -180,7 +180,7 @@ class BetaMove:
         for i, order in enumerate(self.handSequence):
             overall_score *= self.successRateByHold(self.allHolds[order], self.handOperator[i])
 
-        for i in range(numOfHand - 1):
+        for i in range(num_of_hand - 1):
             # Penalty of do a big cross. Larger will drop the successRate
             target_xy = self.getXYFromOrder(self.handSequence[i+1])
 
