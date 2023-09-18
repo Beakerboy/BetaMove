@@ -212,13 +212,13 @@ class BetaMove:
         x0 = center[0]
         y0 = center[1]
         if lasthand == "RH":
-            guess = self.gauss(targetXY, [x0 - 3, y0 + 1.5], fhwm)
+            guess1 = self.gauss(targetXY, [x0 - 3, y0 + 1.5], fhwm)
             guess2 = self.gauss(targetXY, [x0 + 1, y0 + .5], fhwm) * .4
             
             # thirdGauss =  np.exp(
             # -4*np.log(2) * ((x-(x0))**2 + (y-(y0+1))**2) / fwhm**2) * 0.3
         if lasthand == "LH":
-            guess = self.gauss(targetXY, [x0 + 3, y0 + 1.5], fhwm)
+            guess1 = self.gauss(targetXY, [x0 + 3, y0 + 1.5], fhwm)
             guess2 = self.gauss(targetXY, [x0 - 1, y0 + .5], fhwm) * .4
             
             # thirdGauss =  np.exp(
