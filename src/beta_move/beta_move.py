@@ -31,7 +31,7 @@ class BetaMove:
 
         return x_vectors
 
-    def addStartHolds(self, zeroOrOne):
+    def addStartHolds(self: T, zeroOrOne):
         """ Specifically add the first two hold as the starting hold. Consider one hold start situation"""
         opList = ["LH", "RH"]
         startHoldList = self.getStartHold()
@@ -48,11 +48,11 @@ class BetaMove:
             self.holdsNotUsed.remove(self.getOrderFromHold(startHoldList[0]))   # Not consider match
             self.holdsNotUsed.remove(self.getOrderFromHold(startHoldList[1]))
             
-    def getAllHolds(self):
+    def getAllHolds(self: T):
         """ return all avalible holds. N holds rows, 10 columns np array"""
         return self.allHolds
     
-    def addNextHand(self, nextHold, op):
+    def addNextHand(self: T, nextHold, op):
         """ Operation to make add the next hold. Append handsequence and hand operation. nextHold is a hold. op is "LH" or "RH" """     
         hyperparameter = [1, 1]
         if self.touchEndHold == 3: 
@@ -89,59 +89,59 @@ class BetaMove:
             finalCom = self.getCom(remainingHandOrder, nextHold)
             distance = np.sqrt(((originalCom[0] - finalCom[0]) ** 2)+((originalCom[1] - finalCom[1]) ** 2))
 
-    def getXYFromOrder(self, holdOrder):
+    def getXYFromOrder(self: T, holdOrder):
         """return a coordinate tuple giving holdOrder (a num in processed data)"""
         return ((self.allHolds[holdOrder][6]), (self.allHolds[holdOrder][7])) 
     
-    def getleftHandOrder(self):
+    def getleftHandOrder(self: T):
         """ Return a num of the last left hand hold's oreder (in processed data from bottom to top)"""
         lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
         return self.handSequence[int(lastIndexOfRight)]
     
-    def getrightHandOrder(self):
+    def getrightHandOrder(self: T):
         """ Return a num of the last right hand hold's oreder (in processed data from bottom to top)"""
         lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
         return self.handSequence[int(lastIndexOfRight)]
 
-    def getleftHandHold(self):
+    def getleftHandHold(self: T):
         """ Return a np array of the last right hand hold (in processed data from bottom to top)"""
         return self.allHolds[self.getleftHandOrder()]
     
-    def getrightHandHold(self):
+    def getrightHandHold(self: T):
         """ Return a np array of the last right hand hold (in processed data from bottom to top)"""
         return self.allHolds[self.getrightHandOrder()]
     
-    def getOrderFromHold(self, hold):
+    def getOrderFromHold(self: T, hold):
         """ from a single hold (np array) to an order"""
         return np.where((self.allHolds == hold).all(1))[0] # Use np.where to get row indices
     
-    def getCom(self, hold1Order, hold2Order):
+    def getCom(self: T, hold1Order, hold2Order):
         """ Get the coordinate of COM using current both hands order"""
         xCom = (self.allHolds[hold1Order][6] + self.allHolds[hold2Order][6]) / 2
         yCom = (self.allHolds[hold1Order][7] + self.allHolds[hold2Order][7]) / 2
         return (xCom, yCom)
 
         
-    def getCurrentCom(self):
+    def getCurrentCom(self: T):
         """ Get the coordinate of COM based on current hand position"""
         return self.getCom(self.getleftHandOrder(), self.getrightHandOrder())
     
-    def getTwoOrderDistance(self, remainingHandOrder, nextHoldOrder):
+    def getTwoOrderDistance(self: T, remainingHandOrder, nextHoldOrder):
         """ Given order 2, and 5. Output distance between"""
         originalCom = self.getCurrentCom()
         finalCom = self.getCom(remainingHandOrder, nextHoldOrder)
         return np.sqrt(((originalCom[0] - finalCom[0]) ** 2)+((originalCom[1] - finalCom[1]) ** 2))
 
-    def orderToSeqOrder(self, order):
+    def orderToSeqOrder(self: T, order):
         """ Transform from order (in the all avalible holds sequence) to hand order (in the hand sequence)"""
         return self.handSequence.index(order)
     
-    def lastMoveSuccessRateByHold(self):
+    def lastMoveSuccessRateByHold(self: T):
         operatorLeft = self.handOperator[self.orderToSeqOrder(self.getleftHandOrder())]
         operatorRight = self.handOperator[self.orderToSeqOrder(self.getrightHandOrder())]
         return self.successRateByHold(self.getleftHandHold(), operatorLeft) * self.successRateByHold(self.getrightHandHold(), operatorRight)
     
-    def successRateByHold(self, hold, operation):
+    def successRateByHold(self: T, hold, operation):
         """ Evaluate the difficulty to hold on a hold applying LH or RH (op)"""
         if operation == "LH": 
             return self._board.get_lh_difficulty((hold[6], hold[7])) #Chiang's evaluation
@@ -151,7 +151,7 @@ class BetaMove:
             return self._board.get_rh_difficulty((hold[6], hold[7])) #Chiang's evaluation
             #return max((hold[2] + 2 * hold[3] + hold[4] + hold[5]) **1.2 , (hold[0] + hold[1] + hold[2] / 2)) / hyperparameter[1]
         
-    def getStartHold(self):
+    def getStartHold(self: T):
         """return startHold list with 2 element of np array"""
         startHoldList = []
         for hold in self.allHolds:
@@ -159,7 +159,7 @@ class BetaMove:
                 startHoldList.append(hold)
         return startHoldList
 
-    def getEndHoldOrder(self):
+    def getEndHoldOrder(self: T):
         """return endHold list with 2 element of np array"""
         endHoldOrderList = []
         for i in range(self.totalNumOfHold):
@@ -169,7 +169,7 @@ class BetaMove:
             endHoldOrderList.append(self.totalNumOfHold)
         return endHoldOrderList
     
-    def overallSuccessRate(self):
+    def overallSuccessRate(self: T):
         """return the overall successful rate using the stored beta hand sequence"""
         numOfHand = len(self.handSequence)
         overallScore = 1;
@@ -198,10 +198,10 @@ class BetaMove:
         
         return overallScore ** (3/numOfHand) 
     
-    def setTrueBeta(self):
+    def setTrueBeta(self: T):
         self.isTrueBeta = True  
         
-    def getholdsNotUsed(self):
+    def getholdsNotUsed(self: T):
         return self.holdsNotUsed
 
     def makeGaussian(cls: Type[T], targetXY, fwhm = 3, center = None, lasthand = "LH"):
