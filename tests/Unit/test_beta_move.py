@@ -12,6 +12,14 @@ def test_constructor() -> None:
     assert isinstance(app, BetaMove)
 
 
+def test_make_gaussian() -> None:
+    target = [5, 6]
+    center = [4, 5]
+    last_hand = "LH"
+    expected = .029163226
+    actual = BetaMove.makeGaussian(target, center, last_hand)
+    assert actual == expected
+
 def test_status() -> None:
 
     expected = [
