@@ -43,7 +43,7 @@ class BetaMove:
             # Run the algorithm for 6 times
             totalRun = self.totalNumOfHold - 1
             for i in range(totalRun):  # how many new move you wan to add
-                status = addNewBeta(status, printOut = False)
+                status = addNewBeta()
                 finalScore = self.overallSuccessRate()
                 largestIndex = heapq.nlargest(4, range(len(finalScore)), key=finalScore.__getitem__)
                 if self.isFinished:
@@ -318,12 +318,14 @@ class BetaMove:
         """
         tempstatus = []   
         distanceScore = []
+        hyperparameter = [1, 1]
         for nextHoldOrder in self.holdsNotUsed:
             originalCom = betaPre.getCurrentCom() 
             dynamicThreshold = hyperparameter[0] * self.lastMoveSuccessRateByHold()  
             finalXY = self.getXYFromOrder(nextHoldOrder)
             distance = np.sqrt(((originalCom[0] - finalXY[0]) ** 2)+((originalCom[1] - finalXY[1]) ** 2))
-            distanceScore.append(successRateByDistance(distance, dynamicThreshold))  # evaluate success rate simply consider the distance (not consider left and right hand)
+            # evaluate success rate simply consider the distance (not consider left and right hand)
+            distanceScore.append(self.successRateByDistance(distance, dynamicThreshold))
 
         # Find the first and second smallest distance in the distanceScore
         largestIndex = heapq.nlargest(min(8, len(distanceScore)), range(len(distanceScore)), key=distanceScore.__getitem__)
@@ -332,7 +334,7 @@ class BetaMove:
         goodHoldIndex = [self.holdsNotUsed[i] for i in largestIndex]
         added = False
         for possibleHold in goodHoldIndex:
-            for op in operationList:
+            for op in ["RH", "LH"]:
                 if self.isFinished == False:
                     tempstatus.append(copy.deepcopy(self))
                     tempstatus[-1].addNextHand(possibleHold, op)
@@ -386,3 +388,10 @@ class BetaMove:
         return np.exp(
             -4 * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2
         )
+
+    def successRateByDistance(cls: Type[T], distance, dynamicThreshold):
+        """ Relu funtion to get the successrate """
+        if distance < dynamicThreshold:
+            return 1 - distance / dynamicThreshold
+        if distance >= dynamicThreshold:
+            return 0
