@@ -28,7 +28,10 @@ class BetaMove:
             x_vectors[8:, 0:climb.num_starts()] = np.array([[1], [0]])
             num_non_end = climb.num_holds() - climb.num_finish()
             x_vectors[8:, num_non_end:] = np.array([[0], [1]])
-
+            self.allHolds = x_vectors.T
+            self.totalNumOfHold = np.size(x_vectors.T, axis=0)
+            self.holdsNotUsed.extend(range(self.totalNumOfHold))
+            self.addStartHolds(0)
         return x_vectors
 
     def addStartHolds(self: T, zeroOrOne):
