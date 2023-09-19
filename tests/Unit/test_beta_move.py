@@ -12,12 +12,15 @@ def test_constructor() -> None:
     assert isinstance(app, BetaMove)
 
 
-def test_make_gaussian() -> None:
-    target = [5, 6]
-    center = [4, 5]
-    last_hand = "LH"
-    expected = .029163226
-    actual = BetaMove.make_gaussian(target, center, last_hand)
+gauss_data = [
+    [[[5, 6], [4, 5], "LH"], .029163226],
+    [[[3, 6], [4, 5], "RH"], .029163226]
+]
+
+
+@pytest.mark.parametrize("input, expected", gauss_data)
+def test_make_gaussian(input, expected) -> None:
+    actual = BetaMove.make_gaussian(*input)
     assert actual == expected
 
 def test_status() -> None:
