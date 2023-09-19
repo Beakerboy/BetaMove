@@ -320,7 +320,7 @@ class BetaMove:
         distanceScore = []
         hyperparameter = [1, 1]
         for nextHoldOrder in self.holdsNotUsed:
-            originalCom = betaPre.getCurrentCom() 
+            originalCom = self.getCurrentCom() 
             dynamicThreshold = hyperparameter[0] * self.lastMoveSuccessRateByHold()  
             finalXY = self.getXYFromOrder(nextHoldOrder)
             distance = np.sqrt(((originalCom[0] - finalXY[0]) ** 2)+((originalCom[1] - finalXY[1]) ** 2))
