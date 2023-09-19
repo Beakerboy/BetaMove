@@ -43,7 +43,7 @@ class BetaMove:
             # Run the algorithm for 6 times
             totalRun = self.totalNumOfHold - 1
             for i in range(totalRun):  # how many new move you wan to add
-                status = addNewBeta()
+                status = self.addNewBeta()
                 finalScore = self.overallSuccessRate()
                 largestIndex = heapq.nlargest(4, range(len(finalScore)), key=finalScore.__getitem__)
                 if self.isFinished:
