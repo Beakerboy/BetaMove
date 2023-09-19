@@ -114,49 +114,79 @@ class BetaMove:
             distance = np.sqrt(com_0_dif_sq + com_1_dif_sq)
 
     def getXYFromOrder(self: T, holdOrder):
-        """return a coordinate tuple giving holdOrder (a num in processed data)"""
+        """
+        return a coordinate tuple giving holdOrder (a num in processed data)
+        """
         return ((self.allHolds[holdOrder][6]), (self.allHolds[holdOrder][7])) 
 
     def getleftHandOrder(self: T):
-        """ Return a num of the last left hand hold's oreder (in processed data from bottom to top)"""
+        """
+        Return a num of the last left hand hold's oreder (in processed data from bottom to top)
+        """
         lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
         return self.handSequence[int(lastIndexOfRight)]
 
     def getrightHandOrder(self: T):
-        """ Return a num of the last right hand hold's oreder (in processed data from bottom to top)"""
+        """
+        Return a num of the last right hand hold's oreder (in processed data from bottom to top)
+        """
         lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
         return self.handSequence[int(lastIndexOfRight)]
 
     def getleftHandHold(self: T):
-        """ Return a np array of the last right hand hold (in processed data from bottom to top)"""
+        """
+        Return a np array of the last right hand hold (in processed data from bottom to top)
+        """
         return self.allHolds[self.getleftHandOrder()]
 
     def getrightHandHold(self: T):
-        """ Return a np array of the last right hand hold (in processed data from bottom to top)"""
+        """
+        Return a np array of the last right hand hold (in processed data from bottom to top)
+        """
         return self.allHolds[self.getrightHandOrder()]
 
     def getOrderFromHold(self: T, hold):
-        """ from a single hold (np array) to an order"""
-        return np.where((self.allHolds == hold).all(1))[0] # Use np.where to get row indices
+        """
+        from a single hold (np array) to an order
+        """
+        # Use np.where to get row indices
+        return np.where((self.allHolds == hold).all(1))[0]
 
-    def getCom(self: T, hold1Order, hold2Order)-> tuple:
-        """ Get the coordinate of COM using current both hands order"""
-        xCom = (self.allHolds[hold1Order][6] + self.allHolds[hold2Order][6]) / 2
-        yCom = (self.allHolds[hold1Order][7] + self.allHolds[hold2Order][7]) / 2
+    def getCom(self: T, hold1Order: int, hold2Order: int)-> tuple:
+        """
+        Get the coordinate of COM using current both hands order
+
+        Parameters
+        ----------
+        hold1Order : int
+            The move order index of the first hold
+        hold2Order : int
+            The move order index of the second hold
+
+        Returns
+        -------
+        (float, float)
+            The climber's center of mass coordinates
+        """
+        all_holds = self.allHolds
+        xCom = (all_holds[hold1Order][6] + all_holds[hold2Order][6]) / 2
+        yCom = (all_holds[hold1Order][7] + all_holds[hold2Order][7]) / 2
         return (xCom, yCom)
 
     def getCurrentCom(self: T) -> tuple:
-        """ Get the coordinate of COM based on current hand position"""
+        """
+        Get the coordinate of center of mass based on current hand position
+        """
         return self.getCom(self.getleftHandOrder(), self.getrightHandOrder())
 
-    def getTwoOrderDistance(self: T, remainingHandOrder, nextHoldOrder) -> float:
+    def getTwoOrderDistance(self: T, remaining, next) -> float:
         """
         Given order 2, and 5. Output distance between
         remaining - Remaining Hand Order
-        next 
+        next - nextHoldOrder
         """
         originalCom = self.getCurrentCom()
-        finalCom = self.getCom(remainingHandOrder, nextHoldOrder)
+        finalCom = self.getCom(remaining, next)
         com_0_dif_sq = (originalCom[0] - finalCom[0]) ** 2
         com_1_dif_sq = (originalCom[1] - finalCom[1]) ** 2
         return np.sqrt(com_0_dif_sq + com_1_dif_sq)
