@@ -63,7 +63,6 @@ class BetaMove:
         return self.allHolds
 
     def addNextHand(self: T, nextHold, op):
-1234567891123456789212345678931234567894123456789512345678961234567897123456789
         """
         Operation to make add the next hold. Append handsequence and hand
         operation. nextHold is a hold. op is "LH" or "RH"
