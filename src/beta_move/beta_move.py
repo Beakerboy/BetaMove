@@ -44,7 +44,7 @@ class BetaMove:
                 status = addNewBeta(status, printOut = False)
                 finalScore = self.overallSuccessRate()
                 largestIndex = heapq.nlargest(4, range(len(finalScore)), key=finalScore.__getitem__)
-                if self.isFinished
+                if self.isFinished:
                     break
     
             # last sorting for the best 5
