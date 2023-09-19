@@ -310,6 +310,41 @@ class BetaMove:
     def getholdsNotUsed(self: T) -> list:
         return self.holdsNotUsed
 
+    def addNewBeta(status, printOut = True):
+        """
+        Add one move to expand the candidate list and pick the largest 8
+        """
+        tempstatus = []   
+        distanceScore = []
+        for nextHoldOrder in self.holdsNotUsed:
+            originalCom = betaPre.getCurrentCom() 
+            dynamicThreshold = hyperparameter[0] * self.lastMoveSuccessRateByHold()  
+            finalXY = self.getXYFromOrder(nextHoldOrder)
+            distance = np.sqrt(((originalCom[0] - finalXY[0]) ** 2)+((originalCom[1] - finalXY[1]) ** 2))
+            distanceScore.append(successRateByDistance(distance, dynamicThreshold))  # evaluate success rate simply consider the distance (not consider left and right hand)
+
+         # Find the first and second smallest distance in the distanceScore
+        largestIndex = heapq.nlargest(min(8, len(distanceScore)), range(len(distanceScore)), key=distanceScore.__getitem__)
+    
+        # goodHoldIndex = [betaPre.holdsNotUsed[largestIndex[0]], betaPre.holdsNotUsed[largestIndex[1]], betaPre.holdsNotUsed[largestIndex[2]]]  #[#3,#5] holds
+        goodHoldIndex = [self.holdsNotUsed[i] for i in largestIndex]
+        added = False
+        for possibleHold in goodHoldIndex:
+            for op in operationList:
+                if self.isFinished == False:
+                    tempstatus.append(copy.deepcopy(self))
+                    tempstatus[-1].addNextHand(possibleHold, op)
+                elif added == False:
+                    tempstatus.append(copy.deepcopy(self))
+                    added = True
+
+        # trim tempstatus to pick the largest 8
+        finalScore = []       
+        for i in tempstatus:
+            finalScore.append(i.overallSuccessRate())    
+        largestIndex = heapq.nlargest(8, range(len(finalScore)), key=finalScore.__getitem__) 
+        return [tempstatus[i] for i in largestIndex]
+
     @classmethod
     def make_gaussian(
         cls: Type[T],
