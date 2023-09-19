@@ -22,6 +22,7 @@ class BetaMove:
         self.handSequence = []
         self.handOperator = []
         self.isFinished = False
+        self.touchEndHold = 0
 
     def create_movement(self: T, climb: Climb) -> list:
         # movement = []
