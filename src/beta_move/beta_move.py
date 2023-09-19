@@ -37,7 +37,26 @@ class BetaMove:
             self.totalNumOfHold = np.size(x_vectors.T, axis=0)
             self.holdsNotUsed.extend(range(self.totalNumOfHold))
             self.addStartHolds(0)
-        return x_vectors
+
+            # Run the algorithm for 6 times
+            totalRun = self.totalNumOfHold - 1
+            for i in range(totalRun):  # how many new move you wan to add
+                status = addNewBeta(status, printOut = False)
+                finalScore = self.overallSuccessRate()
+                largestIndex = heapq.nlargest(4, range(len(finalScore)), key=finalScore.__getitem__)
+                if self.isFinished
+                    break
+    
+            # last sorting for the best 5
+            finalScore = self.overallSuccessRate() 
+            largestIndex = heapq.nlargest(1, range(len(finalScore)), key=finalScore.__getitem__)
+            # produce output
+            output = {}
+            
+            output["hand_sequence"] = self.handSequence
+            output["hand_operator"] = self.handOperator
+            output["success"] = self.overallSuccessRate()
+            return output
 
     def addStartHolds(self: T, zeroOrOne):
         """
