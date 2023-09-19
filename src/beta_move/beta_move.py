@@ -32,30 +32,44 @@ class BetaMove:
         return x_vectors
 
     def addStartHolds(self: T, zeroOrOne):
-        """ Specifically add the first two hold as the starting hold. Consider one hold start situation"""
+        """
+        Specifically add the first two hold as the starting hold. Consider one
+        hold start situation
+        """
         opList = ["LH", "RH"]
         startHoldList = self.getStartHold()
+        first_start = startHoldList[0]
         if len(startHoldList) == 1:
-            self.handSequence.append(int(self.getOrderFromHold(startHoldList[0])))   # Add a new hold into beta!
-            self.handSequence.append(int(self.getOrderFromHold(startHoldList[0])))
-            self.handOperator.extend(opList) 
-            self.holdsNotUsed.remove(self.getOrderFromHold(startHoldList[0]))   # Not consider match
-        if len(startHoldList) == 2:  
-            self.handSequence.append(int(self.getOrderFromHold(startHoldList[0])))   # Add a new hold into beta!
-            self.handSequence.append(int(self.getOrderFromHold(startHoldList[1])))
-            self.handOperator.append(opList[zeroOrOne]) 
-            self.handOperator.append(opList[1-zeroOrOne]) # indicate which hand
-            self.holdsNotUsed.remove(self.getOrderFromHold(startHoldList[0]))   # Not consider match
-            self.holdsNotUsed.remove(self.getOrderFromHold(startHoldList[1]))
- 
+            # Add a new hold into beta!
+            self.handSequence.append(int(self.getOrderFromHold(first_start)))
+            self.handSequence.append(int(self.getOrderFromHold(first_start)))
+            self.handOperator.extend(opList)
+            # Not consider match
+            self.holdsNotUsed.remove(self.getOrderFromHold(startHoldList[0]))
+        if len(startHoldList) == 2:
+            # Add a new hold into beta!
+            second_start = startHoldList[1]
+            self.handSequence.append(int(self.getOrderFromHold(first_start)))
+            self.handSequence.append(int(self.getOrderFromHold(second_start)))
+            self.handOperator.append(opList[zeroOrOne])
+            # indicate which hand
+            self.handOperator.append(opList[1 - zeroOrOne])
+            # Not consider match
+            self.holdsNotUsed.remove(self.getOrderFromHold(first_start))
+            self.holdsNotUsed.remove(self.getOrderFromHold(second_start))
+
     def getAllHolds(self: T):
         """ return all avalible holds. N holds rows, 10 columns np array"""
         return self.allHolds
 
     def addNextHand(self: T, nextHold, op):
-        """ Operation to make add the next hold. Append handsequence and hand operation. nextHold is a hold. op is "LH" or "RH" """     
+1234567891123456789212345678931234567894123456789512345678961234567897123456789
+        """
+        Operation to make add the next hold. Append handsequence and hand
+        operation. nextHold is a hold. op is "LH" or "RH"
+        """  
         hyperparameter = [1, 1]
-        if self.touchEndHold == 3: 
+        if self.touchEndHold == 3:
             self.handSequence.append(self.totalNumOfHold - 1)  
             if self.handSequence[-1] == "LH":
                 self.handOperator.append("RH")  
@@ -72,7 +86,8 @@ class BetaMove:
                 
             # Before Update a new hold
             originalCom = self.getCurrentCom()
-            dynamicThreshold = hyperparameter[0] * self.lastMoveSuccessRateByHold()  
+            hyper_zero = hyperparameter[0]
+            dynamicThreshold = hyper_zero * self.lastMoveSuccessRateByHold()  
  
             # Update a new hold
             self.handSequence.append(nextHold)   # Add a new hold into beta!
@@ -87,7 +102,9 @@ class BetaMove:
                 remainingHandOrder = self.getleftHandOrder()
             
             finalCom = self.getCom(remainingHandOrder, nextHold)
-            distance = np.sqrt(((originalCom[0] - finalCom[0]) ** 2)+((originalCom[1] - finalCom[1]) ** 2))
+            com_0_dif_sq = (originalCom[0] - finalCom[0]) ** 2
+            com_1_dif_sq = (originalCom[1] - finalCom[1]) ** 2
+            distance = np.sqrt(com_0_dif_sq + com_1_dif_sq)
 
     def getXYFromOrder(self: T, holdOrder):
         """return a coordinate tuple giving holdOrder (a num in processed data)"""
