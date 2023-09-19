@@ -136,40 +136,44 @@ class BetaMove:
         return self.handSequence.index(order)
 
     def lastMoveSuccessRateByHold(self: T):
-        operatorLeft = self.handOperator[self.orderToSeqOrder(self.getleftHandOrder())]
-        operatorRight = self.handOperator[self.orderToSeqOrder(self.getrightHandOrder())]
-        return self.successRateByHold(self.getleftHandHold(), operatorLeft) * self.successRateByHold(self.getrightHandHold(), operatorRight)
+        operator_left = self.handOperator[self.orderToSeqOrder(self.getleftHandOrder())]
+        operator_right = self.handOperator[self.orderToSeqOrder(self.getrightHandOrder())]
+        left_success = self.successRateByHold(self.getleftHandHold(), operator_left)
+        right_success = self.successRateByHold(self.getrightHandHold(), operator_right)
+        return left_success * right_success
 
-    def successRateByHold(self: T, hold, operation) -> int:
+    def successRateByHold(self: T, hold: list, operation: str) -> int:
         """ Evaluate the difficulty to hold on a hold applying LH or RH (op)"""
         if operation == "LH":
             # Chiang's evaluation
             return self._board.get_lh_difficulty((hold[6], hold[7]))
 
             # Duh's evaluation
-            # return max((hold[0] + 2 * hold[1] + hold[2] + hold[5]) **1.2  , (hold[2] / 2 + hold[3] + hold[4])) / hyperparameter[1]  
+            # return max((hold[0] + 2 * hold[1] + hold[2] + hold[5]) **1.2,
+            # (hold[2] / 2 + hold[3] + hold[4])) / hyperparameter[1]
         if operation == "RH":
             # Chiang's evaluation
             return self._board.get_rh_difficulty((hold[6], hold[7]))
-            # return max((hold[2] + 2 * hold[3] + hold[4] + hold[5]) **1.2 , (hold[0] + hold[1] + hold[2] / 2)) / hyperparameter[1]
+            # return max((hold[2] + 2 * hold[3] + hold[4] + hold[5]) **1.2,
+            # (hold[0] + hold[1] + hold[2] / 2)) / hyperparameter[1]
 
     def getStartHold(self: T) -> list:
         """return startHold list with 2 element of np array"""
-        startHoldList = []
+        start_holds = []
         for hold in self.allHolds:
             if hold[8] == 1:
                 startHoldList.append(hold)
-        return startHoldList
+        return start_holds
 
     def getEndHoldOrder(self: T) -> list:
         """return endHold list with 2 element of np array"""
-        endHoldOrderList = []
+        end_hold_order = []
         for i in range(self.totalNumOfHold):
             if self.allHolds[i][9] == 1:
-                endHoldOrderList.append(i)
-        if len(endHoldOrderList) == 1:
-            endHoldOrderList.append(self.totalNumOfHold)
-        return endHoldOrderList
+                end_hold_order.append(i)
+        if len(end_hold_order) == 1:
+            end_hold_order.append(self.totalNumOfHold)
+        return end_hold_order
 
     def overallSuccessRate(self: T) -> float:
         """
@@ -178,7 +182,9 @@ class BetaMove:
         num_of_hand = len(self.handSequence)
         overall_score = 1
         for i, order in enumerate(self.handSequence):
-            overall_score *= self.successRateByHold(self.allHolds[order], self.handOperator[i])
+            hold_index = self.allHolds[order]
+            hand_operator = self.handOperator[i]
+            overall_score *= self.successRateByHold(hold_index, hand_operator)
 
         for i in range(num_of_hand - 1):
             # Penalty of do a big cross. Larger will drop the successRate
@@ -214,16 +220,17 @@ class BetaMove:
         return self.holdsNotUsed
 
     @classmethod
-    def make_gaussian(cls: Type[T],
-                      target: list,
-                      center: list,
-                      lasthand: str = "LH"
-                     ) -> float:
+    def make_gaussian(
+        cls: Type[T],
+        target: list,
+        center: list,
+        lasthand: str = "LH"
+        ) -> float:
         """ Make a square gaussian filter to evaluate how possible of the
         relative distance between hands from target hand to remaining hand
         (center)
-        fwhm is full-width-half-maximum, which can be thought of as an effective
-        distance of dynamic range.
+        fwhm is full-width-half-maximum, which can be thought of as an
+        effective distance of dynamic range.
         """
         fwhm = 3
         x0 = center[0]
