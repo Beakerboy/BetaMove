@@ -135,11 +135,18 @@ class BetaMove:
         """ Transform from order (in the all avalible holds sequence) to hand order (in the hand sequence)"""
         return self.handSequence.index(order)
 
-    def lastMoveSuccessRateByHold(self: T):
-        operator_left = self.handOperator[self.orderToSeqOrder(self.getleftHandOrder())]
-        operator_right = self.handOperator[self.orderToSeqOrder(self.getrightHandOrder())]
-        left_success = self.successRateByHold(self.getleftHandHold(), operator_left)
-        right_success = self.successRateByHold(self.getrightHandHold(), operator_right)
+    def lastMoveSuccessRateByHold(self: T) -> int:
+        left_hand_order = self.getleftHandOrder()
+        left_seq_order = self.orderToSeqOrder(left_hand_order)
+        right_hand_order = self.getrightHandOrder()
+        right_seq_order = self.orderToSeqOrder(right_hand_order)
+        
+        operator_left = self.handOperator[left_seq_order]
+        operator_right = self.handOperator[right_seq_order]
+        left_hand_hold = self.getleftHandHold()
+        right_hand_hold = self.getrightHandHold()
+        left_success = self.successRateByHold(left_hand_hold, operator_left)
+        right_success = self.successRateByHold(right_hand_hold, operator_right)
         return left_success * right_success
 
     def successRateByHold(self: T, hold: list, operation: str) -> int:
@@ -162,7 +169,7 @@ class BetaMove:
         start_holds = []
         for hold in self.allHolds:
             if hold[8] == 1:
-                startHoldList.append(hold)
+                start_holds.append(hold)
         return start_holds
 
     def getEndHoldOrder(self: T) -> list:
@@ -225,7 +232,7 @@ class BetaMove:
         target: list,
         center: list,
         lasthand: str = "LH"
-        ) -> float:
+    ) -> float:
         """ Make a square gaussian filter to evaluate how possible of the
         relative distance between hands from target hand to remaining hand
         (center)
