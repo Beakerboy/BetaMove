@@ -21,6 +21,7 @@ class BetaMove:
         self.holdsNotUsed = []
         self.handSequence = []
         self.handOperator = []
+        self.isFinished = False
 
     def create_movement(self: T, climb: Climb) -> list:
         # movement = []
