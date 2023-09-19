@@ -57,8 +57,8 @@ class BetaMove:
             # produce output
             output = {}
             
-            output["hand_sequence"] = self.handSequence
-            output["hand_operator"] = self.handOperator
+            output["hold_index"] = self.handSequence
+            output["hands"] = self.handOperator
             output["success"] = self.overallSuccessRate()
             return output
 
