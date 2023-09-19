@@ -300,11 +300,13 @@ class BetaMove:
             if i >= 1 and self.handOperator[i + 1] == "RH":
                 original_xy = last_left_hand_xy
                 center = (original_xy[0], original_xy[1])
-                overall_score *= self.make_gaussian(target_xy, center, "LH")
+                gaussian = self.make_gaussian(target_xy, center, "LH")
+                overall_score = overall_score * gaussian
             if i >= 1 and self.handOperator[i + 1] == "LH":
                 original_xy = last_right_hand_xy
                 center = (original_xy[0], original_xy[1])
-                overall_score *= self.make_gaussian(target_xy, center, "RH")
+                gaussian = self.make_gaussian(target_xy, center, "RH")
+                overall_score = overall_score * gaussian
         self.overallSuccess = overall_score
 
         return overall_score ** (3 / num_of_hand)
