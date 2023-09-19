@@ -126,13 +126,22 @@ class BetaMove:
         return self.getCom(self.getleftHandOrder(), self.getrightHandOrder())
 
     def getTwoOrderDistance(self: T, remainingHandOrder, nextHoldOrder) -> float:
-        """ Given order 2, and 5. Output distance between"""
+        """
+        Given order 2, and 5. Output distance between
+        remaining - Remaining Hand Order
+        next 
+        """
         originalCom = self.getCurrentCom()
         finalCom = self.getCom(remainingHandOrder, nextHoldOrder)
-        return np.sqrt(((originalCom[0] - finalCom[0]) ** 2)+((originalCom[1] - finalCom[1]) ** 2))
+        com_0_dif_sq = (originalCom[0] - finalCom[0]) ** 2
+        com_1_dif_sq = (originalCom[1] - finalCom[1]) ** 2
+        return np.sqrt(com_0_dif_sq + com_1_dif_sq)
 
     def orderToSeqOrder(self: T, order):
-        """ Transform from order (in the all avalible holds sequence) to hand order (in the hand sequence)"""
+        """
+        Transform from order (in the all avalible holds sequence) to hand
+        order (in the hand sequence)
+        """
         return self.handSequence.index(order)
 
     def lastMoveSuccessRateByHold(self: T) -> int:
@@ -140,7 +149,7 @@ class BetaMove:
         left_seq_order = self.orderToSeqOrder(left_hand_order)
         right_hand_order = self.getrightHandOrder()
         right_seq_order = self.orderToSeqOrder(right_hand_order)
-        
+
         operator_left = self.handOperator[left_seq_order]
         operator_right = self.handOperator[right_seq_order]
         left_hand_hold = self.getleftHandHold()
@@ -150,7 +159,9 @@ class BetaMove:
         return left_success * right_success
 
     def successRateByHold(self: T, hold: list, operation: str) -> int:
-        """ Evaluate the difficulty to hold on a hold applying LH or RH (op)"""
+        """
+        Evaluate the difficulty to hold on a hold applying LH or RH (op)
+        """
         if operation == "LH":
             # Chiang's evaluation
             return self._board.get_lh_difficulty((hold[6], hold[7]))
