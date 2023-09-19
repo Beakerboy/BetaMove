@@ -312,7 +312,7 @@ class BetaMove:
     def getholdsNotUsed(self: T) -> list:
         return self.holdsNotUsed
 
-    def addNewBeta(status, printOut = True):
+    def addNewBeta(self: T, printOut = True):
         """
         Add one move to expand the candidate list and pick the largest 8
         """
@@ -325,7 +325,7 @@ class BetaMove:
             distance = np.sqrt(((originalCom[0] - finalXY[0]) ** 2)+((originalCom[1] - finalXY[1]) ** 2))
             distanceScore.append(successRateByDistance(distance, dynamicThreshold))  # evaluate success rate simply consider the distance (not consider left and right hand)
 
-         # Find the first and second smallest distance in the distanceScore
+        # Find the first and second smallest distance in the distanceScore
         largestIndex = heapq.nlargest(min(8, len(distanceScore)), range(len(distanceScore)), key=distanceScore.__getitem__)
     
         # goodHoldIndex = [betaPre.holdsNotUsed[largestIndex[0]], betaPre.holdsNotUsed[largestIndex[1]], betaPre.holdsNotUsed[largestIndex[2]]]  #[#3,#5] holds
