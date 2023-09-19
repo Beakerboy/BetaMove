@@ -14,6 +14,9 @@ class BetaMove:
 
         # Instance Attributes
         self._board = board
+        self.allHolds = []
+        self.totalNumOfHold = 0
+        self.holdsNotUsed = []
 
     def create_movement(self: T, climb: Climb) -> list:
         # movement = []
