@@ -35,4 +35,4 @@ def test_status() -> None:
     f = open('tests/Unit/342797.json')
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
-    np.testing.assert_array_equal(app.create_movement(climb).T, expected)
+    np.testing.assert_array_equal(app.create_movement(climb), results)
