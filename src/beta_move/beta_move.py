@@ -182,7 +182,7 @@ class BetaMove:
         indicies = np.where((self.allHolds == hold).all(1))
         return indicies[0]
 
-    def getCom(self: T, hold1Order: int, hold2Order: int)-> tuple:
+    def get_com(self: T, hold1Order: int, hold2Order: int)-> tuple:
         """
         Get the coordinate of COM using current both hands order
 
@@ -207,7 +207,7 @@ class BetaMove:
         """
         Get the coordinate of center of mass based on current hand position
         """
-        return self.getCom(self.getleftHandOrder(), self.getrightHandOrder())
+        return self.get_com(self.getleftHandOrder(), self.getrightHandOrder())
 
     def getTwoOrderDistance(self: T, remaining, next) -> float:
         """
@@ -215,10 +215,10 @@ class BetaMove:
         remaining - Remaining Hand Order
         next - nextHoldOrder
         """
-        originalCom = self.getCurrentCom()
-        finalCom = self.getCom(remaining, next)
-        com_0_dif_sq = (originalCom[0] - finalCom[0]) ** 2
-        com_1_dif_sq = (originalCom[1] - finalCom[1]) ** 2
+        original_com = self.getCurrentCom()
+        final_com = self.get_com(remaining, next)
+        com_0_dif_sq = (original_com[0] - final_com[0]) ** 2
+        com_1_dif_sq = (original_com[1] - final_com[1]) ** 2
         return np.sqrt(com_0_dif_sq + com_1_dif_sq)
 
     def orderToSeqOrder(self: T, order):
@@ -323,25 +323,25 @@ class BetaMove:
     def getholdsNotUsed(self: T) -> list:
         return self.holdsNotUsed
 
-    def addNewBeta(self: T, printOut = True):
+    def addNewBeta(self: T, print_out: boolean=True) -> list:
         """
         Add one move to expand the candidate list and pick the largest 8
         """
         tempstatus = []
         distance_score = []
         hyperparameter = [1, 1]
-        for nextHoldOrder in self.holdsNotUsed:
+        for next_hold_order in self.holdsNotUsed:
             original_com = self.getCurrentCom()
             hyper_0 = hyperparameter[0]
             dynamic_threshold = hyper_0 * self.lastMoveSuccessRateByHold()
-            final_xy = self.getXYFromOrder(nextHoldOrder)
+            final_xy = self.getXYFromOrder(next_hold_order)
             dif_x = original_com[0] - final_xy[0]
             dif_y = original_com[1] - final_xy[1]
             distance = np.sqrt(dif_x ** 2 + dif_y ** 2)
             # evaluate success rate simply consider the distance
             # (not consider left and right hand)
             success = self.success_rate_by_distance(
-                distance, 
+                distance,
                 dynamic_threshold
             )
             distance_score.append(success)
