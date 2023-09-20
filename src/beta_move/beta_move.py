@@ -332,11 +332,11 @@ class BetaMove:
         hyperparameter = [1, 1]
         for nextHoldOrder in self.holdsNotUsed:
             originalCom = self.getCurrentCom() 
-            dynamicThreshold = hyperparameter[0] * self.lastMoveSuccessRateByHold()  
+            dynamic_threshold = hyperparameter[0] * self.lastMoveSuccessRateByHold()  
             finalXY = self.getXYFromOrder(nextHoldOrder)
             distance = np.sqrt(((originalCom[0] - finalXY[0]) ** 2)+((originalCom[1] - finalXY[1]) ** 2))
             # evaluate success rate simply consider the distance (not consider left and right hand)
-            distanceScore.append(self.successRateByDistance(distance, dynamicThreshold))
+            distanceScore.append(self.success_rate_by_distance(distance, dynamic_threshold))
 
         # Find the first and second smallest distance in the distanceScore
         largestIndex = heapq.nlargest(min(8, len(distanceScore)), range(len(distanceScore)), key=distanceScore.__getitem__)
@@ -400,9 +400,9 @@ class BetaMove:
             -4 * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2
         )
 
-    def successRateByDistance(cls: Type[T], distance, dynamicThreshold):
+    def success_rate_by_distance(cls: Type[T], distance, dynamic_threshold) -> float:
         """ Relu funtion to get the successrate """
-        if distance < dynamicThreshold:
-            return 1 - distance / dynamicThreshold
-        if distance >= dynamicThreshold:
+        if distance < dynamic_threshold:
+            return 1 - distance / dynamic_threshold
+        if distance >= dynamic_threshold:
             return 0
