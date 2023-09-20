@@ -328,37 +328,44 @@ class BetaMove:
         Add one move to expand the candidate list and pick the largest 8
         """
         tempstatus = []   
-        distanceScore = []
+        distance_score = []
         hyperparameter = [1, 1]
         for nextHoldOrder in self.holdsNotUsed:
-            originalCom = self.getCurrentCom() 
-            dynamic_threshold = hyperparameter[0] * self.lastMoveSuccessRateByHold()  
-            finalXY = self.getXYFromOrder(nextHoldOrder)
-            distance = np.sqrt(((originalCom[0] - finalXY[0]) ** 2)+((originalCom[1] - finalXY[1]) ** 2))
-            # evaluate success rate simply consider the distance (not consider left and right hand)
-            distanceScore.append(self.success_rate_by_distance(distance, dynamic_threshold))
+            original_com = self.getCurrentCom()
+            hyper_0 = hyperparameter[0]
+            dynamic_threshold = hyper_0 * self.lastMoveSuccessRateByHold()
+            final_xy= self.getXYFromOrder(nextHoldOrder)
+            dif_x = original_com[0] - final_xy[0]
+            dif_y = original_com[1] - final_xy[1]
+            distance = np.sqrt(dif_x ** 2 + dif_y ** 2)
+            # evaluate success rate simply consider the distance
+            # (not consider left and right hand)
+            success = self.success_rate_by_distance(distance, dynamic_threshold)
+            distance_score.append(success)
 
-        # Find the first and second smallest distance in the distanceScore
-        largestIndex = heapq.nlargest(min(8, len(distanceScore)), range(len(distanceScore)), key=distanceScore.__getitem__)
-    
-        # goodHoldIndex = [betaPre.holdsNotUsed[largestIndex[0]], betaPre.holdsNotUsed[largestIndex[1]], betaPre.holdsNotUsed[largestIndex[2]]]  #[#3,#5] holds
-        goodHoldIndex = [self.holdsNotUsed[i] for i in largestIndex]
+        # Find the first and second smallest distance in the distance_score
+        num = min(8, len(distance_score))
+        iter = range(len(distance_score))
+        largest_index = heapq.nlargest(num, iter, key=distance_score.__getitem__)
+
+        goodHoldIndex = [self.holdsNotUsed[i] for i in largest_index]
         added = False
         for possibleHold in goodHoldIndex:
             for op in ["RH", "LH"]:
-                if self.isFinished == False:
+                if not self.isFinished:
                     tempstatus.append(copy.deepcopy(self))
                     tempstatus[-1].addNextHand(possibleHold, op)
-                elif added == False:
+                elif not added:
                     tempstatus.append(copy.deepcopy(self))
                     added = True
 
         # trim tempstatus to pick the largest 8
-        finalScore = []       
+        final_score = []
         for i in tempstatus:
-            finalScore.append(i.overallSuccessRate())    
-        largestIndex = heapq.nlargest(8, range(len(finalScore)), key=finalScore.__getitem__) 
-        return [tempstatus[i] for i in largestIndex]
+            final_score.append(i.overallSuccessRate())
+        iter = range(len(final_score))
+        largest_index = heapq.nlargest(8, iter, key=final_score.__getitem__)
+        return [tempstatus[i] for i in largest_index]
 
     @classmethod
     def make_gaussian(
@@ -400,7 +407,8 @@ class BetaMove:
             -4 * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2
         )
 
-    def success_rate_by_distance(cls: Type[T], distance, dynamic_threshold: float) -> float:
+    @classmethod
+    def success_rate_by_distance(cls: Type[T], distance: float, dynamic_threshold: float) -> float:
         """ Relu funtion to get the successrate """
         if distance < dynamic_threshold:
             return 1 - distance / dynamic_threshold
