@@ -55,4 +55,4 @@ def test_status() -> None:
 def test_pickle_data() -> None:
     f = open("tests/pickle_data/benchmark_withgrade_move_seq_X", "rb")
     data = pickle.load(f)
-    assert data == {}
+    assert data["34627"] == {}
