@@ -42,6 +42,6 @@ gauss_data = [
 
 
 @pytest.mark.parametrize("input, expected", gauss_data)
-def test_make_gaussian(input, expected) -> None:
+def test_make_gaussian(input: list, expected: float) -> None:
     actual = BetaMove.make_gaussian(*input)
     assert actual == expected
