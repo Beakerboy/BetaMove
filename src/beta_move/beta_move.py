@@ -41,7 +41,7 @@ class BetaMove:
     
     def create_movement(self: T, climb: Climb) -> list:
         # movement = []
-        x_vectors = self.match_hold_features(clomb)
+        x_vectors = self.match_hold_features(climb)
         if not x_vectors == []:
             self.allHolds = x_vectors.T
             self.totalNumOfHold = np.size(x_vectors.T, axis=0)
