@@ -1,6 +1,7 @@
 
 import json
 import numpy as np
+import pickle
 import pytest
 from beta_move.beta_move import BetaMove
 from beta_move.climb import Climb
@@ -49,3 +50,9 @@ def test_status() -> None:
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
     np.testing.assert_array_equal(app.create_movement(climb), results)
+
+
+def test_pickle_data() -> None:
+    f = file.open("tests/pickle_data/benchmark_withgrade_move_seq_X")
+    data = pickle.load(f)
+    print(data)
