@@ -350,11 +350,11 @@ class BetaMove:
 
         goodHoldIndex = [self.holdsNotUsed[i] for i in largest_index]
         added = False
-        for possibleHold in goodHoldIndex:
+        for possible_hold in goodHoldIndex:
             for op in ["RH", "LH"]:
                 if not self.isFinished:
                     tempstatus.append(copy.deepcopy(self))
-                    tempstatus[-1].addNextHand(possibleHold, op)
+                    tempstatus[-1].addNextHand(possible_hold, op)
                 elif not added:
                     tempstatus.append(copy.deepcopy(self))
                     added = True
@@ -408,7 +408,9 @@ class BetaMove:
         )
 
     @classmethod
-    def success_rate_by_distance(cls: Type[T], distance: float, dynamic_threshold: float) -> float:
+    def success_rate_by_distance(
+        cls: Type[T], distance: float, dynamic_threshold: float
+    ) -> float:
         """ Relu funtion to get the successrate """
         if distance < dynamic_threshold:
             return 1 - distance / dynamic_threshold
