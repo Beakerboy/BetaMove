@@ -400,7 +400,7 @@ class BetaMove:
             -4 * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2
         )
 
-    def success_rate_by_distance(cls: Type[T], distance, dynamic_threshold) -> float:
+    def success_rate_by_distance(cls: Type[T], distance, dynamic_threshold: float) -> float:
         """ Relu funtion to get the successrate """
         if distance < dynamic_threshold:
             return 1 - distance / dynamic_threshold
