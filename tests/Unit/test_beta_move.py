@@ -53,6 +53,6 @@ def test_status() -> None:
 
 
 def test_pickle_data() -> None:
-    f = file.open("tests/pickle_data/benchmark_withgrade_move_seq_X")
+    f = open("tests/pickle_data/benchmark_withgrade_move_seq_X", "rb")
     data = pickle.load(f)
     print(data)
