@@ -104,23 +104,23 @@ class BetaMove:
         Operation to make add the next hold. Append handsequence and hand
         operation. nextHold is a hold. op is "LH" or "RH"
         the last few lines don't really do anything.
-        """  
+        """
         hyperparameter = [1, 1]
         if self.touchEndHold == 3:
-            self.handSequence.append(self.totalNumOfHold - 1)  
+            self.handSequence.append(self.totalNumOfHold - 1
             if self.handSequence[-1] == "LH":
-                self.handOperator.append("RH")  
+                self.handOperator.append("RH")
             if self.handSequence[-1] == "RH":
-                self.handOperator.append("LH") 
+                self.handOperator.append("LH"
             self.touchEndHold = self.touchEndHold + 1;
             self.isFinished = True
 
-        elif self.touchEndHold == 1 or self.isFinished: 
+        elif self.touchEndHold == 1 or self.isFinished:
             pass
         else:
             if next_hold in self.get_end_hold_order():
                 self.touchEndHold = self.touchEndHold + 1
-                
+
             # Before Update a new hold
             original_com = self.get_current_com()
             hyper_zero = hyperparameter[0]
