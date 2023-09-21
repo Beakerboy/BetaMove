@@ -54,14 +54,14 @@ class BetaMove:
             raise Exception("Climb is invalid.")
         return x_vectors
 
-    def create_movement(self: T, climb: Climb) -> list:
+    def create_movement(self: T, climb: Climb) -> dict:
         # movement = []
         x_vectors = self.match_hold_features(climb)
         if not x_vectors == []:
             self.allHolds = x_vectors.T
             self.totalNumOfHold = np.size(x_vectors.T, axis=0)
             self.holdsNotUsed.extend(range(self.totalNumOfHold))
-            self.addStartHolds(0)
+            self.add_start_holds(0)
 
             # Run the algorithm for 6 times
             total_run = self.totalNumOfHold - 1
