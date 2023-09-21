@@ -15,22 +15,22 @@ class BetaMove:
     def __init__(self: T, board: Moonboard) -> None:
 
         # Instance Attributes
-        self._board = board
+        self._board: Moonboard = board
         self.allHolds = []
-        self.totalNumOfHold = 0
+        self.totalNumOfHold:int = 0
         self.holdsNotUsed = []
         self.handSequence = []
         self.handOperator = []
-        self.isFinished = False
+        self.isFinished: bool = False
         self.touchEndHold = 0
 
     def match_hold_features(self: T, climb: Climb) -> list:
-        x_vectors = []
+        x_vectors: list = []
         if climb.is_valid:
-            i = 0
+            i: int  = 0
             x_vectors = np.zeros((10, climb.num_holds()))
-            holds = climb.get_holds()
-            for (x, y) in holds:
+            holds: list = climb.get_holds()
+            for (x: int, y: int) in holds:
                 x_vectors[0:6, i] = self._board.get_features((x, y))
                 x_vectors[6:8, i] = [x, y]
                 i += 1
