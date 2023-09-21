@@ -245,7 +245,9 @@ class BetaMove:
         left_hand_hold = self.get_left_hand_hold()
         right_hand_hold = self.get_right_hand_hold()
         left_success = self.success_rate_by_hold(left_hand_hold, operator_left)
-        right_success = self.success_rate_by_hold(right_hand_hold, operator_right)
+        right_success = self.success_rate_by_hold(
+            right_hand_hold, operator_right
+        )
         return left_success * right_success
 
     def success_rate_by_hold(self: T, hold: list, operation: str) -> int:
@@ -292,7 +294,9 @@ class BetaMove:
         for i, order in enumerate(self.handSequence):
             hold_index = self.allHolds[order]
             hand_operator = self.handOperator[i]
-            overall_score *= self.success_rate_by_hold(hold_index, hand_operator)
+            overall_score *= self.success_rate_by_hold(
+                hold_index, hand_operator
+            )
 
         for i in range(num_of_hand - 1):
             # Penalty of do a big cross. Larger will drop the successRate
