@@ -24,12 +24,12 @@ class BetaMove:
         self.isFinished: bool = False
         self.touchEndHold = 0
 
-    def match_hold_features(self: T, climb: Climb) -> list:
+    def match_hold_features(self: T, climb: Climb) -> np.ndarray:
         x_vectors: np.ndarray = []
         if climb.is_valid():
-            i: int = 0
+            i = 0
             x_vectors = np.zeros((10, climb.num_holds()))
-            holds: list = climb.get_holds()
+            holds = climb.get_holds()
             for (x, y) in holds:
                 x_vectors[0:6, i] = self._board.get_features((x, y))
                 x_vectors[6:8, i] = [x, y]
