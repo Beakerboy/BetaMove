@@ -18,7 +18,7 @@ class Climb:
         self._name = ""
 
         # The list of allowed holds with start and end
-        self._holds: dict[tuple, list[str, bool, bool]] = {}
+        self._holds: dict[tuple, list] = {}
         self._start_holds: list[tuple] = []
         self._mid_holds: list[tuple] = []
         self._end_holds: list[tuple] = []
