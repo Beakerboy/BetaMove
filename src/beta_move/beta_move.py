@@ -20,7 +20,8 @@ class BetaMove:
         self.totalNumOfHold: int = 0
         # the index values of unused holds.
         self.holdsNotUsed: list[int] = []
-        self.handSequence = []
+        # index of holds used, in order of use.
+        self.handSequence: list[int] = []
         self.handOperator = []
         self.isFinished: bool = False
         self.touchEndHold = 0
