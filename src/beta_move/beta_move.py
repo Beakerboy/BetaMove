@@ -51,10 +51,6 @@ class BetaMove:
             # Run the algorithm for 6 times
             total_run = self.totalNumOfHold - 1
             for i in range(total_run):  # how many new move you wan to add
-                status = self.add_new_beta()
-                final_score = self.overall_success_rate()
-                iter = range(len(final_score))
-                largest_index = heapq.nlargest(4, iter, key=final_score.__getitem__)
                 if self.isFinished:
                     break
 
@@ -97,7 +93,7 @@ class BetaMove:
             self.holdsNotUsed.remove(self.get_order_from_hold(first_start))
             self.holdsNotUsed.remove(self.get_order_from_hold(second_start))
 
-    def get_all_holds(self: T) -> dict:
+    def get_all_holds(self: T) -> list:
         """ return all avalible holds. N holds rows, 10 columns np array"""
         return self.allHolds
 
@@ -137,7 +133,7 @@ class BetaMove:
         """
         return ((self.allHolds[hold_order][6]), (self.allHolds[hold_order][7]))
 
-    def get_left_hand_order(self: T):
+    def get_left_hand_order(self: T) -> str:
         """
         Return a num of the last left hand hold's oreder
         (in processed data from bottom to top)
@@ -145,7 +141,7 @@ class BetaMove:
         last_index_of_right = ''.join(self.handOperator).rindex('R') / 2
         return self.handSequence[int(last_index_of_right)]
 
-    def get_right_hand_order(self: T):
+    def get_right_hand_order(self: T) -> str:
         """
         Return a num of the last right hand hold's oreder
         (in processed data from bottom to top)
@@ -167,7 +163,7 @@ class BetaMove:
         """
         return self.allHolds[self.get_right_hand_order()]
 
-    def get_order_from_hold(self: T, hold) -> int:
+    def get_order_from_hold(self: T, hold: str) -> int:
         """
         from a single hold (np array) to an order
         """
@@ -204,7 +200,7 @@ class BetaMove:
         right = self.get_right_hand_order()
         return self.get_com(left, right)
 
-    def get_two_order_distance(self: T, remaining, next) -> float:
+    def get_two_order_distance(self: T, remaining: int, next: int) -> float:
         """
         Given order 2, and 5. Output distance between
         remaining - Remaining Hand Order
@@ -216,7 +212,7 @@ class BetaMove:
         com_1_dif_sq = (original_com[1] - final_com[1]) ** 2
         return np.sqrt(com_0_dif_sq + com_1_dif_sq)
 
-    def order_to_seq_order(self: T, order):
+    def order_to_seq_order(self: T, order: int) -> str:
         """
         Transform from order (in the all avalible holds sequence) to hand
         order (in the hand sequence)
