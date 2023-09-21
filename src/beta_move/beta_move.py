@@ -76,20 +76,23 @@ class BetaMove:
         hold start situation
         """
         op_list = ["LH", "RH"]
-        startHoldList = self.get_start_hold()
-        first_start = startHoldList[0]
-        if len(startHoldList) == 1:
+        start_hold_list = self.get_start_hold()
+        first_start = start_hold_list[0]
+        if len(start_hold_list) == 1:
             # Add a new hold into beta!
             self.handSequence.append(int(self.get_order_from_hold(first_start)))
             self.handSequence.append(int(self.get_order_from_hold(first_start)))
             self.handOperator.extend(op_list)
             # Not consider match
-            self.holdsNotUsed.remove(self.get_order_from_hold(startHoldList[0]))
+            hold_order = self.get_order_from_hold(start_hold_list[0])
+            self.holdsNotUsed.remove(hold_order)
         if len(startHoldList) == 2:
             # Add a new hold into beta!
-            second_start = startHoldList[1]
-            self.handSequence.append(int(self.get_order_from_hold(first_start)))
-            self.handSequence.append(int(self.get_order_from_hold(second_start)))
+            second_start = start_hold_list[1]
+            first_order = self.get_order_from_hold(first_start)
+            second_order = self.get_order_from_hold(second_start)
+            self.handSequence.append(int(first_order))
+            self.handSequence.append(int(second_order))
             self.handOperator.append(op_list[zeroOrOne])
             # indicate which hand
             self.handOperator.append(op_list[1 - zeroOrOne])
@@ -124,8 +127,6 @@ class BetaMove:
                 self.touchEndHold = self.touchEndHold + 1
 
             # Before Update a new hold
-            original_com = self.get_current_com()
-            hyper_zero = hyperparameter[0]
 
             # Update a new hold
             self.handSequence.append(next_hold)   # Add a new hold into beta!
