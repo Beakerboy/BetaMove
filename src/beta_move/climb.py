@@ -18,10 +18,10 @@ class Climb:
         self._name = ""
 
         # The list of allowed holds with start and end
-        self._holds: Dict[tuple] = {}
-        self._start_holds: List[tuple] = []
-        self._mid_holds: List[tuple] = []
-        self._end_holds: List[tuple] = []
+        self._holds: dict[tuple] = {}
+        self._start_holds: list[tuple] = []
+        self._mid_holds: list[tuple] = []
+        self._end_holds: list[tuple] = []
 
         # The grade
         # The JSON object has three grades; grade, info[2] and UserGrade
