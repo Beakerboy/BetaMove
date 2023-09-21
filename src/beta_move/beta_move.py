@@ -368,8 +368,8 @@ class BetaMove:
     @classmethod
     def make_gaussian(
         cls: Type[T],
-        target: list,
-        center: list,
+        target: tuple,
+        center: tuple,
         lasthand: str = "LH"
     ) -> float:
         """ Make a square gaussian filter to evaluate how possible of the
@@ -382,21 +382,21 @@ class BetaMove:
         x0 = center[0]
         y0 = center[1]
         if lasthand == "RH":
-            guess1 = cls.gauss(target, [x0 - 3, y0 + 1.5], fwhm)
-            guess2 = cls.gauss(target, [x0 + 1, y0 + .5], fwhm) * .4
+            guess1 = cls.gauss(target, (x0 - 3, y0 + 1.5), fwhm)
+            guess2 = cls.gauss(target, (x0 + 1, y0 + .5), fwhm) * .4
 
             # thirdGauss =  np.exp(
             # -4*np.log(2) * ((x-(x0))**2 + (y-(y0+1))**2) / fwhm**2) * 0.3
         if lasthand == "LH":
-            guess1 = cls.gauss(target, [x0 + 3, y0 + 1.5], fwhm)
-            guess2 = cls.gauss(target, [x0 - 1, y0 + .5], fwhm) * .4
+            guess1 = cls.gauss(target, (x0 + 3, y0 + 1.5), fwhm)
+            guess2 = cls.gauss(target, (x0 - 1, y0 + .5), fwhm) * .4
 
             # thirdGauss =  np.exp(
             # -4*np.log(2) * ((x-(x0))**2 + (y-(y0+1))**2) / fwhm**2) * 0.3
         return guess1 + guess2
 
     @classmethod
-    def gauss(cls: Type[T], target: list, center: list, fwhm: int) -> float:
+    def gauss(cls: Type[T], target: tuple, center: tuple, fwhm: int) -> float:
         x = target[0]
         y = target[1]
         x0 = center[0]
