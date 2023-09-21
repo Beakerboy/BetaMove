@@ -97,7 +97,7 @@ class BetaMove:
         """ return all avalible holds. N holds rows, 10 columns np array"""
         return self.allHolds
 
-    def add_next_hand(self: T, next_hold, op: str) -> None:
+    def add_next_hand(self: T, next_hold: int, op: str) -> None:
         """
         Operation to make add the next hold. Append handsequence and hand
         operation. nextHold is a hold. op is "LH" or "RH"
@@ -156,7 +156,7 @@ class BetaMove:
         """
         return self.allHolds[self.get_left_hand_order()]
 
-    def get_right_hand_hold(self: T):
+    def get_right_hand_hold(self: T) -> list:
         """
         Return a np array of the last right hand hold
         (in processed data from bottom to top)
