@@ -18,7 +18,7 @@ class Climb:
         self._name = ""
 
         # The list of allowed holds with start and end
-        self._holds: dict[tuple, list] = {}
+        self._holds: dict[tuple, tuple[str, bool, bool]] = {}
         self._start_holds: list[tuple] = []
         self._mid_holds: list[tuple] = []
         self._end_holds: list[tuple] = []
@@ -115,10 +115,10 @@ class Climb:
         climb.set_grade(data["grade"])
         for hold in data["moves"]:
             climb.add_hold(
-                [
+                (
                     hold["Description"],
                     hold["IsStart"],
                     hold["IsEnd"]
-                ]
+                )
             )
         return climb
