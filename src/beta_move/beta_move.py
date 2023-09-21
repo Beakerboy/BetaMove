@@ -16,7 +16,7 @@ class BetaMove:
 
         # Instance Attributes
         self._board: Moonboard = board
-        self.allHolds: np.ndarray = np.zeroes((1, 1))
+        self.allHolds: np.ndarray = np.zeros((1, 1))
         self.totalNumOfHold: int = 0
         # the index values of unused holds.
         self.holdsNotUsed: list[int] = []
