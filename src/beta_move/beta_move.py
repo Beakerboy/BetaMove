@@ -22,7 +22,8 @@ class BetaMove:
         self.holdsNotUsed: list[int] = []
         # index of holds used, in order of use.
         self.handSequence: list[int] = []
-        self.handOperator = []
+        # values of RH or LH to indicate which hand makes each move.
+        self.handOperator: list[str] = []
         self.isFinished: bool = False
         self.touchEndHold = 0
 
