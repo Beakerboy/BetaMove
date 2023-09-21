@@ -53,7 +53,7 @@ class BetaMove:
         else:
             raise Exception("Climb is invalid.")
         return x_vectors
-        
+
     def create_movement(self: T, climb: Climb) -> list:
         # movement = []
         x_vectors = self.match_hold_features(climb)
