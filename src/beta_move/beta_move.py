@@ -26,7 +26,6 @@ class BetaMove:
         self.touchEndHold = 0
 
     def match_hold_features(self: T, climb: Climb) -> np.ndarray:
-        x_vectors: np.ndarray = []
         if climb.is_valid():
             i = 0
             x_vectors = np.zeros((10, climb.num_holds()))
@@ -38,7 +37,9 @@ class BetaMove:
             x_vectors[8:, 0:climb.num_starts()] = np.array([[1], [0]])
             num_non_end = climb.num_holds() - climb.num_finish()
             x_vectors[8:, num_non_end:] = np.array([[0], [1]])
-        return x_vectors
+            return x_vectors
+        else:
+            # throw exception?
 
     def create_movement(self: T, climb: Climb) -> list:
         # movement = []
