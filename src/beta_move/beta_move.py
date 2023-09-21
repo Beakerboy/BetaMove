@@ -25,7 +25,7 @@ class BetaMove:
         self.touchEndHold = 0
 
     def match_hold_features(self: T, climb: Climb) -> list:
-        x_vectors: list = []
+        x_vectors: np.ndarray = []
         if climb.is_valid():
             i: int = 0
             x_vectors = np.zeros((10, climb.num_holds()))
