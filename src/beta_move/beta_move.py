@@ -16,7 +16,7 @@ class BetaMove:
 
         # Instance Attributes
         self._board: Moonboard = board
-        self.allHolds = []
+        self.allHolds: list[list] = []
         self.totalNumOfHold: int = 0
         self.holdsNotUsed = []
         self.handSequence = []
