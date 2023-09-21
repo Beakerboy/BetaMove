@@ -58,19 +58,15 @@ class BetaMove:
                 if self.isFinished:
                     break
 
-            # last sorting for the best 5
-            final_score = self.overall_success_rate()
-            iter = range(len(final_score))
-            largest_index = heapq.nlargest(1, iter, key=final_score.__getitem__)
             # produce output
             output = {}
-            
+
             output["hold_index"] = self.handSequence
             output["hands"] = self.handOperator
             output["success"] = self.overall_success_rate()
             return output
 
-    def add_start_holds(self: T, zeroOrOne: int) -> None:
+    def add_start_holds(self: T, zero_or_one: int) -> None:
         """
         Specifically add the first two hold as the starting hold. Consider one
         hold start situation
@@ -80,22 +76,23 @@ class BetaMove:
         first_start = start_hold_list[0]
         if len(start_hold_list) == 1:
             # Add a new hold into beta!
-            self.handSequence.append(int(self.get_order_from_hold(first_start)))
-            self.handSequence.append(int(self.get_order_from_hold(first_start)))
+            first_order = self.get_order_from_hold(first_start)
+            self.handSequence.append(int(first_order))
+            self.handSequence.append(int(first_order))
             self.handOperator.extend(op_list)
             # Not consider match
             hold_order = self.get_order_from_hold(start_hold_list[0])
             self.holdsNotUsed.remove(hold_order)
-        if len(startHoldList) == 2:
+        if len(start_hold_list) == 2:
             # Add a new hold into beta!
             second_start = start_hold_list[1]
             first_order = self.get_order_from_hold(first_start)
             second_order = self.get_order_from_hold(second_start)
             self.handSequence.append(int(first_order))
             self.handSequence.append(int(second_order))
-            self.handOperator.append(op_list[zeroOrOne])
+            self.handOperator.append(op_list[zero_or_one])
             # indicate which hand
-            self.handOperator.append(op_list[1 - zeroOrOne])
+            self.handOperator.append(op_list[1 - zero_or_one])
             # Not consider match
             self.holdsNotUsed.remove(self.get_order_from_hold(first_start))
             self.holdsNotUsed.remove(self.get_order_from_hold(second_start))
@@ -110,14 +107,13 @@ class BetaMove:
         operation. nextHold is a hold. op is "LH" or "RH"
         the last few lines don't really do anything.
         """
-        hyperparameter = [1, 1]
         if self.touchEndHold == 3:
             self.handSequence.append(self.totalNumOfHold - 1)
             if self.handSequence[-1] == "LH":
                 self.handOperator.append("RH")
             if self.handSequence[-1] == "RH":
                 self.handOperator.append("LH")
-            self.touchEndHold = self.touchEndHold + 1;
+            self.touchEndHold = self.touchEndHold + 1
             self.isFinished = True
 
         elif self.touchEndHold == 1 or self.isFinished:
