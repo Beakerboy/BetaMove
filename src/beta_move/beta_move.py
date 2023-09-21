@@ -107,7 +107,7 @@ class BetaMove:
         """
         hyperparameter = [1, 1]
         if self.touchEndHold == 3:
-            self.handSequence.append(self.totalNumOfHold - 1
+            self.handSequence.append(self.totalNumOfHold - 1)
             if self.handSequence[-1] == "LH":
                 self.handOperator.append("RH")
             if self.handSequence[-1] == "RH":
