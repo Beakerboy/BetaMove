@@ -1,7 +1,6 @@
 
 import json
 import numpy as np
-import pickle
 import pytest
 from beta_move.beta_move import BetaMove
 from beta_move.climb import Climb
