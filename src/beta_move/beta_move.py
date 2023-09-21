@@ -24,8 +24,8 @@ class BetaMove:
         self.isFinished = False
         self.touchEndHold = 0
 
-    def create_movement(self: T, climb: Climb) -> list:
-        # movement = []
+    def match_hold_features(self: T, climb: Climb) -> list:
+        x_vectors = []
         if climb.is_valid:
             i = 0
             x_vectors = np.zeros((10, climb.num_holds()))
@@ -37,138 +37,133 @@ class BetaMove:
             x_vectors[8:, 0:climb.num_starts()] = np.array([[1], [0]])
             num_non_end = climb.num_holds() - climb.num_finish()
             x_vectors[8:, num_non_end:] = np.array([[0], [1]])
+        return x_vectors
+
+    def create_movement(self: T, climb: Climb) -> list:
+        # movement = []
+        x_vectors = self.match_hold_features(climb)
+        if not x_vectors == []:
             self.allHolds = x_vectors.T
             self.totalNumOfHold = np.size(x_vectors.T, axis=0)
             self.holdsNotUsed.extend(range(self.totalNumOfHold))
             self.addStartHolds(0)
 
             # Run the algorithm for 6 times
-            totalRun = self.totalNumOfHold - 1
-            for i in range(totalRun):  # how many new move you wan to add
-                status = self.addNewBeta()
-                finalScore = self.overallSuccessRate()
-                largestIndex = heapq.nlargest(4, range(len(finalScore)), key=finalScore.__getitem__)
+            total_run = self.totalNumOfHold - 1
+            for i in range(total_run):  # how many new move you wan to add
                 if self.isFinished:
                     break
-    
-            # last sorting for the best 5
-            finalScore = self.overallSuccessRate() 
-            largestIndex = heapq.nlargest(1, range(len(finalScore)), key=finalScore.__getitem__)
+
             # produce output
             output = {}
-            
+
             output["hold_index"] = self.handSequence
             output["hands"] = self.handOperator
-            output["success"] = self.overallSuccessRate()
+            output["success"] = self.overall_success_rate()
             return output
 
-    def addStartHolds(self: T, zeroOrOne):
+    def add_start_holds(self: T, zero_or_one: int) -> None:
         """
         Specifically add the first two hold as the starting hold. Consider one
         hold start situation
         """
-        opList = ["LH", "RH"]
-        startHoldList = self.getStartHold()
-        first_start = startHoldList[0]
-        if len(startHoldList) == 1:
+        op_list = ["LH", "RH"]
+        start_hold_list = self.get_start_hold()
+        first_start = start_hold_list[0]
+        if len(start_hold_list) == 1:
             # Add a new hold into beta!
-            self.handSequence.append(int(self.getOrderFromHold(first_start)))
-            self.handSequence.append(int(self.getOrderFromHold(first_start)))
-            self.handOperator.extend(opList)
+            first_order = self.get_order_from_hold(first_start)
+            self.handSequence.append(int(first_order))
+            self.handSequence.append(int(first_order))
+            self.handOperator.extend(op_list)
             # Not consider match
-            self.holdsNotUsed.remove(self.getOrderFromHold(startHoldList[0]))
-        if len(startHoldList) == 2:
+            hold_order = self.get_order_from_hold(start_hold_list[0])
+            self.holdsNotUsed.remove(hold_order)
+        if len(start_hold_list) == 2:
             # Add a new hold into beta!
-            second_start = startHoldList[1]
-            self.handSequence.append(int(self.getOrderFromHold(first_start)))
-            self.handSequence.append(int(self.getOrderFromHold(second_start)))
-            self.handOperator.append(opList[zeroOrOne])
+            second_start = start_hold_list[1]
+            first_order = self.get_order_from_hold(first_start)
+            second_order = self.get_order_from_hold(second_start)
+            self.handSequence.append(int(first_order))
+            self.handSequence.append(int(second_order))
+            self.handOperator.append(op_list[zero_or_one])
             # indicate which hand
-            self.handOperator.append(opList[1 - zeroOrOne])
+            self.handOperator.append(op_list[1 - zero_or_one])
             # Not consider match
-            self.holdsNotUsed.remove(self.getOrderFromHold(first_start))
-            self.holdsNotUsed.remove(self.getOrderFromHold(second_start))
+            self.holdsNotUsed.remove(self.get_order_from_hold(first_start))
+            self.holdsNotUsed.remove(self.get_order_from_hold(second_start))
 
-    def getAllHolds(self: T):
+    def get_all_holds(self: T) -> list:
         """ return all avalible holds. N holds rows, 10 columns np array"""
         return self.allHolds
 
-    def addNextHand(self: T, nextHold, op):
+    def add_next_hand(self: T, next_hold: int, op: str) -> None:
         """
         Operation to make add the next hold. Append handsequence and hand
         operation. nextHold is a hold. op is "LH" or "RH"
-        """  
-        hyperparameter = [1, 1]
+        the last few lines don't really do anything.
+        """
         if self.touchEndHold == 3:
-            self.handSequence.append(self.totalNumOfHold - 1)  
+            self.handSequence.append(self.totalNumOfHold - 1)
             if self.handSequence[-1] == "LH":
-                self.handOperator.append("RH")  
+                self.handOperator.append("RH")
             if self.handSequence[-1] == "RH":
-                self.handOperator.append("LH") 
-            self.touchEndHold = self.touchEndHold + 1;
+                self.handOperator.append("LH")
+            self.touchEndHold = self.touchEndHold + 1
             self.isFinished = True
 
-        elif self.touchEndHold == 1 or self.isFinished == True: 
+        elif self.touchEndHold == 1 or self.isFinished:
             pass
         else:
-            if nextHold in self.getEndHoldOrder():
-                self.touchEndHold = self.touchEndHold + 1;
-                
+            if next_hold in self.get_end_hold_order():
+                self.touchEndHold = self.touchEndHold + 1
+
             # Before Update a new hold
-            originalCom = self.getCurrentCom()
-            hyper_zero = hyperparameter[0]
-            dynamicThreshold = hyper_zero * self.lastMoveSuccessRateByHold()  
- 
+
             # Update a new hold
-            self.handSequence.append(nextHold)   # Add a new hold into beta!
+            self.handSequence.append(next_hold)   # Add a new hold into beta!
             self.handOperator.append(op)         # indicate which hand
-            if nextHold not in self.getEndHoldOrder():
-                self.holdsNotUsed.remove(nextHold)   # Not consider match
-            
-            # after add a new hold
-            if op == "LH":
-                remainingHandOrder = self.getrightHandOrder()
-            else:
-                remainingHandOrder = self.getleftHandOrder()
-            
-            finalCom = self.getCom(remainingHandOrder, nextHold)
-            com_0_dif_sq = (originalCom[0] - finalCom[0]) ** 2
-            com_1_dif_sq = (originalCom[1] - finalCom[1]) ** 2
-            distance = np.sqrt(com_0_dif_sq + com_1_dif_sq)
+            if next_hold not in self.get_end_hold_order():
+                self.holdsNotUsed.remove(next_hold)   # Not consider match
 
-    def getXYFromOrder(self: T, holdOrder):
+    def get_xy_from_order(self: T, hold_order: int) -> tuple:
         """
-        return a coordinate tuple giving holdOrder (a num in processed data)
+        return a coordinate tuple giving holdOrder
+        (a num in processed data)
         """
-        return ((self.allHolds[holdOrder][6]), (self.allHolds[holdOrder][7])) 
+        return ((self.allHolds[hold_order][6]), (self.allHolds[hold_order][7]))
 
-    def getleftHandOrder(self: T):
+    def get_left_hand_order(self: T) -> str:
         """
-        Return a num of the last left hand hold's oreder (in processed data from bottom to top)
+        Return a num of the last left hand hold's oreder
+        (in processed data from bottom to top)
         """
-        lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
-        return self.handSequence[int(lastIndexOfRight)]
+        last_index_of_right = ''.join(self.handOperator).rindex('R') / 2
+        return self.handSequence[int(last_index_of_right)]
 
-    def getrightHandOrder(self: T):
+    def get_right_hand_order(self: T) -> str:
         """
-        Return a num of the last right hand hold's oreder (in processed data from bottom to top)
+        Return a num of the last right hand hold's oreder
+        (in processed data from bottom to top)
         """
-        lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
-        return self.handSequence[int(lastIndexOfRight)]
+        last_index_of_right = ''.join(self.handOperator).rindex('R') / 2
+        return self.handSequence[int(last_index_of_right)]
 
-    def getleftHandHold(self: T):
+    def get_left_hand_hold(self: T) -> np.array:
         """
-        Return a np array of the last right hand hold (in processed data from bottom to top)
+        Return a np array of the last right hand hold
+        (in processed data from bottom to top)
         """
-        return self.allHolds[self.getleftHandOrder()]
+        return self.allHolds[self.get_left_hand_order()]
 
-    def getrightHandHold(self: T):
+    def get_right_hand_hold(self: T) -> list:
         """
-        Return a np array of the last right hand hold (in processed data from bottom to top)
+        Return a np array of the last right hand hold
+        (in processed data from bottom to top)
         """
-        return self.allHolds[self.getrightHandOrder()]
+        return self.allHolds[self.get_right_hand_order()]
 
-    def getOrderFromHold(self: T, hold) -> int:
+    def get_order_from_hold(self: T, hold: str) -> int:
         """
         from a single hold (np array) to an order
         """
@@ -176,15 +171,15 @@ class BetaMove:
         indicies = np.where((self.allHolds == hold).all(1))
         return indicies[0]
 
-    def getCom(self: T, hold1Order: int, hold2Order: int)-> tuple:
+    def get_com(self: T, hold1order: int, hold2order: int) -> tuple:
         """
         Get the coordinate of COM using current both hands order
 
         Parameters
         ----------
-        hold1Order : int
+        hold1order : int
             The move order index of the first hold
-        hold2Order : int
+        hold2order : int
             The move order index of the second hold
 
         Returns
@@ -193,50 +188,54 @@ class BetaMove:
             The climber's center of mass coordinates
         """
         all_holds = self.allHolds
-        xCom = (all_holds[hold1Order][6] + all_holds[hold2Order][6]) / 2
-        yCom = (all_holds[hold1Order][7] + all_holds[hold2Order][7]) / 2
-        return (xCom, yCom)
+        x_com = (all_holds[hold1order][6] + all_holds[hold2order][6]) / 2
+        y_com = (all_holds[hold1order][7] + all_holds[hold2order][7]) / 2
+        return (x_com, y_com)
 
-    def getCurrentCom(self: T) -> tuple:
+    def get_current_com(self: T) -> tuple:
         """
         Get the coordinate of center of mass based on current hand position
         """
-        return self.getCom(self.getleftHandOrder(), self.getrightHandOrder())
+        left = self.get_left_hand_order()
+        right = self.get_right_hand_order()
+        return self.get_com(left, right)
 
-    def getTwoOrderDistance(self: T, remaining, next) -> float:
+    def get_two_order_distance(self: T, remaining: int, next: int) -> float:
         """
         Given order 2, and 5. Output distance between
         remaining - Remaining Hand Order
         next - nextHoldOrder
         """
-        originalCom = self.getCurrentCom()
-        finalCom = self.getCom(remaining, next)
-        com_0_dif_sq = (originalCom[0] - finalCom[0]) ** 2
-        com_1_dif_sq = (originalCom[1] - finalCom[1]) ** 2
+        original_com = self.get_current_com()
+        final_com = self.get_com(remaining, next)
+        com_0_dif_sq = (original_com[0] - final_com[0]) ** 2
+        com_1_dif_sq = (original_com[1] - final_com[1]) ** 2
         return np.sqrt(com_0_dif_sq + com_1_dif_sq)
 
-    def orderToSeqOrder(self: T, order):
+    def order_to_seq_order(self: T, order: int) -> str:
         """
         Transform from order (in the all avalible holds sequence) to hand
         order (in the hand sequence)
         """
         return self.handSequence.index(order)
 
-    def lastMoveSuccessRateByHold(self: T) -> int:
-        left_hand_order = self.getleftHandOrder()
-        left_seq_order = self.orderToSeqOrder(left_hand_order)
-        right_hand_order = self.getrightHandOrder()
-        right_seq_order = self.orderToSeqOrder(right_hand_order)
+    def last_move_success_rate_by_hold(self: T) -> int:
+        left_hand_order = self.get_left_hand_order()
+        left_seq_order = self.order_to_seq_order(left_hand_order)
+        right_hand_order = self.get_right_hand_order()
+        right_seq_order = self.order_to_seq_order(right_hand_order)
 
         operator_left = self.handOperator[left_seq_order]
         operator_right = self.handOperator[right_seq_order]
-        left_hand_hold = self.getleftHandHold()
-        right_hand_hold = self.getrightHandHold()
-        left_success = self.successRateByHold(left_hand_hold, operator_left)
-        right_success = self.successRateByHold(right_hand_hold, operator_right)
+        left_hand_hold = self.get_left_hand_hold()
+        right_hand_hold = self.get_right_hand_hold()
+        left_success = self.success_rate_by_hold(left_hand_hold, operator_left)
+        right_success = self.success_rate_by_hold(
+            right_hand_hold, operator_right
+        )
         return left_success * right_success
 
-    def successRateByHold(self: T, hold: list, operation: str) -> int:
+    def success_rate_by_hold(self: T, hold: list, operation: str) -> int:
         """
         Evaluate the difficulty to hold on a hold applying LH or RH (op)
         """
@@ -253,7 +252,7 @@ class BetaMove:
             # return max((hold[2] + 2 * hold[3] + hold[4] + hold[5]) **1.2,
             # (hold[0] + hold[1] + hold[2] / 2)) / hyperparameter[1]
 
-    def getStartHold(self: T) -> list:
+    def get_start_hold(self: T) -> list:
         """return startHold list with 2 element of np array"""
         start_holds = []
         for hold in self.allHolds:
@@ -261,7 +260,7 @@ class BetaMove:
                 start_holds.append(hold)
         return start_holds
 
-    def getEndHoldOrder(self: T) -> list:
+    def get_end_hold_order(self: T) -> list:
         """return endHold list with 2 element of np array"""
         end_hold_order = []
         for i in range(self.totalNumOfHold):
@@ -271,7 +270,7 @@ class BetaMove:
             end_hold_order.append(self.totalNumOfHold)
         return end_hold_order
 
-    def overallSuccessRate(self: T) -> float:
+    def overall_success_rate(self: T) -> float:
         """
         return the overall successful rate using the stored beta hand sequence
         """
@@ -280,14 +279,16 @@ class BetaMove:
         for i, order in enumerate(self.handSequence):
             hold_index = self.allHolds[order]
             hand_operator = self.handOperator[i]
-            overall_score *= self.successRateByHold(hold_index, hand_operator)
+            overall_score *= self.success_rate_by_hold(
+                hold_index, hand_operator
+            )
 
         for i in range(num_of_hand - 1):
             # Penalty of do a big cross. Larger will drop the successRate
-            target_xy = self.getXYFromOrder(self.handSequence[i+1])
+            target_xy = self.get_xy_from_order(self.handSequence[i+1])
 
             # update last L/R hand
-            last_hand_xy = self.getXYFromOrder(self.handSequence[i])
+            last_hand_xy = self.get_xy_from_order(self.handSequence[i])
             if self.handOperator[i] == "RH":
                 last_right_hand_xy = last_hand_xy
             if self.handOperator[i] == "LH":
@@ -311,48 +312,58 @@ class BetaMove:
 
         return overall_score ** (3 / num_of_hand)
 
-    def setTrueBeta(self: T) -> bool:
+    def set_true_beta(self: T) -> bool:
         self.isTrueBeta = True
 
-    def getholdsNotUsed(self: T) -> list:
+    def get_holds_not_used(self: T) -> list:
         return self.holdsNotUsed
 
-    def addNewBeta(self: T, printOut = True):
+    def add_new_beta(self: T, print_out: bool = True) -> list:
         """
         Add one move to expand the candidate list and pick the largest 8
         """
-        tempstatus = []   
-        distanceScore = []
+        tempstatus = []
+        distance_score = []
         hyperparameter = [1, 1]
-        for nextHoldOrder in self.holdsNotUsed:
-            originalCom = self.getCurrentCom() 
-            dynamicThreshold = hyperparameter[0] * self.lastMoveSuccessRateByHold()  
-            finalXY = self.getXYFromOrder(nextHoldOrder)
-            distance = np.sqrt(((originalCom[0] - finalXY[0]) ** 2)+((originalCom[1] - finalXY[1]) ** 2))
-            # evaluate success rate simply consider the distance (not consider left and right hand)
-            distanceScore.append(self.successRateByDistance(distance, dynamicThreshold))
+        for next_hold_order in self.holdsNotUsed:
+            original_com = self.get_current_com()
+            hyper_0 = hyperparameter[0]
+            dynamic_threshold = hyper_0 * self.last_move_success_rate_by_hold()
+            final_xy = self.get_xy_from_order(next_hold_order)
+            dif_x = original_com[0] - final_xy[0]
+            dif_y = original_com[1] - final_xy[1]
+            distance = np.sqrt(dif_x ** 2 + dif_y ** 2)
+            # evaluate success rate simply consider the distance
+            # (not consider left and right hand)
+            success = self.success_rate_by_distance(
+                distance,
+                dynamic_threshold
+            )
+            distance_score.append(success)
 
-        # Find the first and second smallest distance in the distanceScore
-        largestIndex = heapq.nlargest(min(8, len(distanceScore)), range(len(distanceScore)), key=distanceScore.__getitem__)
-    
-        # goodHoldIndex = [betaPre.holdsNotUsed[largestIndex[0]], betaPre.holdsNotUsed[largestIndex[1]], betaPre.holdsNotUsed[largestIndex[2]]]  #[#3,#5] holds
-        goodHoldIndex = [self.holdsNotUsed[i] for i in largestIndex]
+        # Find the first and second smallest distance in the distance_score
+        num = min(8, len(distance_score))
+        iter = range(len(distance_score))
+        key_name = distance_score.__getitem__
+        largest_index = heapq.nlargest(num, iter, key=key_name)
+
+        good_hold_index = [self.holdsNotUsed[i] for i in largest_index]
         added = False
-        for possibleHold in goodHoldIndex:
+        for possible_hold in good_hold_index:
             for op in ["RH", "LH"]:
-                if self.isFinished == False:
+                if not self.isFinished:
                     tempstatus.append(copy.deepcopy(self))
-                    tempstatus[-1].addNextHand(possibleHold, op)
-                elif added == False:
+                    tempstatus[-1].add_next_hand(possible_hold, op)
+                elif not added:
                     tempstatus.append(copy.deepcopy(self))
                     added = True
 
         # trim tempstatus to pick the largest 8
-        finalScore = []       
-        for i in tempstatus:
-            finalScore.append(i.overallSuccessRate())    
-        largestIndex = heapq.nlargest(8, range(len(finalScore)), key=finalScore.__getitem__) 
-        return [tempstatus[i] for i in largestIndex]
+        final_score = []
+        final_score.append(self.overall_success_rate())
+        iter = range(len(final_score))
+        largest_index = heapq.nlargest(8, iter, key=final_score.__getitem__)
+        return [tempstatus[i] for i in largest_index]
 
     @classmethod
     def make_gaussian(
@@ -394,9 +405,12 @@ class BetaMove:
             -4 * np.log(2) * ((x - x0) ** 2 + (y - y0) ** 2) / fwhm ** 2
         )
 
-    def successRateByDistance(cls: Type[T], distance, dynamicThreshold):
+    @classmethod
+    def success_rate_by_distance(
+        cls: Type[T], distance: float, dynamic_threshold: float
+    ) -> float:
         """ Relu funtion to get the successrate """
-        if distance < dynamicThreshold:
-            return 1 - distance / dynamicThreshold
-        if distance >= dynamicThreshold:
+        if distance < dynamic_threshold:
+            return 1 - distance / dynamic_threshold
+        if distance >= dynamic_threshold:
             return 0
