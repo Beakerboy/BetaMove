@@ -124,8 +124,10 @@ class BetaMove:
             # Before Update a new hold
             original_com = self.get_current_com()
             hyper_zero = hyperparameter[0]
-            dynamic_threshold = hyper_zero * self.last_move_success_rate_by_hold()
- 
+            dynamic_threshold = (
+                hyper_zero * self.last_move_success_rate_by_hold()
+            )       
+
             # Update a new hold
             self.handSequence.append(next_hold)   # Add a new hold into beta!
             self.handOperator.append(op)         # indicate which hand
@@ -137,7 +139,7 @@ class BetaMove:
         return a coordinate tuple giving holdOrder
         (a num in processed data)
         """
-        return ((self.allHolds[hold_order][6]), (self.allHolds[hold_order][7])) 
+        return ((self.allHolds[hold_order][6]), (self.allHolds[hold_order][7]))
 
     def get_left_hand_order(self: T):
         """
@@ -177,7 +179,7 @@ class BetaMove:
         indicies = np.where((self.allHolds == hold).all(1))
         return indicies[0]
 
-    def get_com(self: T, hold1order: int, hold2order: int)-> tuple:
+    def get_com(self: T, hold1order: int, hold2order: int) -> tuple:
         """
         Get the coordinate of COM using current both hands order
 
@@ -202,7 +204,9 @@ class BetaMove:
         """
         Get the coordinate of center of mass based on current hand position
         """
-        return self.get_com(self.get_left_hand_order(), self.get_right_hand_order())
+        left = self.get_left_hand_order()
+        right = self.get_right_hand_order()
+        return self.get_com(left, right)
 
     def get_two_order_distance(self: T, remaining, next) -> float:
         """
@@ -216,14 +220,14 @@ class BetaMove:
         com_1_dif_sq = (original_com[1] - final_com[1]) ** 2
         return np.sqrt(com_0_dif_sq + com_1_dif_sq)
 
-    def orderToSeqOrder(self: T, order):
+    def order_to_seq_order(self: T, order):
         """
         Transform from order (in the all avalible holds sequence) to hand
         order (in the hand sequence)
         """
         return self.handSequence.index(order)
 
-    def lastMoveSuccessRateByHold(self: T) -> int:
+    def last_move_success_rate_by_hold(self: T) -> int:
         left_hand_order = self.get_left_hand_order()
         left_seq_order = self.order_to_seq_order(left_hand_order)
         right_hand_order = self.get_right_hand_order()
