@@ -51,7 +51,7 @@ class BetaMove:
             # Run the algorithm for 6 times
             totalRun = self.totalNumOfHold - 1
             for i in range(totalRun):  # how many new move you wan to add
-                status = self.addNewBeta()
+                status = self.add_new_beta()
                 finalScore = self.overallSuccessRate()
                 largestIndex = heapq.nlargest(4, range(len(finalScore)), key=finalScore.__getitem__)
                 if self.isFinished:
@@ -323,7 +323,7 @@ class BetaMove:
     def getholdsNotUsed(self: T) -> list:
         return self.holdsNotUsed
 
-    def addNewBeta(self: T, print_out: bool=True) -> list:
+    def add_new_beta(self: T, print_out: bool = True) -> list:
         """
         Add one move to expand the candidate list and pick the largest 8
         """
