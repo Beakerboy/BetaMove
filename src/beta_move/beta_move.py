@@ -17,7 +17,7 @@ class BetaMove:
         # Instance Attributes
         self._board: Moonboard = board
         self.allHolds = []
-        self.totalNumOfHold:int = 0
+        self.totalNumOfHold: int = 0
         self.holdsNotUsed = []
         self.handSequence = []
         self.handOperator = []
@@ -27,7 +27,7 @@ class BetaMove:
     def match_hold_features(self: T, climb: Climb) -> list:
         x_vectors: list = []
         if climb.is_valid:
-            i: int  = 0
+            i: int = 0
             x_vectors = np.zeros((10, climb.num_holds()))
             holds: list = climb.get_holds()
             for (x, y) in holds:
