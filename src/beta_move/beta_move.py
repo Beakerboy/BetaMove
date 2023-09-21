@@ -323,7 +323,7 @@ class BetaMove:
     def getholdsNotUsed(self: T) -> list:
         return self.holdsNotUsed
 
-    def addNewBeta(self: T, print_out: boolean=True) -> list:
+    def addNewBeta(self: T, print_out: bool=True) -> list:
         """
         Add one move to expand the candidate list and pick the largest 8
         """
