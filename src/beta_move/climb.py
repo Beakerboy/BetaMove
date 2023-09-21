@@ -75,7 +75,7 @@ class Climb:
         self._end_holds.sort(key=lambda x: x[1])
         return self._start_holds + self._mid_holds + self._end_holds
 
-    def get_hold(self: T, location: tuple) -> tuple[str, bool, bool]:
+    def get_hold(self: T, location: tuple[int, int]) -> tuple[str, bool, bool]:
         return self._holds[location]
 
     def set_grade(self: T, grade: str) -> None:
