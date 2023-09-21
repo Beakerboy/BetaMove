@@ -26,7 +26,7 @@ class BetaMove:
 
     def match_hold_features(self: T, climb: Climb) -> list:
         x_vectors: list = []
-        if climb.is_valid:
+        if climb.is_valid():
             i: int = 0
             x_vectors = np.zeros((10, climb.num_holds()))
             holds: list = climb.get_holds()
