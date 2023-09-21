@@ -1,5 +1,6 @@
+coveralls
+flake8-annotations
+mypy
+pep8-naming
 pytest
 pytest-cov
-coveralls
-pep8-naming
-flake8-annotations
