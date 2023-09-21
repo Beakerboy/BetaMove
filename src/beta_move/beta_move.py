@@ -111,7 +111,7 @@ class BetaMove:
             if self.handSequence[-1] == "LH":
                 self.handOperator.append("RH")
             if self.handSequence[-1] == "RH":
-                self.handOperator.append("LH"
+                self.handOperator.append("LH")
             self.touchEndHold = self.touchEndHold + 1;
             self.isFinished = True
 
