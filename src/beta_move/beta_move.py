@@ -18,7 +18,8 @@ class BetaMove:
         self._board: Moonboard = board
         self.allHolds: list[list] = []
         self.totalNumOfHold: int = 0
-        self.holdsNotUsed = []
+        # the index values of unused holds.
+        self.holdsNotUsed: list[int] = []
         self.handSequence = []
         self.handOperator = []
         self.isFinished: bool = False
