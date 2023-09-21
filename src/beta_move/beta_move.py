@@ -38,7 +38,7 @@ class BetaMove:
             num_non_end = climb.num_holds() - climb.num_finish()
             x_vectors[8:, num_non_end:] = np.array([[0], [1]])
         else:
-            # throw exception?
+            raise Exception("Climb is invalid.")
         return x_vectors
         
     def create_movement(self: T, climb: Climb) -> list:
