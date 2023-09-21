@@ -40,7 +40,7 @@ class Climb:
     def get_name(self: T) -> str:
         return self._name
 
-    def add_hold(self: T, hold: list) -> None:
+    def add_hold(self: T, hold: tuple(str, bool, bool)) -> None:
         if hold[1] and len(self._start_holds) == 2:
             raise Exception("Too many start holds")
         if hold[1] and int(hold[0][1:]) > 6:
