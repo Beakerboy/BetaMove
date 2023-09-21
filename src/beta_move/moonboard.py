@@ -28,25 +28,25 @@ class Moonboard:
             self._rh = self._transform("data/hold_features_2016_RH.csv")
             self._features = self._transform("data/hold_features.csv")
 
-    def get_features(self: T, position: list) -> list:
+    def get_features(self: T, position: tuple) -> list:
         """
         Return the features for the hold at a particular location
         """
         return self._features[position]
 
-    def get_rh_difficulty(self: T, position: list) -> int:
+    def get_rh_difficulty(self: T, position: tuple) -> int:
         """
         Return the right hand difficulty for the hold at a particular location
         """
         return self._rh[position]
 
-    def get_lh_difficulty(self: T, position: list) -> int:
+    def get_lh_difficulty(self: T, position: tuple) -> int:
         """
         Return the left hand difficulty for the hold at a particular location
         """
         return self._lh[position]
 
-    def hold_exists(self: T, position: list) -> bool:
+    def hold_exists(self: T, position: tuple) -> bool:
         """
         Check a hold is present on the board at a given location
         """
