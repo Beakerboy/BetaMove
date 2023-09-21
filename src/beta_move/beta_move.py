@@ -99,10 +99,11 @@ class BetaMove:
         """ return all avalible holds. N holds rows, 10 columns np array"""
         return self.allHolds
 
-    def addNextHand(self: T, nextHold, op):
+    def addNextHand(self: T, next_hold, op):
         """
         Operation to make add the next hold. Append handsequence and hand
         operation. nextHold is a hold. op is "LH" or "RH"
+        the last few lines don't really do anything.
         """  
         hyperparameter = [1, 1]
         if self.touchEndHold == 3:
@@ -117,19 +118,19 @@ class BetaMove:
         elif self.touchEndHold == 1 or self.isFinished == True: 
             pass
         else:
-            if nextHold in self.getEndHoldOrder():
+            if next_hold in self.getEndHoldOrder():
                 self.touchEndHold = self.touchEndHold + 1;
                 
             # Before Update a new hold
-            originalCom = self.getCurrentCom()
+            original_com = self.get_current_com()
             hyper_zero = hyperparameter[0]
-            dynamicThreshold = hyper_zero * self.lastMoveSuccessRateByHold()  
+            dynamic_threshold = hyper_zero * self.lastMoveSuccessRateByHold()  
  
             # Update a new hold
-            self.handSequence.append(nextHold)   # Add a new hold into beta!
+            self.handSequence.append(next_hold)   # Add a new hold into beta!
             self.handOperator.append(op)         # indicate which hand
-            if nextHold not in self.getEndHoldOrder():
-                self.holdsNotUsed.remove(nextHold)   # Not consider match
+            if next_hold not in self.getEndHoldOrder():
+                self.holdsNotUsed.remove(next_hold)   # Not consider match
             
             # after add a new hold
             if op == "LH":
@@ -137,17 +138,17 @@ class BetaMove:
             else:
                 remainingHandOrder = self.getleftHandOrder()
             
-            finalCom = self.getCom(remainingHandOrder, nextHold)
-            com_0_dif_sq = (originalCom[0] - finalCom[0]) ** 2
-            com_1_dif_sq = (originalCom[1] - finalCom[1]) ** 2
+            final_com = self.get_com(remainingHandOrder, next_hold)
+            com_0_dif_sq = (original_com[0] - final_com[0]) ** 2
+            com_1_dif_sq = (original_com[1] - final_com[1]) ** 2
             distance = np.sqrt(com_0_dif_sq + com_1_dif_sq)
 
-    def getXYFromOrder(self: T, holdOrder):
+    def getXYFromOrder(self: T, hold_order: int) -> tuple:
         """
         return a coordinate tuple giving holdOrder
         (a num in processed data)
         """
-        return ((self.allHolds[holdOrder][6]), (self.allHolds[holdOrder][7])) 
+        return ((self.allHolds[hold_order][6]), (self.allHolds[hold_order][7])) 
 
     def getleftHandOrder(self: T):
         """
@@ -187,15 +188,15 @@ class BetaMove:
         indicies = np.where((self.allHolds == hold).all(1))
         return indicies[0]
 
-    def get_com(self: T, hold1Order: int, hold2Order: int)-> tuple:
+    def get_com(self: T, hold1order: int, hold2order: int)-> tuple:
         """
         Get the coordinate of COM using current both hands order
 
         Parameters
         ----------
-        hold1Order : int
+        hold1order : int
             The move order index of the first hold
-        hold2Order : int
+        hold2order : int
             The move order index of the second hold
 
         Returns
@@ -204,9 +205,9 @@ class BetaMove:
             The climber's center of mass coordinates
         """
         all_holds = self.allHolds
-        xCom = (all_holds[hold1Order][6] + all_holds[hold2Order][6]) / 2
-        yCom = (all_holds[hold1Order][7] + all_holds[hold2Order][7]) / 2
-        return (xCom, yCom)
+        x_com = (all_holds[hold1order][6] + all_holds[hold2order][6]) / 2
+        y_com = (all_holds[hold1order][7] + all_holds[hold2order][7]) / 2
+        return (x_com, y_com)
 
     def getCurrentCom(self: T) -> tuple:
         """
