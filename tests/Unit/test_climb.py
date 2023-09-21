@@ -44,10 +44,10 @@ def test_get_hold() -> None:
 def test_valid() -> None:
     climb = Climb()
     assert not climb.is_valid()
-    climb.add_hold(["A1", True, False])
-    climb.add_hold(["A18", False, True])
+    climb.add_hold(("A1", True, False))
+    climb.add_hold(("A18", False, True))
     assert not climb.is_valid()
-    climb.add_hold(["A9", False, False])
+    climb.add_hold(("A9", False, False))
     assert climb.is_valid()
 
 
@@ -60,13 +60,13 @@ position_data = [
 def test_bad_column(data: str) -> None:
     climb = Climb()
     with pytest.raises(Exception):
-        climb.add_hold([data, False, False])
+        climb.add_hold((data, False, False))
 
 
 def test_bad_end() -> None:
     climb = Climb()
     with pytest.raises(Exception):
-        climb.add_hold(["A16", False, True])
+        climb.add_hold(("A16", False, True))
 
 
 def test_bad_start() -> None:
@@ -89,30 +89,30 @@ def test_bad_id(data: str) -> None:
 
 def test_too_many_starts() -> None:
     climb = Climb()
-    climb.add_hold(["A1", True, False])
-    climb.add_hold(["A2", True, False])
+    climb.add_hold(("A1", True, False))
+    climb.add_hold(("A2", True, False))
     with pytest.raises(Exception):
-        climb.add_hold(["A3", True, False])
+        climb.add_hold(("A3", True, False))
 
 
 def test_too_many_ends() -> None:
     climb = Climb()
-    climb.add_hold(["A18", False, True])
-    climb.add_hold(["B18", False, True])
+    climb.add_hold(("A18", False, True))
+    climb.add_hold(("B18", False, True))
     with pytest.raises(Exception):
-        climb.add_hold(["C18", False, True])
+        climb.add_hold(("C18", False, True))
 
 
 def test_too_many_holds() -> None:
     climb = Climb()
     for i in range(14):
-        climb.add_hold(["A" + str(i + 1), False, False])
+        climb.add_hold(("A" + str(i + 1), False, False))
     with pytest.raises(Exception):
-        climb.add_hold(["A15", False, False])
+        climb.add_hold(("A15", False, False))
 
 
 def test_add_duplicate_hold() -> None:
     climb = Climb()
-    climb.add_hold(["A1", True, False])
+    climb.add_hold(("A1", True, False))
     with pytest.raises(Exception):
-        climb.add_hold(["A1", False, False])
+        climb.add_hold(("A1", False, False))
