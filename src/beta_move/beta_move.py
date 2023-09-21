@@ -144,33 +144,38 @@ class BetaMove:
 
     def getXYFromOrder(self: T, holdOrder):
         """
-        return a coordinate tuple giving holdOrder (a num in processed data)
+        return a coordinate tuple giving holdOrder
+        (a num in processed data)
         """
         return ((self.allHolds[holdOrder][6]), (self.allHolds[holdOrder][7])) 
 
     def getleftHandOrder(self: T):
         """
-        Return a num of the last left hand hold's oreder (in processed data from bottom to top)
+        Return a num of the last left hand hold's oreder
+        (in processed data from bottom to top)
         """
         lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
         return self.handSequence[int(lastIndexOfRight)]
 
     def getrightHandOrder(self: T):
         """
-        Return a num of the last right hand hold's oreder (in processed data from bottom to top)
+        Return a num of the last right hand hold's oreder
+        (in processed data from bottom to top)
         """
         lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
         return self.handSequence[int(lastIndexOfRight)]
 
-    def getleftHandHold(self: T):
+    def getleftHandHold(self: T) -> np.array:
         """
-        Return a np array of the last right hand hold (in processed data from bottom to top)
+        Return a np array of the last right hand hold
+        (in processed data from bottom to top)
         """
         return self.allHolds[self.getleftHandOrder()]
 
     def getrightHandHold(self: T):
         """
-        Return a np array of the last right hand hold (in processed data from bottom to top)
+        Return a np array of the last right hand hold
+        (in processed data from bottom to top)
         """
         return self.allHolds[self.getrightHandOrder()]
 
