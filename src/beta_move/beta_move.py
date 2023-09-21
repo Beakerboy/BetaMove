@@ -38,7 +38,7 @@ class BetaMove:
             num_non_end = climb.num_holds() - climb.num_finish()
             x_vectors[8:, num_non_end:] = np.array([[0], [1]])
         return x_vectors
-    
+
     def create_movement(self: T, climb: Climb) -> list:
         # movement = []
         x_vectors = self.match_hold_features(climb)
@@ -49,8 +49,8 @@ class BetaMove:
             self.addStartHolds(0)
 
             # Run the algorithm for 6 times
-            totalRun = self.totalNumOfHold - 1
-            for i in range(totalRun):  # how many new move you wan to add
+            total_run = self.totalNumOfHold - 1
+            for i in range(total_run):  # how many new move you wan to add
                 status = self.add_new_beta()
                 finalScore = self.overallSuccessRate()
                 largestIndex = heapq.nlargest(4, range(len(finalScore)), key=finalScore.__getitem__)
@@ -58,8 +58,8 @@ class BetaMove:
                     break
     
             # last sorting for the best 5
-            finalScore = self.overallSuccessRate() 
-            largestIndex = heapq.nlargest(1, range(len(finalScore)), key=finalScore.__getitem__)
+            final_score = self.overallSuccessRate() 
+            largestIndex = heapq.nlargest(1, range(len(final_score)), key=final_score.__getitem__)
             # produce output
             output = {}
             
@@ -73,14 +73,14 @@ class BetaMove:
         Specifically add the first two hold as the starting hold. Consider one
         hold start situation
         """
-        opList = ["LH", "RH"]
+        op_list = ["LH", "RH"]
         startHoldList = self.getStartHold()
         first_start = startHoldList[0]
         if len(startHoldList) == 1:
             # Add a new hold into beta!
             self.handSequence.append(int(self.getOrderFromHold(first_start)))
             self.handSequence.append(int(self.getOrderFromHold(first_start)))
-            self.handOperator.extend(opList)
+            self.handOperator.extend(op_list)
             # Not consider match
             self.holdsNotUsed.remove(self.getOrderFromHold(startHoldList[0]))
         if len(startHoldList) == 2:
@@ -88,9 +88,9 @@ class BetaMove:
             second_start = startHoldList[1]
             self.handSequence.append(int(self.getOrderFromHold(first_start)))
             self.handSequence.append(int(self.getOrderFromHold(second_start)))
-            self.handOperator.append(opList[zeroOrOne])
+            self.handOperator.append(op_list[zeroOrOne])
             # indicate which hand
-            self.handOperator.append(opList[1 - zeroOrOne])
+            self.handOperator.append(op_list[1 - zeroOrOne])
             # Not consider match
             self.holdsNotUsed.remove(self.getOrderFromHold(first_start))
             self.holdsNotUsed.remove(self.getOrderFromHold(second_start))
@@ -162,8 +162,8 @@ class BetaMove:
         Return a num of the last right hand hold's oreder
         (in processed data from bottom to top)
         """
-        lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
-        return self.handSequence[int(lastIndexOfRight)]
+        last_index_of_right = ''.join(self.handOperator).rindex('R') / 2
+        return self.handSequence[int(last_index_of_right)]
 
     def getleftHandHold(self: T) -> np.array:
         """
