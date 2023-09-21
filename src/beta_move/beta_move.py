@@ -52,14 +52,16 @@ class BetaMove:
             total_run = self.totalNumOfHold - 1
             for i in range(total_run):  # how many new move you wan to add
                 status = self.add_new_beta()
-                finalScore = self.overall_success_rate()
-                largestIndex = heapq.nlargest(4, range(len(finalScore)), key=finalScore.__getitem__)
+                final_score = self.overall_success_rate()
+                iter = range(len(final_score))
+                largest_index = heapq.nlargest(4, iter, key=final_score.__getitem__)
                 if self.isFinished:
                     break
-    
+
             # last sorting for the best 5
-            final_score = self.overall_success_rate() 
-            largestIndex = heapq.nlargest(1, range(len(final_score)), key=final_score.__getitem__)
+            final_score = self.overall_success_rate()
+            iter = range(len(final_score))
+            largest_index = heapq.nlargest(1, iter, key=final_score.__getitem__)
             # produce output
             output = {}
             
@@ -68,7 +70,7 @@ class BetaMove:
             output["success"] = self.overall_success_rate()
             return output
 
-    def add_start_holds(self: T, zeroOrOne):
+    def add_start_holds(self: T, zeroOrOne: int) -> None:
         """
         Specifically add the first two hold as the starting hold. Consider one
         hold start situation
@@ -95,11 +97,11 @@ class BetaMove:
             self.holdsNotUsed.remove(self.get_order_from_hold(first_start))
             self.holdsNotUsed.remove(self.get_order_from_hold(second_start))
 
-    def get_all_holds(self: T):
+    def get_all_holds(self: T) -> dict:
         """ return all avalible holds. N holds rows, 10 columns np array"""
         return self.allHolds
 
-    def add_next_hand(self: T, next_hold, op):
+    def add_next_hand(self: T, next_hold, op: str) -> None:
         """
         Operation to make add the next hold. Append handsequence and hand
         operation. nextHold is a hold. op is "LH" or "RH"
