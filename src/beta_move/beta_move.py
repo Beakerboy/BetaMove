@@ -124,9 +124,6 @@ class BetaMove:
             # Before Update a new hold
             original_com = self.get_current_com()
             hyper_zero = hyperparameter[0]
-            dynamic_threshold = (
-                hyper_zero * self.last_move_success_rate_by_hold()
-            )       
 
             # Update a new hold
             self.handSequence.append(next_hold)   # Add a new hold into beta!
@@ -146,8 +143,8 @@ class BetaMove:
         Return a num of the last left hand hold's oreder
         (in processed data from bottom to top)
         """
-        lastIndexOfRight = ''.join(self.handOperator).rindex('R') / 2
-        return self.handSequence[int(lastIndexOfRight)]
+        last_index_of_right = ''.join(self.handOperator).rindex('R') / 2
+        return self.handSequence[int(last_index_of_right)]
 
     def get_right_hand_order(self: T):
         """
