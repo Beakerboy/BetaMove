@@ -26,6 +26,19 @@ class BetaMove:
         self.touchEndHold = 0
 
     def match_hold_features(self: T, climb: Climb) -> np.ndarray:
+        """
+        Create an array of hold information.
+
+        Parameters
+        ----------
+        climb : Climb
+            The move order index of the first hold
+
+        Returns
+        -------
+        numpy.ndarray
+            A table of hold characteristics, locations, and start/end flags
+        """
         x_vectors = np.zeros((10, climb.num_holds()))
         if climb.is_valid():
             i = 0
