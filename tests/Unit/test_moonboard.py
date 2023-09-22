@@ -17,12 +17,12 @@ def test_width() -> None:
     assert board.get_width() == 11
 
 
-def assert_hold_exists() -> None:
+def test_hold_exists() -> None:
     board = Moonboard()
     assert board.hold_exists((5, 4))
 
 
-def assert_hold_does_not_exist() -> None:
+def test_hold_does_not_exist() -> None:
     board = Moonboard()
     assert not board.hold_exists((0, 0))
 
