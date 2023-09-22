@@ -56,3 +56,12 @@ success_data = [
 def test_success_rate(input: list, expected: float) -> None:
     actual = BetaMove.success_rate_by_distance(*input)
     assert actual == expected
+
+
+def test_bad_climb() -> None
+    climb = Climb()
+    board = Moonboard()
+    app = BetaMove(board)
+    with pytest.raises(Exception):
+        output = app.match_hold_features(climb)
+        
