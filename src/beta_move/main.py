@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 from beta_move.beta_move import BetaMove
 from beta_move.climb import Climb
+from beta_move.moonboard import Moonboard
 
 
 def main() -> None:
@@ -32,8 +33,9 @@ def main() -> None:
             ).astype(int)
 
     # Create moonboard with he specified layout
+    board = Moonboard()
     # Create movement generator.
-    app = BetaMove(transform(args.left), transform(args.right))
+    app = BetaMove(board)
     # Load the json file
     f = open(args.filename)
     f_out = open(args.output, "a")
