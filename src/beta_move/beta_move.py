@@ -180,13 +180,13 @@ class BetaMove:
         """
         return self.allHolds[self.get_right_hand_order()]
 
-    def get_order_from_hold(self: T, hold: np.ndarray) -> np.ndarray:
+    def get_order_from_hold(self: T, hold: np.ndarray) -> int:
         """
         from a single hold (np array) to an order
         """
         # Use np.where to get row indices
         indicies = np.where((self.allHolds == hold).all(1))
-        return indicies[0]
+        return indicies[0][0]
 
     def get_com(self: T, hold1order: int, hold2order: int) -> tuple:
         """
