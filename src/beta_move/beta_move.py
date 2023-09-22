@@ -110,7 +110,7 @@ class BetaMove:
             self.holdsNotUsed.remove(self.get_order_from_hold(first_start))
             self.holdsNotUsed.remove(self.get_order_from_hold(second_start))
 
-    def get_all_holds(self: T) -> list:
+    def get_all_holds(self: T) -> np.ndarray:
         """ return all avalible holds. N holds rows, 10 columns np array"""
         return self.allHolds
 
@@ -166,7 +166,7 @@ class BetaMove:
         last_index_of_right = ''.join(self.handOperator).rindex('R') / 2
         return self.handSequence[int(last_index_of_right)]
 
-    def get_left_hand_hold(self: T) -> np.array:
+    def get_left_hand_hold(self: T) -> np.ndarray:
         """
         Return a np array of the last right hand hold
         (in processed data from bottom to top)
