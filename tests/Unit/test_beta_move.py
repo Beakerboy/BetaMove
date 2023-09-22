@@ -63,5 +63,5 @@ def test_bad_climb() -> None:
     board = Moonboard()
     app = BetaMove(board)
     with pytest.raises(Exception):
-        output = app.match_hold_features(climb)
+        app.match_hold_features(climb)
         
