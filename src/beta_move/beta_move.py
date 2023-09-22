@@ -229,7 +229,7 @@ class BetaMove:
         com_1_dif_sq = (original_com[1] - final_com[1]) ** 2
         return np.sqrt(com_0_dif_sq + com_1_dif_sq)
 
-    def order_to_seq_order(self: T, order: int) -> str:
+    def order_to_seq_order(self: T, order: int) -> int:
         """
         Transform from order (in the all avalible holds sequence) to hand
         order (in the hand sequence)
