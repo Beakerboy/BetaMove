@@ -20,10 +20,10 @@ def main() -> None:
 
     def transform(file: str) -> dict:
         features = pd.read_csv(file, dtype=str)
-        dict = {}
+        problem = {}
         for index in features.index:
             item = features.loc[index]
-            dict[
+            problem[
                 (
                     int(item['X_coord']),
                     int(item['Y_coord'])
@@ -31,6 +31,7 @@ def main() -> None:
             ] = np.array(
                 list(item['Difficulties'])
             ).astype(int)
+            return problem
 
     # Create moonboard with he specified layout
     board = Moonboard()
