@@ -3,7 +3,7 @@ import heapq
 import numpy as np
 from beta_move.climb import Climb
 from beta_move.moonboard import Moonboard
-from typing import TypeVar, Type
+from typing import Any, TypeVar, Type
 
 
 T = TypeVar('T', bound='BetaMove')
@@ -71,7 +71,7 @@ class BetaMove:
                 break
 
         # produce output
-        output = {}
+        output: dict[str, Any] = {}
 
         output["hold_index"] = self.handSequence
         output["hands"] = self.handOperator
