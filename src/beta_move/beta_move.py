@@ -180,7 +180,7 @@ class BetaMove:
         """
         return self.allHolds[self.get_right_hand_order()]
 
-    def get_order_from_hold(self: T, hold: np.ndarray) -> int:
+    def get_order_from_hold(self: T, hold: np.ndarray) -> np.ndarray:
         """
         from a single hold (np array) to an order
         """
