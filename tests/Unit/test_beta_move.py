@@ -58,7 +58,7 @@ def test_success_rate(input: list, expected: float) -> None:
     assert actual == expected
 
 
-def test_bad_climb() -> None
+def test_bad_climb() -> None:
     climb = Climb()
     board = Moonboard()
     app = BetaMove(board)
