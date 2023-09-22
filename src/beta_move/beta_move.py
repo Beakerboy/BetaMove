@@ -427,7 +427,5 @@ class BetaMove:
         cls: Type[T], distance: float, dynamic_threshold: float
     ) -> float:
         """ Relu funtion to get the successrate """
-        if distance < dynamic_threshold:
-            return 1 - distance / dynamic_threshold
-        if distance >= dynamic_threshold:
-            return 0
+        ratio = 1 - distance / dynamic_threshold
+        return 0 if distance >= dynamic_threshold else ratio
