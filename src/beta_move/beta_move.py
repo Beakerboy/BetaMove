@@ -173,14 +173,14 @@ class BetaMove:
         """
         return self.allHolds[self.get_left_hand_order()]
 
-    def get_right_hand_hold(self: T) -> list:
+    def get_right_hand_hold(self: T) -> np.ndarray:
         """
         Return a np array of the last right hand hold
         (in processed data from bottom to top)
         """
         return self.allHolds[self.get_right_hand_order()]
 
-    def get_order_from_hold(self: T, hold: str) -> np.ndarray:
+    def get_order_from_hold(self: T, hold: np.ndarray) -> int:
         """
         from a single hold (np array) to an order
         """
@@ -252,7 +252,7 @@ class BetaMove:
         )
         return left_success * right_success
 
-    def success_rate_by_hold(self: T, hold: list, operation: str) -> int:
+    def success_rate_by_hold(self: T, hold: np.ndarray, operation: str) -> int:
         """
         Evaluate the difficulty to hold on a hold applying LH or RH (op)
         """
