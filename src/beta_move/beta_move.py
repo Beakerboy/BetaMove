@@ -292,7 +292,7 @@ class BetaMove:
         return the overall successful rate using the stored beta hand sequence
         """
         num_of_hand = len(self.handSequence)
-        overall_score = 1
+        overall_score = 1.0
         for i, order in enumerate(self.handSequence):
             hold_index = self.allHolds[order]
             hand_operator = self.handOperator[i]
