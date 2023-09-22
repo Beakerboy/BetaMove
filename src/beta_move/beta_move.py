@@ -59,25 +59,24 @@ class BetaMove:
     def create_movement(self: T, climb: Climb) -> dict:
         # movement = []
         x_vectors = self.match_hold_features(climb)
-        if not x_vectors == []:
-            self.allHolds = x_vectors.T
-            self.totalNumOfHold = np.size(x_vectors.T, axis=0)
-            self.holdsNotUsed.extend(range(self.totalNumOfHold))
-            self.add_start_holds(0)
+        self.allHolds = x_vectors.T
+        self.totalNumOfHold = np.size(x_vectors.T, axis=0)
+        self.holdsNotUsed.extend(range(self.totalNumOfHold))
+        self.add_start_holds(0)
 
-            # Run the algorithm for 6 times
-            total_run = self.totalNumOfHold - 1
-            for i in range(total_run):  # how many new move you wan to add
-                if self.isFinished:
-                    break
+        # Run the algorithm for 6 times
+        total_run = self.totalNumOfHold - 1
+        for i in range(total_run):  # how many new move you wan to add
+            if self.isFinished:
+                break
 
-            # produce output
-            output = {}
+        # produce output
+        output = {}
 
-            output["hold_index"] = self.handSequence
-            output["hands"] = self.handOperator
-            output["success"] = self.overall_success_rate()
-            return output
+        output["hold_index"] = self.handSequence
+        output["hands"] = self.handOperator
+        output["success"] = self.overall_success_rate()
+        return output
 
     def add_start_holds(self: T, zero_or_one: int) -> None:
         """
