@@ -329,7 +329,7 @@ class BetaMove:
 
         return overall_score ** (3 / num_of_hand)
 
-    def set_true_beta(self: T) -> bool:
+    def set_true_beta(self: T) -> None:
         self.isTrueBeta = True
 
     def get_holds_not_used(self: T) -> list:
