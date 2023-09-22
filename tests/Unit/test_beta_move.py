@@ -44,3 +44,15 @@ gauss_data = [
 def test_make_gaussian(input: list, expected: float) -> None:
     actual = BetaMove.make_gaussian(*input)
     assert actual == expected
+
+
+success_data = [
+    [[0, 5], 1.0],
+    [[6, 5], 0.0],
+]
+
+
+@pytest.mark.parametrize("input, expected", success_data)
+def test_success_rate(input: list, expected: float) -> None:
+    actual = BetaMove.success_rate_by_distance(*input)
+    assert actual = expected
