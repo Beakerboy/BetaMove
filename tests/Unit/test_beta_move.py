@@ -55,4 +55,4 @@ success_data = [
 @pytest.mark.parametrize("input, expected", success_data)
 def test_success_rate(input: list, expected: float) -> None:
     actual = BetaMove.success_rate_by_distance(*input)
-    assert actual = expected
+    assert actual == expected
