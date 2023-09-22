@@ -31,7 +31,7 @@ def main() -> None:
             ] = np.array(
                 list(item['Difficulties'])
             ).astype(int)
-            return problem
+        return problem
 
     # Create moonboard with he specified layout
     board = Moonboard()
