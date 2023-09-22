@@ -38,10 +38,10 @@ def main() -> None:
     app = BetaMove(board)
     # Load the json file
     f = open(args.filename)
-    f_out = open(args.output, "a")
     data = json.load(f)
     for id in data:
         climb = Climb.from_json(id, data[id])
         # validate climb against moonboard.
         movement = app.create_movement(climb)
-        f_out.write(movement)
+        with open(args.output, 'a') as convert_file:
+            convert_file.write(json.dumps(movement))
