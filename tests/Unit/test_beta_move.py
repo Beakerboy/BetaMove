@@ -64,4 +64,3 @@ def test_bad_climb() -> None:
     app = BetaMove(board)
     with pytest.raises(Exception):
         app.match_hold_features(climb)
-        
