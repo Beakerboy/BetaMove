@@ -14,7 +14,7 @@ def test_constructor() -> None:
 
 
 def test_match_hold_features() -> None:
-    expected = [
+    expected = np.array([
         [5., 4., 9., 4., 1., 1., 5., 4., 1., 0.],
         [0., 2., 4., 2., 0., 0., 4., 7., 0., 0.],
         [1., 5., 2., 0., 0., 0., 0., 8., 0., 0.],
@@ -24,13 +24,13 @@ def test_match_hold_features() -> None:
         [1., 4., 3., 1., 0., 0., 2., 14., 0., 0.],
         [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
         [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
-    ]
+    ]).T
     board = Moonboard(2016)
     app = BetaMove(board)
     f = open('tests/Unit/342797.json')
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
-    np.testing.assert_array_equal(app.match_hold_features(climb).T, expected)
+    np.testing.assert_array_equal(app.match_hold_features(climb), expected)
 
 
 def test_get_all() -> None:
