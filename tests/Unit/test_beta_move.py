@@ -54,6 +54,15 @@ def test_get_all() -> None:
     np.testing.assert_array_equal(app.get_all_holds(), expected)
 
 
+def test_get_xy_from_order() -> None:
+    board = Moonboard(2016)
+    app = BetaMove(board)
+    f = open('tests/Unit/342797.json')
+    data = json.load(f)
+    climb = Climb.from_json("342797", data["342797"])
+    assert app.get_xy_from_order(0) == (5, 4)
+
+
 gauss_data = [
     [[[5, 6], [4, 5], "LH"], .37802090861230714],
     [[[3, 6], [4, 5], "RH"], .37802090861230714],
