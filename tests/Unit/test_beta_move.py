@@ -44,7 +44,7 @@ def test_get_all() -> None:
         [1., 4., 3., 1., 0., 0., 2., 14., 0., 0.],
         [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
         [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
-    ]).T
+    ])
     board = Moonboard(2016)
     app = BetaMove(board)
     f = open('tests/Unit/342797.json')
