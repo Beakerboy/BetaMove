@@ -31,7 +31,7 @@ def test_match_hokd_features() -> None:
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
     np.testing.assert_array_equal(app.match_hold_features(climb).T, expected)
-    np.testing.assert_array_equal(app.get_all_holds(climb).T, expected)
+    np.testing.assert_array_equal(app.get_all_holds().T, expected)
     
 
 gauss_data = [
