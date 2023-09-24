@@ -67,7 +67,6 @@ def test_get_left_hand_order() -> None:
 
 
 def test_get_xy_from_order() -> None:
-    
     app = setup_standard()
     assert app.get_xy_from_order(0) == (5, 4)
 
