@@ -60,6 +60,7 @@ def test_get_xy_from_order() -> None:
     f = open('tests/Unit/342797.json')
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
+    app.create_movement(climb)
     assert app.get_xy_from_order(0) == (5, 4)
 
 
