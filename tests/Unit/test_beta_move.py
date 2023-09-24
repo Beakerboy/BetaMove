@@ -7,6 +7,16 @@ from beta_move.climb import Climb
 from beta_move.moonboard import Moonboard
 
 
+def setup_standard() -> Moonboard:
+    board = Moonboard(2016)
+    app = BetaMove(board)
+    f = open('tests/Unit/342797.json')
+    data = json.load(f)
+    climb = Climb.from_json("342797", data["342797"])
+    app.create_movement(climb)
+    return app
+
+
 def test_constructor() -> None:
     board = Moonboard(2016)
     app = BetaMove(board)
@@ -45,22 +55,20 @@ def test_get_all() -> None:
         [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
         [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
     ])
-    board = Moonboard(2016)
-    app = BetaMove(board)
-    f = open('tests/Unit/342797.json')
-    data = json.load(f)
-    climb = Climb.from_json("342797", data["342797"])
-    app.create_movement(climb)
+    app = setup_standard()
     np.testing.assert_array_equal(app.get_all_holds(), expected)
 
 
+def test_get_left_hand_order() -> None:
+    app = BetaMove(Moonboard())
+    app.handOperator = ["LH", "RH", "RH", "LH"]
+    app.handSequence = [0, 1, 7, 9]
+    assert app.get_left_hand_order() == 9
+
+
 def test_get_xy_from_order() -> None:
-    board = Moonboard(2016)
-    app = BetaMove(board)
-    f = open('tests/Unit/342797.json')
-    data = json.load(f)
-    climb = Climb.from_json("342797", data["342797"])
-    app.create_movement(climb)
+    
+    app = setup_standard()
     assert app.get_xy_from_order(0) == (5, 4)
 
 
