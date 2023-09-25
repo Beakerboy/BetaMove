@@ -89,5 +89,5 @@ class Moonboard:
                     int(item['X_coord']),
                     int(item['Y_coord'])
                 )
-            ] = item['Difficulties']
+            ] = int(item['Difficulties'])
         return dict
