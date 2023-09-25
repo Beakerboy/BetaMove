@@ -67,6 +67,7 @@ class BetaMove:
         # Run the algorithm for 6 times
         total_run = self.totalNumOfHold - 1
         for i in range(total_run):  # how many new move you wan to add
+            self.addNewBeta(False)
             if self.isFinished:
                 break
 
