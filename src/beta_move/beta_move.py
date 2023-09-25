@@ -299,7 +299,7 @@ class BetaMove:
             overall_score *= self.success_rate_by_hold(
                 hold_index, hand_operator
             )
-        assert type(overall_score) is float
+        assert type(overall_score) is float, f'Type is {type(overall_score)}.'
         for i in range(num_of_hand - 1):
             # Penalty of do a big cross. Larger will drop the successRate
             target_xy = self.get_xy_from_order(self.handSequence[i+1])
