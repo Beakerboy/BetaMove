@@ -46,8 +46,8 @@ def test_match_hold_features() -> None:
 def test_success_by_hold() -> None:
     app = setup_standard()
     hold = app.allHolds[0]
-    assert app.seccess_rate_by_hold(hold, "LH") == 8
-    assert app.seccess_rate_by_hold(hold, "RH") == 7
+    assert app.success_rate_by_hold(hold, "LH") == 8
+    assert app.success_rate_by_hold(hold, "RH") == 7
 
 
 def test_overall_success() -> None:
