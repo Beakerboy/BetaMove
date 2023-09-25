@@ -256,18 +256,8 @@ class BetaMove:
         Evaluate the difficulty to hold on a hold applying LH or RH (op)
         """
         if operation == "LH":
-            # Chiang's evaluation
             return self._board.get_lh_difficulty((hold[6], hold[7]))
-
-            # Duh's evaluation
-            # return max((hold[0] + 2 * hold[1] + hold[2] + hold[5]) **1.2,
-            # (hold[2] / 2 + hold[3] + hold[4])) / hyperparameter[1]
-
-        # if RH
-        # Chiang's evaluation
         return self._board.get_rh_difficulty((hold[6], hold[7]))
-        # return max((hold[2] + 2 * hold[3] + hold[4] + hold[5]) **1.2,
-        # (hold[0] + hold[1] + hold[2] / 2)) / hyperparameter[1]
 
     def get_start_hold(self: T) -> list:
         """return startHold list with 2 element of np array"""
