@@ -24,8 +24,8 @@ class Moonboard:
         self._angle: int = angle
         self._height: int = 18
         if year == 2016:
-            self._lh = self._transform("data/hold_features_2016_LH.csv")
-            self._rh = self._transform("data/hold_features_2016_RH.csv")
+            self._lh = self._transform2("data/hold_features_2016_LH.csv")
+            self._rh = self._transform2("data/hold_features_2016_RH.csv")
             self._features = self._transform("data/hold_features.csv")
 
     def get_features(self: T, position: tuple) -> list:
@@ -77,4 +77,17 @@ class Moonboard:
             ] = np.array(
                 list(item['Difficulties'])
             ).astype(int)
+        return dict
+
+    def _transform2(self: T, file: str) -> dict:
+        features = pd.read_csv(file, dtype=str)
+        dict = {}
+        for index in features.index:
+            item = features.loc[index]
+            dict[
+                (
+                    int(item['X_coord']),
+                    int(item['Y_coord'])
+                )
+            ] = item['Difficulties']
         return dict
