@@ -54,7 +54,7 @@ def test_overall_success() -> None:
     app = setup_standard()
     app.handSequence = [0, 0, 1, 3, 4, 5, 7, 8]
     app. handOperator = ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH']
-    assert app.overall_success_rate() == 98.50396893
+    assert app.overall_success_rate() == 98.503968934466
 
 
 def test_get_all() -> None:
