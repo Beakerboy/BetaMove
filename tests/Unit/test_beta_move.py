@@ -43,6 +43,20 @@ def test_match_hold_features() -> None:
     np.testing.assert_array_equal(app.match_hold_features(climb), expected)
 
 
+def test_create_movement() -> None:
+    results = {
+        "hold_index": [0, 0, 1, 3, 4, 5, 7, 8],
+        "hands": ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH'],
+        "success": 98.50396893
+    }
+    board = Moonboard(2016)
+    app = BetaMove(board)
+    f = open('tests/Unit/342797.json')
+    data = json.load(f)
+    climb = Climb.from_json("342797", data["342797"])
+    assert app.create_movement(climb) == expected
+
+
 def test_get_all() -> None:
     expected = np.array([
         [5., 4., 9., 4., 1., 1., 5., 4., 1., 0.],
