@@ -24,6 +24,7 @@ class BetaMove:
         self.handSequence: list[int] = []
         # values of RH or LH to indicate which hand makes each move.
         self.handOperator: list[str] = []
+        
         self.isFinished: bool = False
         self.touchEndHold = 0
 
@@ -61,12 +62,11 @@ class BetaMove:
         x_vectors = self.match_hold_features(climb)
         self.allHolds = x_vectors.T
         self.totalNumOfHold = np.size(x_vectors.T, axis=0)
-        self.holdsNotUsed.extend(range(self.totalNumOfHold))
+        self.holdsNotUsed = range(self.totalNumOfHold)
         self.add_start_holds(0)
-
-        # Run the algorithm for 6 times
         total_run = self.totalNumOfHold - 1
-        for i in range(total_run):  # how many new move you wan to add
+
+        for i in range(total_run):
             self.add_new_beta(False)
             if self.isFinished:
                 break
