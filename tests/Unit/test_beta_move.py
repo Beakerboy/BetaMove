@@ -66,7 +66,7 @@ def test_get_left_hand_order() -> None:
     assert app.get_left_hand_order() == 9
 
 
-def test_get_left_hand_order() -> None:
+def test_get_right_hand_order() -> None:
     app = BetaMove(Moonboard())
     app.handOperator = ["LH", "RH", "RH", "LH"]
     app.handSequence = [0, 1, 7, 9]
