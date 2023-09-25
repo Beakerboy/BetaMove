@@ -298,7 +298,7 @@ class BetaMove:
             hold = self.allHolds[order]
             hand_operator = self.handOperator[i]
             success = self.success_rate_by_hold(hold, hand_operator)
-            # assert type(success) is int, f'Hold is {hold}, Operator is {hand_operator}.'
+            assert type(success) is int, f'Type is {type(success)}, Hold is {hold}, Operator is {hand_operator}.'
             overall_score *= success
             # assert type(overall_score) is float, f'Type is {type(overall_score)}. Hold index is {order}.'
         
