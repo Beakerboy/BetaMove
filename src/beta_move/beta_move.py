@@ -288,7 +288,7 @@ class BetaMove:
             hand_operator = self.handOperator[i]
             success = self.success_rate_by_hold(hold, hand_operator)
             overall_score *= success
-        
+
         for i in range(num_of_hand - 1):
             # Penalty of do a big cross. Larger will drop the successRate
             target_xy = self.get_xy_from_order(self.handSequence[i+1])
