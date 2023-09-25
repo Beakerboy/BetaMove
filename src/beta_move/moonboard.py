@@ -19,7 +19,7 @@ class Moonboard:
         self._rh: dict[tuple[int, int], int] = {}
 
         # Hold Features
-        self._features: dict[tuple, np.ndarray] = {}
+        self._features: dict[tuple[int, int], np.ndarray] = {}
 
         self._angle: int = angle
         self._height: int = 18
