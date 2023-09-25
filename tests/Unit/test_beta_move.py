@@ -43,6 +43,12 @@ def test_match_hold_features() -> None:
     np.testing.assert_array_equal(app.match_hold_features(climb), expected)
 
 
+def test_success_by_hold() -> None:
+    app = setup_standard()
+    hold = app.AllHolds[0]
+    assert app.seccess_rate_by_hold(hold, "LH") == 8
+    assert app.seccess_rate_by_hold(hold, "RH") == 7
+    
 def test_overall_success() -> None:
     app = setup_standard()
     app.handSequence = [0, 0, 1, 3, 4, 5, 7, 8]
