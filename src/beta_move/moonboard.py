@@ -13,10 +13,10 @@ class Moonboard:
 
         # Instance Attributes
         # Left Hand Difficulties
-        self._lh: dict[tuple, int] = {}
+        self._lh: dict[tuple[int, int], int] = {}
 
         # Right Hand Difficulties
-        self._rh: dict[tuple, int] = {}
+        self._rh: dict[tuple[int, int], int] = {}
 
         # Hold Features
         self._features: dict[tuple, np.ndarray] = {}
@@ -64,7 +64,7 @@ class Moonboard:
         """
         return 11
 
-    def _transform(self: T, file: str) -> dict[tuple, np.ndarray]:
+    def _transform(self: T, file: str) -> dict[tuple[int, int], np.ndarray]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
@@ -79,7 +79,7 @@ class Moonboard:
             ).astype(int)
         return dict
 
-    def _transform2(self: T, file: str) -> dict[tuple, int]:
+    def _transform2(self: T, file: str) -> dict[tuple[int, int], int]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
