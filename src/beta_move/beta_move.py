@@ -89,7 +89,7 @@ class BetaMove:
         key_func = final_score.__getitem__
         largest_index = heapq.nlargest(1, iter, key=key_func)
         # produce output
-        output: dict[str, Any] = {}
+        output: dict[int, Any] = {}
         for i in largest_index:
             output[i] = status[i]
             hand_seq = status[i].handSequence
@@ -102,9 +102,9 @@ class BetaMove:
             print(coor_list)
             print(hand_seq, hand_op, status[i].overall_success_rate())
 
-        output["hold_index"] = status[0].handSequence
-        output["hands"] = status[0].handOperator
-        output["success"] = status[0].overall_success_rate()
+        print(status[0].handSequence)
+        # output["hands"] = status[0].handOperator
+        # output["success"] = status[0].overall_success_rate()
         return output
 
     def add_start_holds(self: T, zero_or_one: int) -> None:
