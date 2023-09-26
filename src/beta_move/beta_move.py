@@ -63,20 +63,40 @@ class BetaMove:
         self.allHolds = x_vectors.T
         self.totalNumOfHold = np.size(x_vectors.T, axis=0)
         self.holdsNotUsed = list(range(self.totalNumOfHold))
+        beta1 = copy.deepcopy(self)
+        beta2 = copy.deepcopy(self)
+        status = [beta1, beta2]
+        status[0].add_start_holds(0)
+        status[1].add_start_holds(1)
         self.add_start_holds(0)
-        total_run = self.totalNumOfHold - 1
+        total_run = status[0].totalNumOfHold - 1
 
         for i in range(total_run):
-            self.add_new_beta(False)
-            if self.isFinished:
-                break
-
+            status = BetaMove.add_new_beta(status, False)
+            final_score = []
+            for i in status:   
+                final_score.append(i.overall_success_rate())
+                iter = range(len(finalScore))
+                largest_index = heapq.nlargest(4, iter, key=finalScore.__getitem__)
+                comp1 = status[largest_index[0]].isFinished
+                if (comp1 and status[largest_index[1]].isFinished) == True:
+                    break
+        finalScore = [] 
+        for i in status:   
+            finalScore.append(i.overall_success_rate())
+        iter = range(len(finalScore))
+        largestIndex = heapq.nlargest(1, iter, key=finalScore.__getitem__)
         # produce output
         output: dict[str, Any] = {}
-
-        output["hold_index"] = self.handSequence
-        output["hands"] = self.handOperator
-        output["success"] = self.overall_success_rate()
+        for i in largestIndex:
+            output[i] = status[i]
+            hand_seq = status[i].handSequence
+            print([BetaMove.coordinate_to_string(status[i].getXYFromOrder(j)) for j in hand_seq])
+            print(hand_seq, status[i].handOperator, status[i].overallSuccessRate())
+        
+        output["hold_index"] = status[0].handSequence
+        output["hands"] = status[0].handOperator
+        output["success"] = status[0].overall_success_rate()
         return output
 
     def add_start_holds(self: T, zero_or_one: int) -> None:
@@ -318,7 +338,8 @@ class BetaMove:
     def get_holds_not_used(self: T) -> list:
         return self.holdsNotUsed
 
-    def add_new_beta(self: T, print_out: bool = True) -> list:
+    @classmethod
+    def add_new_beta(cls: Type[T], print_out: bool = True) -> list:
         """
         Add one move to expand the candidate list and pick the largest 8
         """
@@ -412,3 +433,9 @@ class BetaMove:
         """ Relu funtion to get the successrate """
         ratio = 1 - distance / dynamic_threshold
         return 0 if distance >= dynamic_threshold else ratio
+
+    @classmethod
+    def coordinate_to_string(cls: Type[T], coordinate: tuple) -> str:
+        """ convert (9.0 ,4.0) to "J5" """
+        alphabateList = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]
+        return str(alphabateList[int(coordinate[0])]) + str(int(coordinate[1]) + 1)
