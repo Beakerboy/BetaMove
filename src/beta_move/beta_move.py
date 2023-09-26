@@ -74,9 +74,9 @@ class BetaMove:
         for i in range(total_run):
             status = BetaMove.add_new_beta(status, False)
             final_score = []
-            for i in status:   
+            for i in status:
                 final_score.append(i.overall_success_rate())
-                iter = range(len(finalScore))
+                iter = range(len(final_score))
                 largest_index = heapq.nlargest(4, iter, key=final_score.__getitem__)
                 comp1 = status[largest_index[0]].isFinished
                 if comp1 and status[largest_index[1]].isFinished:
