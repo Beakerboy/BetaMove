@@ -355,40 +355,41 @@ class BetaMove:
         Add one move to expand the candidate list and pick the largest 8
         """
         tempstatus = []
-        distance_score = []
-        hyperparameter = [1, 1]
-        for next_hold_order in self.holdsNotUsed:
-            original_com = self.get_current_com()
-            hyper_0 = hyperparameter[0]
-            dynamic_threshold = hyper_0 * self.last_move_success_rate_by_hold()
-            final_xy = self.get_xy_from_order(next_hold_order)
-            dif_x = original_com[0] - final_xy[0]
-            dif_y = original_com[1] - final_xy[1]
-            distance = np.sqrt(dif_x ** 2 + dif_y ** 2)
-            # evaluate success rate simply consider the distance
-            # (not consider left and right hand)
-            success = self.success_rate_by_distance(
-                distance,
-                dynamic_threshold
-            )
-            distance_score.append(success)
+        for betaPre in status:
+            distance_score = []
+            hyperparameter = [1, 1]
+            for next_hold_order in betaPre.holdsNotUsed:
+                original_com = betaPre.get_current_com()
+                hyper_0 = hyperparameter[0]
+                dynamic_threshold = hyper_0 * betaPre.last_move_success_rate_by_hold()
+                final_xy = betaPre.get_xy_from_order(next_hold_order)
+                dif_x = original_com[0] - final_xy[0]
+                dif_y = original_com[1] - final_xy[1]
+                distance = np.sqrt(dif_x ** 2 + dif_y ** 2)
+                # evaluate success rate simply consider the distance
+                # (not consider left and right hand)
+                success = betaPre.success_rate_by_distance(
+                    distance,
+                    dynamic_threshold
+                )
+                distance_score.append(success)
 
-        # Find the first and second smallest distance in the distance_score
-        num = min(8, len(distance_score))
-        iter = range(len(distance_score))
-        key_name = distance_score.__getitem__
-        largest_index = heapq.nlargest(num, iter, key=key_name)
+            # Find the first and second smallest distance in the distance_score
+            num = min(8, len(distance_score))
+            iter = range(len(distance_score))
+            key_name = distance_score.__getitem__
+            largest_index = heapq.nlargest(num, iter, key=key_name)
 
-        good_hold_index = [self.holdsNotUsed[i] for i in largest_index]
-        added = False
-        for possible_hold in good_hold_index:
-            for op in ["RH", "LH"]:
-                if not self.isFinished:
-                    tempstatus.append(copy.deepcopy(self))
-                    tempstatus[-1].add_next_hand(possible_hold, op)
-                elif not added:
-                    tempstatus.append(copy.deepcopy(self))
-                    added = True
+            good_hold_index = [betaPre.holdsNotUsed[i] for i in largest_index]
+            added = False
+            for possible_hold in good_hold_index:
+                for op in ["RH", "LH"]:
+                    if not betaPre.isFinished:
+                        tempstatus.append(copy.deepcopy(betaPre))
+                        tempstatus[-1].add_next_hand(possible_hold, op)
+                    elif not added:
+                        tempstatus.append(copy.deepcopy(betaPre))
+                        added = True
 
         # trim tempstatus to pick the largest 8
         final_score = []
