@@ -355,20 +355,20 @@ class BetaMove:
         Add one move to expand the candidate list and pick the largest 8
         """
         tempstatus = []
-        for betaPre in status:
+        for beta_pre in status:
             distance_score = []
             hyperparameter = [1, 1]
-            for next_hold_order in betaPre.holdsNotUsed:
-                original_com = betaPre.get_current_com()
+            for next_hold_order in beta_pre.holdsNotUsed:
+                original_com = beta_pre.get_current_com()
                 hyper_0 = hyperparameter[0]
-                dynamic_threshold = hyper_0 * betaPre.last_move_success_rate_by_hold()
-                final_xy = betaPre.get_xy_from_order(next_hold_order)
+                dynamic_threshold = hyper_0 * beta_pre.last_move_success_rate_by_hold()
+                final_xy = beta_pre.get_xy_from_order(next_hold_order)
                 dif_x = original_com[0] - final_xy[0]
                 dif_y = original_com[1] - final_xy[1]
                 distance = np.sqrt(dif_x ** 2 + dif_y ** 2)
                 # evaluate success rate simply consider the distance
                 # (not consider left and right hand)
-                success = betaPre.success_rate_by_distance(
+                success = beta_pre.success_rate_by_distance(
                     distance,
                     dynamic_threshold
                 )
