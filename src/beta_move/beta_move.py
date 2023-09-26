@@ -439,5 +439,5 @@ class BetaMove:
     def coordinate_to_string(cls: Type[T], coordinate: tuple) -> str:
         """ convert (9.0 ,4.0) to "J5" """
         alphabet_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]
-        str1 = alphabet_list[int(coordinate[0])])
-        return str(str1 + str(int(coordinate[1]) + 1)
+        str1 = alphabet_list[int(coordinate[0])]
+        return str(str1) + str(int(coordinate[1]) + 1)
