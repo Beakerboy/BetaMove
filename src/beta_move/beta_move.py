@@ -62,7 +62,7 @@ class BetaMove:
         x_vectors = self.match_hold_features(climb)
         self.allHolds = x_vectors.T
         self.totalNumOfHold = np.size(x_vectors.T, axis=0)
-        self.holdsNotUsed = range(self.totalNumOfHold)
+        self.holdsNotUsed = list(range(self.totalNumOfHold))
         self.add_start_holds(0)
         total_run = self.totalNumOfHold - 1
 
