@@ -77,23 +77,24 @@ class BetaMove:
             for i in status:   
                 final_score.append(i.overall_success_rate())
                 iter = range(len(finalScore))
-                largest_index = heapq.nlargest(4, iter, key=finalScore.__getitem__)
+                largest_index = heapq.nlargest(4, iter, key=final_score.__getitem__)
                 comp1 = status[largest_index[0]].isFinished
-                if (comp1 and status[largest_index[1]].isFinished) == True:
+                if comp1 and status[largest_index[1]].isFinished:
                     break
-        finalScore = [] 
-        for i in status:   
-            finalScore.append(i.overall_success_rate())
-        iter = range(len(finalScore))
-        largestIndex = heapq.nlargest(1, iter, key=finalScore.__getitem__)
+        final_score = []
+        for i in status:
+            final_score.append(i.overall_success_rate())
+        iter = range(len(final_score))
+        largest_index = heapq.nlargest(1, iter, key=final_score.__getitem__)
         # produce output
         output: dict[str, Any] = {}
-        for i in largestIndex:
+        for i in largest_index:
             output[i] = status[i]
             hand_seq = status[i].handSequence
-            print([BetaMove.coordinate_to_string(status[i].getXYFromOrder(j)) for j in hand_seq])
-            print(hand_seq, status[i].handOperator, status[i].overallSuccessRate())
-        
+            hand_op = status[i].handOperator
+            print([self.coordinate_to_string(status[i].get_xy_from_order(j)) for j in hand_seq])
+            print(hand_seq, hand_op, status[i].overall_success_rate())
+
         output["hold_index"] = status[0].handSequence
         output["hands"] = status[0].handOperator
         output["success"] = status[0].overall_success_rate()
