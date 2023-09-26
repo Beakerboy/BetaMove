@@ -361,7 +361,8 @@ class BetaMove:
             for next_hold_order in beta_pre.holdsNotUsed:
                 original_com = beta_pre.get_current_com()
                 hyper_0 = hyperparameter[0]
-                dynamic_threshold = hyper_0 * beta_pre.last_move_success_rate_by_hold()
+                success_rate = beta_pre.last_move_success_rate_by_hold()
+                dynamic_threshold = hyper_0 * success_rate
                 final_xy = beta_pre.get_xy_from_order(next_hold_order)
                 dif_x = original_com[0] - final_xy[0]
                 dif_y = original_com[1] - final_xy[1]
@@ -380,15 +381,15 @@ class BetaMove:
             key_name = distance_score.__getitem__
             largest_index = heapq.nlargest(num, iter, key=key_name)
 
-            good_hold_index = [betaPre.holdsNotUsed[i] for i in largest_index]
+            good_hold_index = [beta_pre.holdsNotUsed[i] for i in largest_index]
             added = False
             for possible_hold in good_hold_index:
                 for op in ["RH", "LH"]:
-                    if not betaPre.isFinished:
-                        tempstatus.append(copy.deepcopy(betaPre))
+                    if not beta_pre.isFinished:
+                        tempstatus.append(copy.deepcopy(beta_pre))
                         tempstatus[-1].add_next_hand(possible_hold, op)
                     elif not added:
-                        tempstatus.append(copy.deepcopy(betaPre))
+                        tempstatus.append(copy.deepcopy(beta_pre))
                         added = True
 
         # trim tempstatus to pick the largest 8
