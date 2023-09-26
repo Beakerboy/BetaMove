@@ -348,7 +348,7 @@ class BetaMove:
 
     @classmethod
     def add_new_beta(cls: Type[T],
-                     status: list[Type[T]],
+                     status: list[T],
                      print_out: bool = True
                      ) -> list:
         """
