@@ -77,7 +77,8 @@ class BetaMove:
             for i in status:
                 final_score.append(i.overall_success_rate())
                 iter = range(len(final_score))
-                largest_index = heapq.nlargest(4, iter, key=final_score.__getitem__)
+                key_func = final_score.__getitem__
+                largest_index = heapq.nlargest(4, iter, key=key_func)
                 comp1 = status[largest_index[0]].isFinished
                 if comp1 and status[largest_index[1]].isFinished:
                     break
@@ -85,7 +86,8 @@ class BetaMove:
         for i in status:
             final_score.append(i.overall_success_rate())
         iter = range(len(final_score))
-        largest_index = heapq.nlargest(1, iter, key=final_score.__getitem__)
+        key_func = final_score.__getitem__
+        largest_index = heapq.nlargest(1, iter, key=key_func)
         # produce output
         output: dict[str, Any] = {}
         for i in largest_index:
