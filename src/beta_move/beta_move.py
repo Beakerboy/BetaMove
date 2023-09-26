@@ -24,7 +24,7 @@ class BetaMove:
         self.handSequence: list[int] = []
         # values of RH or LH to indicate which hand makes each move.
         self.handOperator: list[str] = []
-        
+
         self.isFinished: bool = False
         self.touchEndHold = 0
 
