@@ -339,7 +339,7 @@ class BetaMove:
         return self.holdsNotUsed
 
     @classmethod
-    def add_new_beta(cls: Type[T], print_out: bool = True) -> list:
+    def add_new_beta(cls: Type[T], status: list[BetaMove], print_out: bool = True) -> list:
         """
         Add one move to expand the candidate list and pick the largest 8
         """
@@ -380,12 +380,12 @@ class BetaMove:
                     added = True
 
         # trim tempstatus to pick the largest 8
-        final_score = []       
+        final_score = []
         for i in tempstatus:
             final_score.append(i.overallSuccessRate())
         iter = range(len(final_score))
         largest_index = heapq.nlargest(8, iter, key=final_score.__getitem__)
-        return [tempstatus[i] for i in largestIndex]
+        return [tempstatus[i] for i in largest_index]
 
     @classmethod
     def make_gaussian(
@@ -438,5 +438,6 @@ class BetaMove:
     @classmethod
     def coordinate_to_string(cls: Type[T], coordinate: tuple) -> str:
         """ convert (9.0 ,4.0) to "J5" """
-        alphabate_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]
-        return str(alphabate_list[int(coordinate[0])]) + str(int(coordinate[1]) + 1)
+        alphabet_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]
+        str1 = alphabet_list[int(coordinate[0])])
+        return str(str1 + str(int(coordinate[1]) + 1)
