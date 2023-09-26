@@ -395,7 +395,7 @@ class BetaMove:
         # trim tempstatus to pick the largest 8
         final_score = []
         for i in tempstatus:
-            final_score.append(i.overallSuccessRate())
+            final_score.append(i.overall_success_rate())
         iter = range(len(final_score))
         largest_index = heapq.nlargest(8, iter, key=final_score.__getitem__)
         return [tempstatus[i] for i in largest_index]
