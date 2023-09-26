@@ -342,7 +342,10 @@ class BetaMove:
         return self.holdsNotUsed
 
     @classmethod
-    def add_new_beta(cls: Type[T], status: list[Type[T]], print_out: bool = True) -> list:
+    def add_new_beta(cls: Type[T],
+                     status: list[Type[T]],
+                     print_out: bool = True
+                    ) -> list:
         """
         Add one move to expand the candidate list and pick the largest 8
         """
