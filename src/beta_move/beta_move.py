@@ -94,7 +94,12 @@ class BetaMove:
             output[i] = status[i]
             hand_seq = status[i].handSequence
             hand_op = status[i].handOperator
-            print([self.coordinate_to_string(status[i].get_xy_from_order(j)) for j in hand_seq])
+            coor_list = []
+            for j in hand_seq:
+                xy = status[i].get_xy_from_order(j)
+                coor = self.coordinate_to_string(xy)
+                coor_list.append(coor)
+            print(coor_list)
             print(hand_seq, hand_op, status[i].overall_success_rate())
 
         output["hold_index"] = status[0].handSequence
