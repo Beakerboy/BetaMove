@@ -83,8 +83,8 @@ class BetaMove:
                 if comp1 and status[largest_index[1]].isFinished:
                     break
         final_score = []
-        for k in status:
-            final_score.append(k.overall_success_rate())
+        for j in status:
+            final_score.append(j.overall_success_rate())
         iter = range(len(final_score))
         key_func = final_score.__getitem__
         largest_index = heapq.nlargest(1, iter, key=key_func)
@@ -95,8 +95,8 @@ class BetaMove:
             hand_seq = status[i].handSequence
             hand_op = status[i].handOperator
             coor_list = []
-            for j in hand_seq:
-                xy = status[i].get_xy_from_order(j)
+            for k in hand_seq:
+                xy = status[i].get_xy_from_order(k)
                 coor = self.coordinate_to_string(xy)
                 coor_list.append(coor)
             print(coor_list)
