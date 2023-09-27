@@ -263,14 +263,10 @@ class BetaMove:
         right_hand_order = self.get_right_hand_order()
         right_seq_order = self.order_to_seq_order(right_hand_order)
 
-        operator_left = self.handOperator[left_seq_order]
-        operator_right = self.handOperator[right_seq_order]
         left_hand_hold = self.get_left_hand_hold()
         right_hand_hold = self.get_right_hand_hold()
-        left_success = self.success_rate_by_hold(left_hand_hold, operator_left)
-        right_success = self.success_rate_by_hold(
-            right_hand_hold, operator_right
-        )
+        left_success = self.success_rate_by_hold(left_hand_hold, "LH")
+        right_success = self.success_rate_by_hold(right_hand_hold, "RH")
         return left_success * right_success
 
     def success_rate_by_hold(self: T, hold: np.ndarray, operation: str) -> int:
