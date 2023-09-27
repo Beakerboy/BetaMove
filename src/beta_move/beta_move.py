@@ -155,14 +155,11 @@ class BetaMove:
         else:
             if next_hold in self.get_end_hold_order():
                 self.touchEndHold = self.touchEndHold + 1
-
-            # Before Update a new hold
-
+            else:
+                self.holdsNotUsed.remove(next_hold)   # Not consider match
             # Update a new hold
             self.handSequence.append(next_hold)   # Add a new hold into beta!
             self.handOperator.append(op)         # indicate which hand
-            if next_hold not in self.get_end_hold_order():
-                self.holdsNotUsed.remove(next_hold)   # Not consider match
 
     def get_xy_from_order(self: T, hold_order: int) -> tuple:
         """
