@@ -105,34 +105,29 @@ class BetaMove:
         numpy.ndarray
             A table of hold characteristics, locations, and start/end flags
         """
-        """
-        Specifically add the first two hold as the starting hold. Consider one
-        hold start situation
-        """
         op_list = ["LH", "RH"]
         start_hold_list = self.get_start_hold()
         first_start = start_hold_list[0]
         if len(start_hold_list) == 1:
-            # Add a new hold into beta!
+            # Add a new hold into beta.
             first_order = self.get_order_from_hold(first_start)
             self.handSequence.append(int(first_order))
             self.handSequence.append(int(first_order))
             self.handOperator.extend(op_list)
-            # Not consider match
+
             hold_order = self.get_order_from_hold(start_hold_list[0])
             self.holdsNotUsed.remove(hold_order)
         if len(start_hold_list) == 2:
-            # Add a new hold into beta!
+            # Add a new hold into beta.
             second_start = start_hold_list[1]
             first_order = self.get_order_from_hold(first_start)
             second_order = self.get_order_from_hold(second_start)
             self.handSequence.append(int(first_order))
             self.handSequence.append(int(second_order))
+            # Set the specified hand to each hold.
             zero_or_one = 1 if right_first else 0
             self.handOperator.append(op_list[zero_or_one])
-            # indicate which hand
             self.handOperator.append(op_list[1 - zero_or_one])
-            # Not consider match
             self.holdsNotUsed.remove(self.get_order_from_hold(first_start))
             self.holdsNotUsed.remove(self.get_order_from_hold(second_start))
 
