@@ -73,10 +73,10 @@ def test_add_start() -> None:
     f = open('tests/Unit/342797.json')
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
-    x_vectors = self.match_hold_features(climb)
-    self.allHolds = x_vectors.T
-    self.totalNumOfHold = np.size(x_vectors.T, axis=0)
-    self.holdsNotUsed = list(range(self.totalNumOfHold))
+    x_vectors = app.match_hold_features(climb)
+    app.allHolds = x_vectors.T
+    app.totalNumOfHold = np.size(x_vectors.T, axis=0)
+    app.holdsNotUsed = list(range(self.totalNumOfHold))
     app.add_start_holds(False)
     assert app.handSequence == [0, 0]
     assert app.handOperarion == ["LH", "RH"]
