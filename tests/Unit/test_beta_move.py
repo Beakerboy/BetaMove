@@ -56,7 +56,7 @@ def test_create_movement() -> None:
     climb = Climb.from_json("342797", data["342797"])
     result = app.create_movement(climb)
     assert result.handSequence == expected["hold_index"]
-    assert result.handOperation == expected["hands"]
+    assert result.handOperator == expected["hands"]
     assert result.overall_success_rate() == expected["sucess"]
 
 
@@ -79,7 +79,7 @@ def test_add_start() -> None:
     app.holdsNotUsed = list(range(app.totalNumOfHold))
     app.add_start_holds(False)
     assert app.handSequence == [0, 0]
-    assert app.handOperation == ["LH", "RH"]
+    assert app.handOperator == ["LH", "RH"]
 
 
 def test_last_move_success() -> None:
