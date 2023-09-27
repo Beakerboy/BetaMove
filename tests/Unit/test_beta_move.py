@@ -7,6 +7,19 @@ from beta_move.climb import Climb
 from beta_move.moonboard import Moonboard
 
 
+x_342797 = np.array([
+        [5., 4., 9., 4., 1., 1., 5., 4., 1., 0.],
+        [0., 2., 4., 2., 0., 0., 4., 7., 0., 0.],
+        [1., 5., 2., 0., 0., 0., 0., 8., 0., 0.],
+        [0., 0., 4., 9., 4., 0., 7., 9., 0., 0.],
+        [0., 0., 6., 4., 4., 0., 3., 11., 0., 0.],
+        [0., 3., 6., 3., 0., 0., 4., 12., 0., 0.],
+        [1., 4., 3., 1., 0., 0., 2., 14., 0., 0.],
+        [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
+        [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
+    ]).T
+
+
 def setup_standard() -> Moonboard:
     board = Moonboard(2016)
     app = BetaMove(board)
@@ -24,17 +37,7 @@ def test_constructor() -> None:
 
 
 def test_match_hold_features() -> None:
-    expected = np.array([
-        [5., 4., 9., 4., 1., 1., 5., 4., 1., 0.],
-        [0., 2., 4., 2., 0., 0., 4., 7., 0., 0.],
-        [1., 5., 2., 0., 0., 0., 0., 8., 0., 0.],
-        [0., 0., 4., 9., 4., 0., 7., 9., 0., 0.],
-        [0., 0., 6., 4., 4., 0., 3., 11., 0., 0.],
-        [0., 3., 6., 3., 0., 0., 4., 12., 0., 0.],
-        [1., 4., 3., 1., 0., 0., 2., 14., 0., 0.],
-        [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
-        [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
-    ]).T
+    expected = x_342797
     board = Moonboard(2016)
     app = BetaMove(board)
     f = open('tests/Unit/342797.json')
@@ -68,13 +71,8 @@ def test_success_by_hold() -> None:
 
 
 def test_add_start() -> None:
-    board = Moonboard(2016)
-    app = BetaMove(board)
-    f = open('tests/Unit/342797.json')
-    data = json.load(f)
-    climb = Climb.from_json("342797", data["342797"])
-    x_vectors = app.match_hold_features(climb)
-    app.allHolds = x_vectors.T
+    app = BetaMove(Moonboard())
+    app.allHolds = x_342797
     app.totalNumOfHold = np.size(x_vectors.T, axis=0)
     app.holdsNotUsed = list(range(app.totalNumOfHold))
     app.add_start_holds(False)
@@ -85,11 +83,7 @@ def test_add_start() -> None:
 def test_last_move_success() -> None:
     board = Moonboard(2016)
     app = BetaMove(board)
-    f = open('tests/Unit/342797.json')
-    data = json.load(f)
-    climb = Climb.from_json("342797", data["342797"])
-    x_vectors = app.match_hold_features(climb)
-    app.allHolds = x_vectors.T
+    app.allHolds = x_342797
     app.totalNumOfHold = np.size(x_vectors.T, axis=0)
     app.holdsNotUsed = list(range(app.totalNumOfHold))
     app.add_start_holds(False)
@@ -105,17 +99,7 @@ def test_overall_success() -> None:
 
 
 def test_get_all() -> None:
-    expected = np.array([
-        [5., 4., 9., 4., 1., 1., 5., 4., 1., 0.],
-        [0., 2., 4., 2., 0., 0., 4., 7., 0., 0.],
-        [1., 5., 2., 0., 0., 0., 0., 8., 0., 0.],
-        [0., 0., 4., 9., 4., 0., 7., 9., 0., 0.],
-        [0., 0., 6., 4., 4., 0., 3., 11., 0., 0.],
-        [0., 3., 6., 3., 0., 0., 4., 12., 0., 0.],
-        [1., 4., 3., 1., 0., 0., 2., 14., 0., 0.],
-        [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
-        [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
-    ])
+    expected = x_342797.T
     app = setup_standard()
     np.testing.assert_array_equal(app.get_all_holds(), expected)
 
