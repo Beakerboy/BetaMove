@@ -3,7 +3,7 @@ import heapq
 import numpy as np
 from beta_move.climb import Climb
 from beta_move.moonboard import Moonboard
-from typing import Any, TypeVar, Type
+from typing import TypeVar, Type
 
 
 T = TypeVar('T', bound='BetaMove')
