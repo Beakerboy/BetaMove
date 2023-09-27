@@ -127,6 +127,8 @@ def tast_move_generator() -> None:
     expected = ['F5-LH', 'F5-RH', 'E8-LH', 'H10-RH', 'D12-LH',
                 'E13-RH', 'B16-LH', 'D18-RH'
                 ]
+    assert expected == expected
+
 
 gauss_data = [
     [[[5, 6], [4, 5], "LH"], .37802090861230714],
