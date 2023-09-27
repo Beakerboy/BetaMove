@@ -67,6 +67,36 @@ def test_success_by_hold() -> None:
     assert app.success_rate_by_hold(hold, "RH") == 7
 
 
+def test_add_start() -> None:
+    board = Moonboard(2016)
+    app = BetaMove(board)
+    f = open('tests/Unit/342797.json')
+    data = json.load(f)
+    climb = Climb.from_json("342797", data["342797"])
+    x_vectors = self.match_hold_features(climb)
+    self.allHolds = x_vectors.T
+    self.totalNumOfHold = np.size(x_vectors.T, axis=0)
+    self.holdsNotUsed = list(range(self.totalNumOfHold))
+    app.add_start_holds(False)
+    assert app.handSequence == [0, 0]
+    assert app.handOperarion == ["LH", "RH"]
+
+
+def test_last_move_success() -> None:
+    board = Moonboard(2016)
+    app = BetaMove(board)
+    f = open('tests/Unit/342797.json')
+    data = json.load(f)
+    climb = Climb.from_json("342797", data["342797"])
+    x_vectors = self.match_hold_features(climb)
+    self.allHolds = x_vectors.T
+    self.totalNumOfHold = np.size(x_vectors.T, axis=0)
+    self.holdsNotUsed = list(range(self.totalNumOfHold))
+    app.add_start_holds(False)
+    result = app.last_move_success_rate_by_hold()
+    assert result = 56
+
+
 def test_overall_success() -> None:
     app = setup_standard()
     app.handSequence = [0, 0, 1, 3, 4, 5, 7, 8]
