@@ -258,11 +258,6 @@ class BetaMove:
         return self.handSequence.index(order)
 
     def last_move_success_rate_by_hold(self: T) -> int:
-        left_hand_order = self.get_left_hand_order()
-        left_seq_order = self.order_to_seq_order(left_hand_order)
-        right_hand_order = self.get_right_hand_order()
-        right_seq_order = self.order_to_seq_order(right_hand_order)
-
         left_hand_hold = self.get_left_hand_hold()
         right_hand_hold = self.get_right_hand_hold()
         left_success = self.success_rate_by_hold(left_hand_hold, "LH")
