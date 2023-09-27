@@ -343,14 +343,14 @@ class BetaMove:
             distance_score = []
             hyperparameter = [1, 1]
             for next_hold_order in beta_pre.holdsNotUsed:
-                original_com = beta_pre.get_current_com()
+                original_com = np.array(beta_pre.get_current_com())
                 hyper_0 = hyperparameter[0]
                 success_rate = beta_pre.last_move_success_rate_by_hold()
                 dynamic_threshold = hyper_0 * success_rate
-                final_xy = beta_pre.get_xy_from_order(next_hold_order)
+                final_xy = np.array(beta_pre.get_xy_from_order(next_hold_order))
                 dif_x = original_com[0] - final_xy[0]
                 dif_y = original_com[1] - final_xy[1]
-                distance = np.sqrt(dif_x ** 2 + dif_y ** 2)
+                distance = np.linalg.norm(original_com - final_xy)
                 # evaluate success rate simply consider the distance
                 # (not consider left and right hand)
                 success = beta_pre.success_rate_by_distance(
