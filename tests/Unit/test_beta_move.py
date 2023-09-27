@@ -123,6 +123,11 @@ def test_get_xy_from_order() -> None:
     assert app.get_xy_from_order(0) == (5, 4)
 
 
+def tast_move_generator() -> None:
+    expected = ['F5-LH', 'F5-RH', 'E8-LH', 'H10-RH', 'D12-LH',
+                'E13-RH', 'B16-LH', 'D18-RH'
+                ]
+
 gauss_data = [
     [[[5, 6], [4, 5], "LH"], .37802090861230714],
     [[[3, 6], [4, 5], "RH"], .37802090861230714],
