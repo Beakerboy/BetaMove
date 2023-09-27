@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from typing import Any, TypeVar
+from typing import Any, Dict, TypeVar
 
 
 T = TypeVar('T', bound='Moonboard')
@@ -19,7 +19,7 @@ class Moonboard:
         self._rh: dict[tuple[int, int], int] = {}
 
         # Hold Features
-        self._features: dict[tuple[int, int], np.ndarray] = {}
+        self._features: Dict[tuple[int, int], np.ndarray] = {}
 
         self._angle: int = angle
         self._height: int = 18
