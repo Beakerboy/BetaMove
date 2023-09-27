@@ -79,7 +79,7 @@ def test_add_start() -> None:
     app.holdsNotUsed = list(range(app.totalNumOfHold))
     app.add_start_holds(False)
     assert app.handSequence == [0, 0]
-    assert app.handOperarion == ["LH", "RH"]
+    assert app.handOperation == ["LH", "RH"]
 
 
 def test_last_move_success() -> None:
