@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from typing import Any, Dict, TypeVar
+from typing import Any, Dict, Tuple, TypeVar
 
 
 T = TypeVar('T', bound='Moonboard')
@@ -28,7 +28,7 @@ class Moonboard:
             self._rh = self._transform2("data/hold_features_2016_RH.csv")
             self._features = self._transform("data/hold_features.csv")
 
-    def get_features(self: T, position: tuple[int, int]) -> np.ndarray:
+    def get_features(self: T, position: Tuple[int, int]) -> np.ndarray:
         """
         Return the features for the hold at a particular location
         """
