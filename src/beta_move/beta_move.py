@@ -183,7 +183,7 @@ class BetaMove:
         Return a num of the last left hand hold's oreder
         (in processed data from bottom to top)
         """
-        last_index_of_right = ''.join(self.handOperator).rindex('R') / 2
+        last_index_of_right = ''.join(self.handOperator).rindex('L') / 2
         return self.handSequence[int(last_index_of_right)]
 
     def get_right_hand_order(self: T) -> int:
