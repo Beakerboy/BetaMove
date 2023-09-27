@@ -57,7 +57,7 @@ class BetaMove:
             raise Exception("Climb is invalid.")
         return x_vectors
 
-    def create_movement(self: T, climb: Climb) -> dict:
+    def create_movement(self: T, climb: Climb) -> T:
         # movement = []
         x_vectors = self.match_hold_features(climb)
         self.allHolds = x_vectors.T
@@ -99,13 +99,7 @@ class BetaMove:
                 xy = status[i].get_xy_from_order(k)
                 coor = self.coordinate_to_string(xy)
                 coor_list.append(coor)
-            print(coor_list)
-            print(hand_seq, hand_op, status[i].overall_success_rate())
-
-        print(status[0].handSequence)
-        # output["hands"] = status[0].handOperator
-        # output["success"] = status[0].overall_success_rate()
-        return output
+        return output[0]
 
     def add_start_holds(self: T, zero_or_one: int) -> None:
         """
