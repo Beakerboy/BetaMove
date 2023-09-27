@@ -68,7 +68,6 @@ class BetaMove:
         status = [beta1, beta2]
         status[0].add_start_holds(False)
         status[1].add_start_holds(True)
-        self.add_start_holds(0)
         total_run = status[0].totalNumOfHold - 1
 
         for i in range(total_run):
