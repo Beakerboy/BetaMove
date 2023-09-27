@@ -76,7 +76,7 @@ def test_add_start() -> None:
     x_vectors = app.match_hold_features(climb)
     app.allHolds = x_vectors.T
     app.totalNumOfHold = np.size(x_vectors.T, axis=0)
-    app.holdsNotUsed = list(range(self.totalNumOfHold))
+    app.holdsNotUsed = list(range(app.totalNumOfHold))
     app.add_start_holds(False)
     assert app.handSequence == [0, 0]
     assert app.handOperarion == ["LH", "RH"]
