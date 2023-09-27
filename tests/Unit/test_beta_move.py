@@ -88,10 +88,10 @@ def test_last_move_success() -> None:
     f = open('tests/Unit/342797.json')
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
-    x_vectors = self.match_hold_features(climb)
-    self.allHolds = x_vectors.T
-    self.totalNumOfHold = np.size(x_vectors.T, axis=0)
-    self.holdsNotUsed = list(range(self.totalNumOfHold))
+    x_vectors = app.match_hold_features(climb)
+    app.allHolds = x_vectors.T
+    app.totalNumOfHold = np.size(x_vectors.T, axis=0)
+    app.holdsNotUsed = list(range(app.totalNumOfHold))
     app.add_start_holds(False)
     result = app.last_move_success_rate_by_hold()
     assert result == 56
