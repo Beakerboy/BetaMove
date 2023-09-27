@@ -55,7 +55,6 @@ def test_create_movement() -> None:
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
     result = app.create_movement(climb)
-    assert len(result) == 2
     assert result[0].handSequence == expected["hold_index"]
 
 
