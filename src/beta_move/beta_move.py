@@ -66,8 +66,8 @@ class BetaMove:
         beta1 = copy.deepcopy(self)
         beta2 = copy.deepcopy(self)
         status = [beta1, beta2]
-        status[0].add_start_holds(0)
-        status[1].add_start_holds(1)
+        status[0].add_start_holds(False)
+        status[1].add_start_holds(True)
         self.add_start_holds(0)
         total_run = status[0].totalNumOfHold - 1
 
@@ -90,7 +90,22 @@ class BetaMove:
         largest_index = heapq.nlargest(1, iter, key=key_func)
         return status[largest_index[0]]
 
-    def add_start_holds(self: T, zero_or_one: int) -> None:
+    def add_start_holds(self: T, right_first: bool) -> None:
+        """
+        Add the start hold(s) to the beta lists. If there is one hold, list
+        it twice, and move both hands to it. If there are two, use the
+        parameter to determine which hand is assigned to which start hold.
+
+        Parameters
+        ----------
+        right_first : boolean
+            Is the right hand or left hand first?
+
+        Returns
+        -------
+        numpy.ndarray
+            A table of hold characteristics, locations, and start/end flags
+        """
         """
         Specifically add the first two hold as the starting hold. Consider one
         hold start situation
@@ -114,6 +129,7 @@ class BetaMove:
             second_order = self.get_order_from_hold(second_start)
             self.handSequence.append(int(first_order))
             self.handSequence.append(int(second_order))
+            zero_or_one = 1 if right_first else 0
             self.handOperator.append(op_list[zero_or_one])
             # indicate which hand
             self.handOperator.append(op_list[1 - zero_or_one])
