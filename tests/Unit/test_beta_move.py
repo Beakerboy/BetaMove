@@ -73,7 +73,7 @@ def test_success_by_hold() -> None:
 def test_add_start() -> None:
     app = BetaMove(Moonboard())
     app.allHolds = x_342797
-    app.totalNumOfHold = np.size(x_vectors.T, axis=0)
+    app.totalNumOfHold = np.size(app.allHolds, axis=1)
     app.holdsNotUsed = list(range(app.totalNumOfHold))
     app.add_start_holds(False)
     assert app.handSequence == [0, 0]
@@ -84,7 +84,7 @@ def test_last_move_success() -> None:
     board = Moonboard(2016)
     app = BetaMove(board)
     app.allHolds = x_342797
-    app.totalNumOfHold = np.size(x_vectors.T, axis=0)
+    app.totalNumOfHold = np.size(app.allHolds, axis=1)
     app.holdsNotUsed = list(range(app.totalNumOfHold))
     app.add_start_holds(False)
     result = app.last_move_success_rate_by_hold()
