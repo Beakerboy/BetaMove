@@ -94,7 +94,7 @@ def test_last_move_success() -> None:
     self.holdsNotUsed = list(range(self.totalNumOfHold))
     app.add_start_holds(False)
     result = app.last_move_success_rate_by_hold()
-    assert result = 56
+    assert result == 56
 
 
 def test_overall_success() -> None:
