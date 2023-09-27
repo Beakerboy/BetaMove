@@ -17,7 +17,7 @@ x_342797 = np.array([
         [1., 4., 3., 1., 0., 0., 2., 14., 0., 0.],
         [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
         [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
-    ]).T
+    ])
 
 
 def setup_standard() -> Moonboard:
@@ -37,7 +37,7 @@ def test_constructor() -> None:
 
 
 def test_match_hold_features() -> None:
-    expected = x_342797
+    expected = x_342797.T
     board = Moonboard(2016)
     app = BetaMove(board)
     f = open('tests/Unit/342797.json')
@@ -99,7 +99,7 @@ def test_overall_success() -> None:
 
 
 def test_get_all() -> None:
-    expected = x_342797.T
+    expected = x_342797
     app = setup_standard()
     np.testing.assert_array_equal(app.get_all_holds(), expected)
 
