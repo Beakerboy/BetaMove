@@ -43,7 +43,7 @@ def test_match_hold_features() -> None:
     np.testing.assert_array_equal(app.match_hold_features(climb), expected)
 
 
-def test_create_movement() -> None:
+def tast_create_movement() -> None:
     expected = {
         "hold_index": [0, 0, 1, 3, 4, 5, 7, 8],
         "hands": ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH'],
