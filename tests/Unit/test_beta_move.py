@@ -85,7 +85,7 @@ last_move_success_data = [
 ]
 
 
-@pytest.mark.parametrize("input, expected", last_move_success_data)
+@pytest.mark.parametrize("input: list, expected", last_move_success_data)
 def test_last_move_success(input, expected: int) -> None:
     board = Moonboard(2016)
     app = BetaMove(board)
