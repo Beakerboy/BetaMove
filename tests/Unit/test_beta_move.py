@@ -85,8 +85,9 @@ def test_last_move_success() -> None:
     app = BetaMove(board)
     app.allHolds = x_342797
     app.totalNumOfHold = np.size(app.allHolds, axis=1)
-    app.holdsNotUsed = list(range(app.totalNumOfHold))
-    app.add_start_holds(False)
+    app.holdsNotUsed = list(range(1,8))
+    app.handSequence = [0, 0]
+    app.handOperator = ['LH', 'RH']
     result = app.last_move_success_rate_by_hold()
     assert result == 56
 
@@ -94,7 +95,7 @@ def test_last_move_success() -> None:
 def test_overall_success() -> None:
     app = setup_standard()
     app.handSequence = [0, 0, 1, 3, 4, 5, 7, 8]
-    app. handOperator = ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH']
+    app.handOperator = ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH']
     assert app.overall_success_rate() == 98.503968934466
 
 
