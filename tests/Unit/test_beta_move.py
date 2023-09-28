@@ -95,7 +95,7 @@ def test_last_move_success(input, expected: int) -> None:
     app.handSequence = input[1]
     app.handOperator = input[2]
     result = app.last_move_success_rate_by_hold()
-    assert result == expectes
+    assert result == expected
 
 
 def test_overall_success() -> None:
