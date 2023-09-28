@@ -337,7 +337,7 @@ class BetaMove:
         """
         tempstatus = []
         for beta_pre in status:
-            distance_score = []
+            distance_scores = []
             hyperparameter = [1, 1]
             for next_hold_order in beta_pre.holdsNotUsed:
                 original_com = np.array(beta_pre.get_current_com())
@@ -353,11 +353,11 @@ class BetaMove:
                     distance,
                     dynamic_threshold
                 )
-                distance_score.append(success)
-
+                distance_scores.append(success)
+            print(distance_scores)
             # Find the first and second smallest distance in the distance_score
-            num = min(8, len(distance_score))
-            iter = range(len(distance_score))
+            num = min(8, len(distance_scores))
+            iter = range(len(distance_scores))
             key_name = distance_score.__getitem__
             largest_index = heapq.nlargest(num, iter, key=key_name)
 
