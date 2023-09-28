@@ -358,7 +358,7 @@ class BetaMove:
             # Find the first and second smallest distance in the distance_score
             num = min(8, len(distance_scores))
             iter = range(len(distance_scores))
-            key_name = distance_score.__getitem__
+            key_name = distance_scores.__getitem__
             largest_index = heapq.nlargest(num, iter, key=key_name)
 
             good_hold_index = [beta_pre.holdsNotUsed[i] for i in largest_index]
