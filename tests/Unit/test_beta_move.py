@@ -80,16 +80,22 @@ def test_add_start() -> None:
     assert app.handOperator == ["LH", "RH"]
 
 
-def test_last_move_success() -> None:
+last_move_success_data = [
+    [[list(range(1, 8)), [0, 0], ['LH', 'RH']], 56],
+]
+
+
+@pytest.mark.parametrize("input, expected", last_move_success_data)
+def test_last_move_success(input, expected: int) -> None:
     board = Moonboard(2016)
     app = BetaMove(board)
     app.allHolds = x_342797
     app.totalNumOfHold = np.size(app.allHolds, axis=1)
-    app.holdsNotUsed = list(range(1, 8))
-    app.handSequence = [0, 0]
-    app.handOperator = ['LH', 'RH']
+    app.holdsNotUsed = input[0]
+    app.handSequence = input[1]
+    app.handOperator = input[2]
     result = app.last_move_success_rate_by_hold()
-    assert result == 56
+    assert result == expectes
 
 
 def test_overall_success() -> None:
