@@ -81,7 +81,8 @@ def test_add_start() -> None:
 
 
 last_move_success_data = [
-    [[list(range(1, 8)), [0, 0], ['LH', 'RH']], 56]
+    [[list(range(1, 8)), [0, 0], ['LH', 'RH']], 56],
+    [[[2, 4, 5, 6, 7, 8], [0, 0, 1, 3], ['LH', 'RH', 'LH', 'RH']], 72]
 ]
 
 
