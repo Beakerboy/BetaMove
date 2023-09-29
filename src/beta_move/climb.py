@@ -130,7 +130,7 @@ class Climb:
         climb.set_id(id)
         url = data["url"]
         index = url.rindex('/')
-        climb.set_name(url[index:])
+        climb.set_name(url[index + 1:])
         climb.set_grade(data["grade"])
         for hold in data["start"]:
             climb.add_hold(
