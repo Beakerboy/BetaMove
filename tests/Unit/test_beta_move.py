@@ -1,6 +1,7 @@
 
 import json
 import numpy as np
+import pickle
 import pytest
 from beta_move.beta_move import BetaMove
 from beta_move.climb import Climb
@@ -56,9 +57,10 @@ create_movement_data = [
 def test_create_movement(problem_id: str, expected: list) -> None:
     board = Moonboard(2016)
     app = BetaMove(board)
-    f = open('tests/Unit/342797.json')
-    data = json.load(f)
-    climb = Climb.from_json("342797", data["342797"])
+    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl')
+    all_climbs = pickle.load(f)
+    data = json.loads(all_climbs)
+    climb = Climb.from_json(problem_id, data[problem_id])
     result = app.create_movement(climb)
     assert result.handSequence == expected[0]
     assert result.handOperator == expected[1]
