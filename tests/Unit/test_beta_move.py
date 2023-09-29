@@ -9,16 +9,16 @@ from beta_move.moonboard import Moonboard
 
 
 x_342797 = np.array([
-        [5., 4., 9., 4., 1., 1., 5., 4., 1., 0.],
-        [0., 2., 4., 2., 0., 0., 4., 7., 0., 0.],
-        [1., 5., 2., 0., 0., 0., 0., 8., 0., 0.],
-        [0., 0., 4., 9., 4., 0., 7., 9., 0., 0.],
-        [0., 0., 6., 4., 4., 0., 3., 11., 0., 0.],
-        [0., 3., 6., 3., 0., 0., 4., 12., 0., 0.],
-        [1., 4., 3., 1., 0., 0., 2., 14., 0., 0.],
-        [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
-        [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
-    ])
+    [5., 4., 9., 4., 1., 1., 5., 4., 1., 0.],
+    [0., 2., 4., 2., 0., 0., 4., 7., 0., 0.],
+    [1., 5., 2., 0., 0., 0., 0., 8., 0., 0.],
+    [0., 0., 4., 9., 4., 0., 7., 9., 0., 0.],
+    [0., 0., 6., 4., 4., 0., 3., 11., 0., 0.],
+    [0., 3., 6., 3., 0., 0., 4., 12., 0., 0.],
+    [1., 4., 3., 1., 0., 0., 2., 14., 0., 0.],
+    [2., 5., 2., 1., 0., 0., 1., 15., 0., 0.],
+    [2., 6., 8., 6., 2., 0., 3., 17., 0., 1.]
+])
 
 
 def setup_standard() -> Moonboard:
@@ -78,7 +78,9 @@ def test_create_movement(problem_id: str, expected: list) -> None:
     assert result.handSequence == expected[0]
     assert result.handOperator == expected[1]
     assert result.overall_success_rate() == expected[2]
-
+    f = open('tests/pickle_data/benchmark_withgrade_move_seq_X', 'rb')
+    all_climbs = pickle.load(f)
+    assert all_climbs[problem_id] == expected
 
 def test_success_by_hold() -> None:
     app = setup_standard()
