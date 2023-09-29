@@ -26,11 +26,11 @@ def test_factory() -> None:
 
 def test_old_factory() -> None:
     data = json.loads('''{
-        'url': 'https://moonboard.com/Problems/View/20149/ladybug',
-        'start': [[6, 5], [9, 4]],
-        'mid': [[0, 8], [0, 13], [2, 12], [5, 10], [7, 9]],
-        'end': [[3, 17]],
-        'grade': '7A+'
+        "url": "https://moonboard.com/Problems/View/20149/ladybug",
+        "start": [[6, 5], [9, 4]],
+        "mid": [[0, 8], [0, 13], [2, 12], [5, 10], [7, 9]],
+        "end": [[3, 17]],
+        "grade": "7A+"
     }''')
     climb = Climb.from_old_json("20149", data)
     assert climb.get_name() == "ladybug"
