@@ -364,7 +364,6 @@ class BetaMove:
                     dynamic_threshold
                 )
                 distance_scores.append(success)
-            print(distance_scores)
             # Find the first and second smallest distance in the distance_score
             num = min(8, len(distance_scores))
             iter = range(len(distance_scores))
