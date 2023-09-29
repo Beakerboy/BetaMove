@@ -28,6 +28,33 @@ class BetaMove:
         self.isFinished: bool = False
         self.touchEndHold = 0
 
+
+    # Getters and Setters
+    def get_holds_not_used(self: T) -> list:
+        """
+        Returns
+        -------
+        list[int]
+            a list of the index values in allHolds which have not been used.
+        """
+        return self.holdsNotUsed
+
+    def get_all_holds(self: T) -> np.ndarray:
+        """
+        Returns
+        -------
+        numpy.ndarray
+            A table of hold characteristics, locations, and start/end flags
+        """
+        return self.allHolds
+
+    def get_start_hold(self: T) -> list:
+        start_holds = []
+        for hold in self.allHolds:
+            if hold[8] == 1:
+                start_holds.append(hold)
+        return start_holds
+
     def match_hold_features(self: T, climb: Climb) -> np.ndarray:
         """
         Create an array of hold information.
@@ -131,9 +158,6 @@ class BetaMove:
             self.holdsNotUsed.remove(self.get_order_from_hold(first_start))
             self.holdsNotUsed.remove(self.get_order_from_hold(second_start))
 
-    def get_all_holds(self: T) -> np.ndarray:
-        """ return all avalible holds. N holds rows, 10 columns np array"""
-        return self.allHolds
 
     def add_next_hand(self: T, next_hold: int, op: str) -> None:
         """
@@ -235,18 +259,6 @@ class BetaMove:
         right = self.get_right_hand_order()
         return self.get_com(left, right)
 
-    def get_two_order_distance(self: T, remaining: int, next: int) -> float:
-        """
-        Given order 2, and 5. Output distance between
-        remaining - Remaining Hand Order
-        next - nextHoldOrder
-        """
-        original_com = self.get_current_com()
-        final_com = self.get_com(remaining, next)
-        com_0_dif_sq = (original_com[0] - final_com[0]) ** 2
-        com_1_dif_sq = (original_com[1] - final_com[1]) ** 2
-        return np.sqrt(com_0_dif_sq + com_1_dif_sq)
-
     def order_to_seq_order(self: T, order: int) -> int:
         """
         Transform from order (in the all avalible holds sequence) to hand
@@ -268,14 +280,6 @@ class BetaMove:
         if operation == "LH":
             return self._board.get_lh_difficulty((hold[6], hold[7]))
         return self._board.get_rh_difficulty((hold[6], hold[7]))
-
-    def get_start_hold(self: T) -> list:
-        """return startHold list with 2 element of np array"""
-        start_holds = []
-        for hold in self.allHolds:
-            if hold[8] == 1:
-                start_holds.append(hold)
-        return start_holds
 
     def get_end_hold_order(self: T) -> list:
         """return endHold list with 2 element of np array"""
@@ -331,8 +335,6 @@ class BetaMove:
     def set_true_beta(self: T) -> None:
         self.isTrueBeta = True
 
-    def get_holds_not_used(self: T) -> list:
-        return self.holdsNotUsed
 
     @classmethod
     def add_new_beta(cls: Type[T],
