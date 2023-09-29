@@ -78,9 +78,12 @@ def test_create_movement(problem_id: str, expected: list) -> None:
     assert result.handSequence == expected[0]
     assert result.handOperator == expected[1]
     assert result.overall_success_rate() == expected[2]
+
+
+def test_pickle_x_dict() -> None:
     f = open('tests/pickle_data/benchmark_withgrade_move_seq_X', 'rb')
     all_climbs = pickle.load(f)
-    assert all_climbs[problem_id] == expected
+    assert 1 == 2, f'{all_climbs}'
 
 
 def test_success_by_hold() -> None:
