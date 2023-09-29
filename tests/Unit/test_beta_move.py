@@ -81,7 +81,7 @@ def test_create_movement(problem_id: str, expected: list) -> None:
 
 
 def test_pickle_x_dict() -> None:
-    f = open('tests/pickle_data/benchmark_withgrade_move_seq_X', 'rb')
+    f = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
     all_climbs = pickle.load(f)
     assert 1 == 2, f'{all_climbs}'
 
