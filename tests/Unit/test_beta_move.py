@@ -90,7 +90,7 @@ def test_process_data() -> None:
     all_results = pickle.load(f)
     expected = all_results['X_dict_seq']['342797']
     result = app.process_data(climb)
-    assert result == expected
+    np.testing.assert_array_equal(result, expected)
 
 
 def test_success_by_hold() -> None:
