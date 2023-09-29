@@ -125,7 +125,7 @@ class BetaMove:
              + (np.array(movement.handOperator) == 'RH') * 1)
         ])
         return output
-        
+
     def add_start_holds(self: T, right_first: bool) -> None:
         """
         Add the start hold(s) to the beta lists. If there is one hold, list
