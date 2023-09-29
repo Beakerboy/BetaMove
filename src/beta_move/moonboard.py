@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from typing import Any, Dict, Tuple, TypeVar
+from typing import Any, Dict, Tuple, Type, TypeVar
 
 
 T = TypeVar('T', bound='Moonboard')
