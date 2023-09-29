@@ -46,21 +46,23 @@ def test_match_hold_features() -> None:
     np.testing.assert_array_equal(app.match_hold_features(climb), expected)
 
 
-def test_create_movement() -> None:
-    expected = {
-        "hold_index": [0, 0, 1, 3, 4, 5, 7, 8],
-        "hands": ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH'],
-        "success": 98.503968934466
-    }
+create_movement_data = [
+    ["342797", [[0, 0, 1, 3, 4, 5, 7, 8], ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH'], 98.503968934466]],
+    ["20149", [[0, 1, 2, 4, 5, 6, 7], ['LH', 'RH', 'LH', 'RH', 'LH', 'LH', 'RH'], 6.55920813]]
+]
+
+
+@pytest.mark.parametrize("problem_id, expected", create_movement_data)
+def test_create_movement(problem_id: str, expected: list) -> None:
     board = Moonboard(2016)
     app = BetaMove(board)
     f = open('tests/Unit/342797.json')
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
     result = app.create_movement(climb)
-    assert result.handSequence == expected["hold_index"]
-    assert result.handOperator == expected["hands"]
-    assert result.overall_success_rate() == expected["success"]
+    assert result.handSequence == expected[0]
+    assert result.handOperator == expected[1]
+    assert result.overall_success_rate() == expected[2]
 
 
 def test_success_by_hold() -> None:
