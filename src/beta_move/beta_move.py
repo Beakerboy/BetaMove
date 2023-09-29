@@ -119,9 +119,9 @@ class BetaMove:
         movement = self.create_movement(climb)
         output = np.vstack([
             self.allHolds[6:8, movement.handSequence],
-            ((np.array(movement.handOperator) == 'LH') * (-1) 
+            ((np.array(movement.handOperator) == 'LH') * (-1)
              + (np.array(movement.handOperator) == 'RH') * 1),
-            ((np.array(movement.handOperator) == 'LH') * (-1) 
+            ((np.array(movement.handOperator) == 'LH') * (-1)
              + (np.array(movement.handOperator) == 'RH') * 1)
         ])
         return output
