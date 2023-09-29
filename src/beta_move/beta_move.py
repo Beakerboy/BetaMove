@@ -305,8 +305,8 @@ class BetaMove:
             target_xy = self.get_xy_from_order(self.handSequence[i+1])
 
             if self.handOperator[i] == "RH":
-                last_right_hand_xy = self.get_xy_from_order(self.handSequence[i]) 
-            if self.handOperator[i] == "LH":    
+                last_right_hand_xy = self.get_xy_from_order(self.handSequence[i])
+            if self.handOperator[i] == "LH":
                 last_left_hand_xy = self.get_xy_from_order(self.handSequence[i])
 
             if i == 1 and self.handSequence[0] == self.handSequence[1]:
@@ -315,11 +315,13 @@ class BetaMove:
                 target_xy = (target_xy[0], target_xy[1] - 1)
 
             if i >= 1 and self.handOperator[i + 1] == "RH":
-                gaussian = self.make_gaussian(target_xy, last_left_hand_xy, "LH")
+                last_hand = last_left_hand_xy
+                gaussian = self.make_gaussian(target_xy, last_hand, "LH")
                 overall_score = overall_score * gaussian
 
             elif i >= 1 and self.handOperator[i + 1] == "LH":
-                gaussian = self.make_gaussian(target_xy, last_right_hand_xy, "RH")
+                last_hand = last_right_hand_xy
+                gaussian = self.make_gaussian(target_xy, last_hand, "RH")
                 overall_score = overall_score * gaussian
         self.overallSuccess = overall_score
 
