@@ -311,21 +311,22 @@ class BetaMove:
             # Penalty of do a big cross. Larger will drop the successRate
             target_xy = self.get_xy_from_order(self.handSequence[i+1])
 
+            if self.handOperator[i] == "RH":
+                last_right_hand_xy = self.get_xy_from_order(self.handSequence[i]) 
+            if self.handOperator[i] == "LH":    
+                last_left_hand_xy = self.get_xy_from_order(self.handSequence[i])
+
             if i == 1 and self.handSequence[0] == self.handSequence[1]:
                 # this move was to match the start.
                 # not sure why adjusting the target.
                 target_xy = (target_xy[0], target_xy[1] - 1)
 
             if i >= 1 and self.handOperator[i + 1] == "RH":
-                hold = self.prev_hand(i + 1, "LH")
-                last_hand_xy = self.get_xy_from_order(hold)
-                gaussian = self.make_gaussian(target_xy, last_hand_xy, "LH")
+                gaussian = self.make_gaussian(target_xy, last_left_hand_xy, "LH")
                 overall_score = overall_score * gaussian
 
             elif i >= 1 and self.handOperator[i + 1] == "LH":
-                hold = self.prev_hand(i + 1, "RH")
-                last_hand_xy = self.get_xy_from_order(hold)
-                gaussian = self.make_gaussian(target_xy, last_hand_xy, "RH")
+                gaussian = self.make_gaussian(target_xy, last_right_hand_xy, "RH")
                 overall_score = overall_score * gaussian
         self.overallSuccess = overall_score
 
