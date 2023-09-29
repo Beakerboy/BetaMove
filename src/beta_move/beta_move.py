@@ -28,7 +28,6 @@ class BetaMove:
         self.isFinished: bool = False
         self.touchEndHold = 0
 
-
     # Getters and Setters
     def get_holds_not_used(self: T) -> list:
         """
