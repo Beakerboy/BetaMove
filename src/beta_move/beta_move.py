@@ -126,6 +126,15 @@ class BetaMove:
         ])
         return output
 
+    def generate_hand_string_sequence(self: T, climb: Climb) -> list:
+        movement = self.create_movement(climb)
+        result = []
+        for i, index in enumerate(self.handSequence):
+            xy = self.get_xy_from_order(index)
+            location = Moonboard.coordinate_to_string(xy)
+            movement_string = location + '-' + self.handOperator[i]
+            result.append(movement_string)
+    
     def add_start_holds(self: T, right_first: bool) -> None:
         """
         Add the start hold(s) to the beta lists. If there is one hold, list
