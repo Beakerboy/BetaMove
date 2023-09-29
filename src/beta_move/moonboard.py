@@ -93,5 +93,5 @@ class Moonboard:
         return dict
 
     @classmethod
-    def coordinate_to_string(cls: Type[T], coordinate: tuple) -> tuple:
+    def coordinate_to_string(cls: Type[T], coordinate: tuple) -> str:
         return chr(coordinate[1] + ord('A')) + str(coordinate[1] + 1)
