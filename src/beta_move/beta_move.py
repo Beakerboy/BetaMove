@@ -134,6 +134,7 @@ class BetaMove:
             location = Moonboard.coordinate_to_string(xy)
             movement_string = location + '-' + movement.handOperator[i]
             result.append(movement_string)
+        return result
 
     def add_start_holds(self: T, right_first: bool) -> None:
         """
