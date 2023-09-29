@@ -73,7 +73,7 @@ def test_create_movement(problem_id: str, expected: list) -> None:
     app = BetaMove(board)
     f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
     all_climbs = pickle.load(f)
-    climb = Climb.from_json(problem_id, all_climbs[problem_id])
+    climb = Climb.from_old_json(problem_id, all_climbs[problem_id])
     result = app.create_movement(climb)
     assert result.handSequence == expected[0]
     assert result.handOperator == expected[1]
