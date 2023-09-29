@@ -18,14 +18,14 @@ class Climb:
         self._name = ""
 
         # The list of allowed holds with start and end
-        self._holds = {}
-        self._start_holds = []
-        self._mid_holds = []
-        self._end_holds = []
+        self._holds: dict[tuple, tuple] = {}
+        self._start_holds: list[tuple] = []
+        self._mid_holds: list[tuple] = []
+        self._end_holds: list[tuple] = []
 
         # The grade
         # The JSON object has three grades; grade, info[2] and UserGrade
-        self._grade = ""
+        self._grade: str = ""
 
     # Setters and Getters
     def set_id(self: T, id: str) -> None:
@@ -40,7 +40,7 @@ class Climb:
     def get_name(self: T) -> str:
         return self._name
 
-    def add_hold(self: T, hold: list) -> None:
+    def add_hold(self: T, hold: tuple) -> None:
         if hold[1] and len(self._start_holds) == 2:
             raise Exception("Too many start holds")
         if hold[1] and int(hold[0][1:]) > 6:
@@ -75,7 +75,7 @@ class Climb:
         self._end_holds.sort(key=lambda x: x[1])
         return self._start_holds + self._mid_holds + self._end_holds
 
-    def get_hold(self: T, location: tuple) -> list:
+    def get_hold(self: T, location: tuple) -> tuple:
         return self._holds[location]
 
     def set_grade(self: T, grade: str) -> None:
@@ -107,7 +107,7 @@ class Climb:
                 and self.num_finish() > 0)
 
     @classmethod
-    def from_json(cls: Type[T], id: int, data: dict) -> T:
+    def from_json(cls: Type[T], id: str, data: dict) -> T:
         # parse data and set attributes
         climb = cls()
         climb.set_id(id)
@@ -115,10 +115,45 @@ class Climb:
         climb.set_grade(data["grade"])
         for hold in data["moves"]:
             climb.add_hold(
-                [
+                (
                     hold["Description"],
                     hold["IsStart"],
                     hold["IsEnd"]
-                ]
+                )
+            )
+        return climb
+
+    @classmethod
+    def from_old_json(cls: Type[T], id: str, data: dict) -> T:
+        # parse data and set attributes from the old json format
+        climb = cls()
+        climb.set_id(id)
+        url = data["url"]
+        index = url.rindex('/')
+        climb.set_name(url[index + 1:])
+        climb.set_grade(data["grade"])
+        for hold in data["start"]:
+            climb.add_hold(
+                (
+                    chr(int(hold[0]) + ord('A')) + str(hold[1] + 1),
+                    True,
+                    False
+                )
+            )
+        for hold in data["mid"]:
+            climb.add_hold(
+                (
+                    chr(int(hold[0]) + ord('A')) + str(hold[1] + 1),
+                    False,
+                    False
+                )
+            )
+        for hold in data["end"]:
+            climb.add_hold(
+                (
+                    chr(int(hold[0]) + ord('A')) + str(hold[1] + 1),
+                    False,
+                    True
+                )
             )
         return climb
