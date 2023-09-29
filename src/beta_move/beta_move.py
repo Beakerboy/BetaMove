@@ -292,7 +292,7 @@ class BetaMove:
         Given an index, find the last occurance of the given hand.
         return the index for the hold in the allHold array.
         """
-        seq_index =  ''.join(self.handOperator)[0:index * 2].rindex(hand) / 2
+        seq_index = ''.join(self.handOperator)[0:index * 2].rindex(hand) / 2
         return self.handSequence[int(seq_index)]
 
     def overall_success_rate(self: T) -> float:
