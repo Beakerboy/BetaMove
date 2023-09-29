@@ -293,7 +293,6 @@ class BetaMove:
         """
         return ''.join(self.handOperator)[0:index * 2].rindex(hand) / 2
 
-
     def overall_success_rate(self: T) -> float:
         """
         return the overall successful rate using the stored beta hand sequence
@@ -317,13 +316,15 @@ class BetaMove:
 
             if i >= 1 and self.handOperator[i + 1] == "RH":
                 prev_hand = self.prev_hand(i + 1, "LH")
-                last_hand_xy = self.get_xy_from_order(self.handSequence[prev_hand])
+                hold = self.handSequence[prev_hand]
+                last_hand_xy = self.get_xy_from_order(hold)
                 gaussian = self.make_gaussian(target_xy, last_hand_xy, "LH")
                 overall_score = overall_score * gaussian
 
             elif i >= 1 and self.handOperator[i + 1] == "LH":
                 prev_hand = self.prev_hand(i + 1, "RH")
-                last_hand_xy = self.get_xy_from_order(self.handSequence[prev_hand])
+                hold = self.handSequence[prev_hand]
+                last_hand_xy = self.get_xy_from_order(hold)
                 gaussian = self.make_gaussian(target_xy, last_hand_xy, "RH")
                 overall_score = overall_score * gaussian
         self.overallSuccess = overall_score
