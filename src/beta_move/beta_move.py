@@ -134,7 +134,7 @@ class BetaMove:
             location = Moonboard.coordinate_to_string(xy)
             movement_string = location + '-' + movement.handOperator[i]
             result.append(movement_string)
-    
+
     def add_start_holds(self: T, right_first: bool) -> None:
         """
         Add the start hold(s) to the beta lists. If there is one hold, list
