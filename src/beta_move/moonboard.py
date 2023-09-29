@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from typing import Any, TypeVar
+from typing import Any, Dict, Tuple, TypeVar
 
 
 T = TypeVar('T', bound='Moonboard')
@@ -13,13 +13,13 @@ class Moonboard:
 
         # Instance Attributes
         # Left Hand Difficulties
-        self._lh: dict[tuple[int, int], int] = {}
+        self._lh: Dict[Tuple[int, int], int] = {}
 
         # Right Hand Difficulties
-        self._rh: dict[tuple[int, int], int] = {}
+        self._rh: Dict[Tuple[int, int], int] = {}
 
         # Hold Features
-        self._features: dict[tuple[int, int], np.ndarray] = {}
+        self._features: Dict[Tuple[int, int], np.ndarray] = {}
 
         self._angle: int = angle
         self._height: int = 18
@@ -28,25 +28,25 @@ class Moonboard:
             self._rh = self._transform2("data/hold_features_2016_RH.csv")
             self._features = self._transform("data/hold_features.csv")
 
-    def get_features(self: T, position: tuple[int, int]) -> np.ndarray:
+    def get_features(self: T, position: Tuple[int, int]) -> np.ndarray:
         """
         Return the features for the hold at a particular location
         """
         return self._features[position]
 
-    def get_rh_difficulty(self: T, position: tuple[int, int]) -> int:
+    def get_rh_difficulty(self: T, position: Tuple[int, int]) -> int:
         """
         Return the right hand difficulty for the hold at a particular location
         """
         return self._rh[position]
 
-    def get_lh_difficulty(self: T, position: tuple[int, int]) -> int:
+    def get_lh_difficulty(self: T, position: Tuple[int, int]) -> int:
         """
         Return the left hand difficulty for the hold at a particular location
         """
         return self._lh[position]
 
-    def hold_exists(self: T, position: tuple[Any]) -> bool:
+    def hold_exists(self: T, position: Tuple[Any]) -> bool:
         """
         Check a hold is present on the board at a given location
         """
@@ -64,7 +64,7 @@ class Moonboard:
         """
         return 11
 
-    def _transform(self: T, file: str) -> dict[tuple[int, int], np.ndarray]:
+    def _transform(self: T, file: str) -> Dict[Tuple[int, int], np.ndarray]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
@@ -79,7 +79,7 @@ class Moonboard:
             ).astype(int)
         return dict
 
-    def _transform2(self: T, file: str) -> dict[tuple[int, int], int]:
+    def _transform2(self: T, file: str) -> Dict[Tuple[int, int], int]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
