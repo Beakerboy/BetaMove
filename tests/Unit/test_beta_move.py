@@ -63,7 +63,7 @@ create_movement_data = [
 def test_create_movement(problem_id: str, expected: list) -> None:
     board = Moonboard(2016)
     app = BetaMove(board)
-    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl')
+    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
     all_climbs = pickle.load(f)
     data = json.loads(all_climbs)
     climb = Climb.from_json(problem_id, data[problem_id])
