@@ -82,6 +82,7 @@ def test_create_movement(problem_id: str, expected: list) -> None:
     all_climbs = pickle.load(f)
     assert all_climbs[problem_id] == expected
 
+
 def test_success_by_hold() -> None:
     app = setup_standard()
     hold = app.allHolds[0]
