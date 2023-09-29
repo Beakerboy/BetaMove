@@ -61,7 +61,7 @@ class BetaMove:
         Parameters
         ----------
         climb : Climb
-            The move order index of the first hold
+            The holds available in the problem.
 
         Returns
         -------
