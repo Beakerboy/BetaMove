@@ -209,7 +209,9 @@ class BetaMove:
         return a coordinate tuple giving holdOrder
         (a num in processed data)
         """
-        return ((self.allHolds[hold_order][6]), (self.allHolds[hold_order][7]))
+        x = int(self.allHolds[hold_order][6])
+        y = int(self.allHolds[hold_order][7])
+        return (x, y)
 
     def get_left_hand_order(self: T) -> int:
         """
