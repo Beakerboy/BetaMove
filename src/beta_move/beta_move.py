@@ -305,9 +305,11 @@ class BetaMove:
             target_xy = self.get_xy_from_order(self.handSequence[i+1])
 
             if self.handOperator[i] == "RH":
-                last_right_hand_xy = self.get_xy_from_order(self.handSequence[i])
+                tmp = self.get_xy_from_order(self.handSequence[i])
+                last_right_hand_xy = tmp
             if self.handOperator[i] == "LH":
-                last_left_hand_xy = self.get_xy_from_order(self.handSequence[i])
+                tmp = self.get_xy_from_order(self.handSequence[i])
+                last_left_hand_xy = tmp
 
             if i == 1 and self.handSequence[0] == self.handSequence[1]:
                 # this move was to match the start.
