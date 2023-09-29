@@ -109,6 +109,7 @@ class Climb:
     @classmethod
     def from_json(cls: Type[T], id: str, data: dict) -> T:
         # parse data and set attributes
+        print(data)
         climb = cls()
         climb.set_id(id)
         climb.set_name(data["problem_name"])
