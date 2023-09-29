@@ -291,7 +291,7 @@ class BetaMove:
         """
         Given an index, find the last occurance of the given hand.
         """
-        return ''.join(self.handOperator)[0:i * 2].rindex(hand) / 2
+        return ''.join(self.handOperator)[0:index * 2].rindex(hand) / 2
 
 
     def overall_success_rate(self: T) -> float:
