@@ -50,7 +50,7 @@ def test_create_movement() -> None:
     expected = {
         "hold_index": [0, 0, 1, 3, 4, 5, 7, 8],
         "hands": ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH'],
-        "success": 98.50396893
+        "success": 98.503968934466
     }
     board = Moonboard(2016)
     app = BetaMove(board)
