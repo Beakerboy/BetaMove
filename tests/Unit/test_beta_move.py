@@ -79,7 +79,19 @@ def test_create_movement(problem_id: str, expected: list) -> None:
     assert result.handOperator == expected[1]
     assert result.overall_success_rate() == expected[2]
 
-
+def test_hand_string_sequence() -> None:
+    board = Moonboard(2016)
+    app = BetaMove(board)
+    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
+    all_climbs = pickle.load(f)
+    climb = Climb.from_old_json('342797', all_climbs['342797'])
+    expected = ['F5-LH', 'F5-RH',
+        'E8-LH', 'H10-RH', 'D12-LH',
+        'E13-RH', 'B16-LH', 'D18-RH'
+    ]
+    results = app.generate_hand_string_sequence(climb) -> None:
+    assert results == expected
+    
 def test_process_data() -> None:
     board = Moonboard(2016)
     app = BetaMove(board)
