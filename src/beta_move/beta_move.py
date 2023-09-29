@@ -115,6 +115,15 @@ class BetaMove:
         largest_index = heapq.nlargest(1, iter, key=key_func)
         return status[largest_index[0]]
 
+    def process_data(self: T, climb: Climb) -> np.ndarray:
+        movement = self.create_movement(climb)
+        output = np.vstack([
+            self.allHolds[6:8, movement.handSequence],
+            np.array(movement.handOperator) == 'LH') * (-1) + np.array(movement.handOperator) == 'LH') * 1,
+            np.array(movement.handOperator) == 'LH') * (-1) + np.array(movement.handOperator) == 'LH') * 1
+        ])
+        return output
+        
     def add_start_holds(self: T, right_first: bool) -> None:
         """
         Add the start hold(s) to the beta lists. If there is one hold, list
