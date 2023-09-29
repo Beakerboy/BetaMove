@@ -81,9 +81,16 @@ def test_create_movement(problem_id: str, expected: list) -> None:
 
 
 def test_pickle_x_dict() -> None:
-    f = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
+    board = Moonboard(2016)
+    app = BetaMove(board)
+    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
     all_climbs = pickle.load(f)
-    assert 1 == 2, f'{all_climbs}'
+    climb = Climb.from_old_json(problem_id, all_climbs[problem_id])
+    f = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
+    all_results = pickle.load(f)
+    expected = all_results['342797']
+    result = app.process_data(climb)
+    assert result == expected
 
 
 def test_success_by_hold() -> None:
