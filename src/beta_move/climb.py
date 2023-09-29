@@ -153,7 +153,7 @@ class Climb:
                 (
                     chr(int(hold[0]) + ord('A')) + str(hold[1]),
                     False,
-                    False
+                    True
                 )
             )
         return climb
