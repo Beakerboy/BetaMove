@@ -49,7 +49,7 @@ def test_match_hold_features() -> None:
 
 create_movement_data = [
     [
-        "342797", 
+        "342797",
         [
             [0, 0, 1, 3, 4, 5, 7, 8],
             ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH'],
@@ -57,7 +57,7 @@ create_movement_data = [
         ]
     ],
     [
-        "20149", 
+        "20149",
         [
             [0, 1, 2, 4, 5, 6, 7],
             ['LH', 'RH', 'LH', 'RH', 'LH', 'LH', 'RH'],
