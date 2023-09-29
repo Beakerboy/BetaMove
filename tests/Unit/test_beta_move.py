@@ -89,7 +89,7 @@ def test_hand_string_sequence() -> None:
         'E8-LH', 'H10-RH', 'D12-LH',
         'E13-RH', 'B16-LH', 'D18-RH'
     ]
-    results = app.generate_hand_string_sequence(climb) -> None:
+    results = app.generate_hand_string_sequence(climb)
     assert results == expected
     
 def test_process_data() -> None:
