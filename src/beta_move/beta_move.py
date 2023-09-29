@@ -290,8 +290,10 @@ class BetaMove:
     def prev_hand(self: T, index: int, hand: str) -> int:
         """
         Given an index, find the last occurance of the given hand.
+        return the index for the hold in the allHold array.
         """
-        return ''.join(self.handOperator)[0:index * 2].rindex(hand) / 2
+        seq_index =  ''.join(self.handOperator)[0:index * 2].rindex(hand) / 2
+        return self.handSequence[int(seq_index)]
 
     def overall_success_rate(self: T) -> float:
         """
@@ -315,15 +317,13 @@ class BetaMove:
                 target_xy = (target_xy[0], target_xy[1] - 1)
 
             if i >= 1 and self.handOperator[i + 1] == "RH":
-                prev_hand = self.prev_hand(i + 1, "LH")
-                hold = self.handSequence[prev_hand]
+                hold = self.prev_hand(i + 1, "LH")
                 last_hand_xy = self.get_xy_from_order(hold)
                 gaussian = self.make_gaussian(target_xy, last_hand_xy, "LH")
                 overall_score = overall_score * gaussian
 
             elif i >= 1 and self.handOperator[i + 1] == "LH":
-                prev_hand = self.prev_hand(i + 1, "RH")
-                hold = self.handSequence[prev_hand]
+                hold = self.prev_hand(i + 1, "RH")
                 last_hand_xy = self.get_xy_from_order(hold)
                 gaussian = self.make_gaussian(target_xy, last_hand_xy, "RH")
                 overall_score = overall_score * gaussian
