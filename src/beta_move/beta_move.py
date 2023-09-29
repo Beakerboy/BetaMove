@@ -287,7 +287,6 @@ class BetaMove:
             end_hold_order.append(self.totalNumOfHold)
         return end_hold_order
 
-
     def overall_success_rate(self: T) -> float:
         """
         return the overall successful rate using the stored beta hand sequence
