@@ -60,7 +60,7 @@ def test_create_movement() -> None:
     result = app.create_movement(climb)
     assert result.handSequence == expected["hold_index"]
     assert result.handOperator == expected["hands"]
-    assert result.overall_success_rate() == expected["sucess"]
+    assert result.overall_success_rate() == expected["success"]
 
 
 def test_success_by_hold() -> None:
