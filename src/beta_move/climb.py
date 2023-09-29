@@ -114,7 +114,43 @@ class Climb:
         climb.set_id(id)
         climb.set_name(data["problem_name"])
         climb.set_grade(data["grade"])
-        for hold in data["moves"]:
+        for hold in data["start"]:
+            climb.add_hold(
+                (
+                    chr(int(hold[0]) + ord('A'))+ str(hold[1]),
+                    True,
+                    False
+                )
+            )
+        for hold in data["mid"]:
+            climb.add_hold(
+                (
+                    chr(int(hold[0]) + ord('A'))+ str(hold[1]),
+                    False,
+                    False
+                )
+            )
+        for hold in data["end"]:
+            climb.add_hold(
+                (
+                    chr(int(hold[0]) + ord('A'))+ str(hold[1]),
+                    False,
+                    False
+                )
+            )
+        return climb
+
+    @classmethod
+    def from_old_json(cls: Type[T], id: str, data: dict) -> T:
+        # parse data and set attributes from the old json format
+        print(data)
+        climb = cls()
+        climb.set_id(id)
+        url = data["url"]
+        index = url.rindex('/')
+        climb.set_name(url[index:])
+        climb.set_grade(data["grade"])
+        for hold in data["start"]:
             climb.add_hold(
                 (
                     hold["Description"],
