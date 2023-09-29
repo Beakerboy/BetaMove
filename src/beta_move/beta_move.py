@@ -157,7 +157,6 @@ class BetaMove:
             self.holdsNotUsed.remove(self.get_order_from_hold(first_start))
             self.holdsNotUsed.remove(self.get_order_from_hold(second_start))
 
-
     def add_next_hand(self: T, next_hold: int, op: str) -> None:
         """
         Operation to make add the next hold. Append handsequence and hand
@@ -333,7 +332,6 @@ class BetaMove:
 
     def set_true_beta(self: T) -> None:
         self.isTrueBeta = True
-
 
     @classmethod
     def add_new_beta(cls: Type[T],
