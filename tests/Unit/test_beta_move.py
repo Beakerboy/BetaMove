@@ -88,7 +88,7 @@ def test_process_data() -> None:
     climb = Climb.from_old_json('342797', all_climbs['342797'])
     f = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
     all_results = pickle.load(f)
-    expected = all_results['342797']
+    expected = all_results['X_dict_seq']['342797']
     result = app.process_data(climb)
     assert result == expected
 
