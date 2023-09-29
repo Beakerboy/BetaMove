@@ -85,7 +85,7 @@ def test_process_data() -> None:
     app = BetaMove(board)
     f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
     all_climbs = pickle.load(f)
-    climb = Climb.from_old_json(problem_id, all_climbs['342797'])
+    climb = Climb.from_old_json('342797', all_climbs['342797'])
     f = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
     all_results = pickle.load(f)
     expected = all_results['342797']
