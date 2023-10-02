@@ -36,6 +36,16 @@ def test_old_factory() -> None:
     assert climb.get_name() == "ladybug"
     assert climb.url() == "https://moonboard.com/Problems/View/20149/ladybug"
 
+
+def test_old_fact_real_data() -> None:
+    board = Moonboard(2016)
+    app = BetaMove(board)
+    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
+    all_climbs = pickle.load(f)
+    climb = Climb.from_old_json("311586", all_climbs["311586"])
+    assert climb.url() == "https://moonboard.com/Problems/View/311586/ladybug" 
+
+
 # Setters and Getters
 
 
