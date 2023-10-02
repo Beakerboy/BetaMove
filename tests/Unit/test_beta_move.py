@@ -106,7 +106,7 @@ def test_process_data() -> None:
     expected = all_results['X_dict_seq']['342797']
     result = app.process_data(climb)
     # the last row is missing
-    np.testing.assert_array_equal(result[0:3], expected[0:3])
+    np.testing.assert_array_equal(result, expected[0:3])
 
 
 def test_all() -> None:
@@ -121,7 +121,7 @@ def test_all() -> None:
         climb = Climb.from_old_json(key, all_climbs[key])
         expected = all_results['X_dict_seq'][key]
         result = app.process_data(climb)
-        if not result[0:3] == expected[0:3]:
+        if np.not_equal(result, expected[0:3]):
             failures.append(key)
     assert len(failures) == 0, f'{len(failures)} out of {len(all_climbs)} failed: {failures}'
 
