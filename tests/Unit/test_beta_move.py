@@ -129,8 +129,8 @@ def test_all() -> None:
                     failures.append(key)
             else:
                 missing.append(key)
-        except:
-            exception.append(key)
+        except err:
+            exceptions.append(key)
     assert len(failures) == 0, \
         f'{len(failures)} out of {len(all_climbs)} failed: {failures}'
 
