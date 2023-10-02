@@ -131,8 +131,9 @@ def test_all() -> None:
                 missing.append(key)
         except Exception:
             exceptions.append(key)
-    assert len(failures) == 0, \
-        f'{len(failures)} out of {len(all_climbs)} failed: {failures}'
+    tot_fail = len(failures) + len(missing) + len(exceptions)
+    assert tot_fail == 0, \
+        f'{tot_fail} out of {len(all_climbs)} failed.'
 
 
 def test_success_by_hold() -> None:
