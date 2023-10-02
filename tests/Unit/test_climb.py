@@ -38,7 +38,7 @@ def test_old_factory() -> None:
     assert climb.url() == "https://moonboard.com/Problems/View/20149/ladybug"
 
 
-def test_old_fact_real_data() -> None:
+def tast_old_fact_real_data() -> None:
     f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
     all_climbs = pickle.load(f)
     assert 1 == 2, f'CLIMB DATA: {all_climbs["311586"]}'
