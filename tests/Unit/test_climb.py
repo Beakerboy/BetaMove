@@ -38,8 +38,6 @@ def test_old_factory() -> None:
 
 
 def test_old_fact_real_data() -> None:
-    board = Moonboard(2016)
-    app = BetaMove(board)
     f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
     all_climbs = pickle.load(f)
     climb = Climb.from_old_json("311586", all_climbs["311586"])
