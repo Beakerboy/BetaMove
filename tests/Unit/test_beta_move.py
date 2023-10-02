@@ -108,6 +108,20 @@ def test_process_data() -> None:
     np.testing.assert_array_equal(result, expected)
 
 
+def test_all() -> None:
+    board = Moonboard(2016)
+    app = BetaMove(board)
+    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
+    all_climbs = pickle.load(f)
+    f2 = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
+    all_results = pickle.load(f2)
+    for key in all_climbs:
+        climb = Climb.from_old_json(key, all_climbs[key])
+        expected = all_results['X_dict_seq'][key]
+        result = app.process_data(climb)
+        np.testing.assert_array_equal(result[0:3], expected[0:3])
+
+
 def test_success_by_hold() -> None:
     app = setup_standard()
     hold = app.allHolds[0]
