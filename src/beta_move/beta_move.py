@@ -121,8 +121,7 @@ class BetaMove:
             self.allHolds.T[6:8, movement.handSequence],
             ((np.array(movement.handOperator) == 'LH') * (-1)
              + (np.array(movement.handOperator) == 'RH') * 1),
-            ((np.array(movement.handOperator) == 'LH') * (-1)
-             + (np.array(movement.handOperator) == 'RH') * 1)
+            # missing code for the last line
         ])
         return output
 
