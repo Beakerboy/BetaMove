@@ -132,7 +132,7 @@ def test_all() -> None:
         except Exception:
             exceptions.append(key)
     tot_fail = len(failures) + len(missing) + len(exceptions)
-    fail_str = '/'.join([len(failures), len(missing), len(exceptions)])
+    fail_str = '/'.join(list(map(str, [len(failures), len(missing), len(exceptions)])))
     assert tot_fail == 0, \
         f'{tot_fail} out of {len(all_climbs)} failed. {fail_str}'
 
