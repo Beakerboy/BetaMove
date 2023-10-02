@@ -51,7 +51,7 @@ class Climb:
             msg = "Finish hold must be on top row (18). Hold is on row "
             raise Exception(msg + hold[0][1:])
         if self.num_holds() == 14:
-            raise Exception("Too many holds")
+            raise Exception("Too many holds. id " + self._id)
         # Mini Moonboard will need different criteria
         _rex = re.compile("[A-K]([1-9]|(1[0-8]))")
         if not _rex.fullmatch(hold[0]):
