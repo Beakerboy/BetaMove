@@ -121,14 +121,16 @@ def test_all() -> None:
     exceptions = []
     for key in all_climbs:
         try:
-            if key in all_results['X_dict_seq'] and int(key[-3]) % 8 == 0:
+            in_dict = key in all_results['X_dict_seq']
+            if in_dict and int(key[-3]) % 8 == 0:
                 climb = Climb.from_old_json(key, all_climbs[key])
                 expected = all_results['X_dict_seq'][key]
                 result = app.process_data(climb)
                 if not np.array_equal(result, expected[0:3]):
                     failures.append(key)
             else:
-                missing.append(key)
+                if not in_dict:
+                    missing.append(key)
         except Exception:
             exceptions.append(key)
     tot_fail = len(failures) + len(missing) + len(exceptions)
