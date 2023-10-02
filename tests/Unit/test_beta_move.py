@@ -122,7 +122,7 @@ def test_all() -> None:
     for key in all_climbs:
         try:
             climb = Climb.from_old_json(key, all_climbs[key])
-            if key in all_results:
+            if key in all_results['X_dict_seq']:
                 expected = all_results['X_dict_seq'][key]
                 result = app.process_data(climb)
                 if not np.array_equal(result, expected[0:3]):
