@@ -116,11 +116,14 @@ def test_all() -> None:
     all_climbs = pickle.load(f)
     f2 = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
     all_results = pickle.load(f2)
+    failures = []
     for key in all_climbs:
         climb = Climb.from_old_json(key, all_climbs[key])
         expected = all_results['X_dict_seq'][key]
         result = app.process_data(climb)
-        np.testing.assert_array_equal(result[0:3], expected[0:3])
+        if not result[0:3] == expected[0:3]:
+            failures.append(key)
+    assert len(failures) == 0, f'{len(failures)} out of {len(all_climbs)} failed: {failures}'
 
 
 def test_success_by_hold() -> None:
