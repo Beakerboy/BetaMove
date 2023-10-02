@@ -84,6 +84,8 @@ class BetaMove:
         return x_vectors
 
     def create_movement(self: T, climb: Climb) -> T:
+        # reset onject state
+        self.__init__(self._board)
         # movement = []
         x_vectors = self.match_hold_features(climb)
         self.allHolds = x_vectors.T
