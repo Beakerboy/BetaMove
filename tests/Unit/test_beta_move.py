@@ -121,7 +121,7 @@ def test_all() -> None:
     exceptions = []
     for key in all_climbs:
         try:
-            if key in all_results['X_dict_seq'] and and int(key[-1]) % 2 == 0:
+            if key in all_results['X_dict_seq'] and int(key[-1]) % 2 == 0:
                 climb = Climb.from_old_json(key, all_climbs[key])
                 expected = all_results['X_dict_seq'][key]
                 result = app.process_data(climb)
