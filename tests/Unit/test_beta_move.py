@@ -3,6 +3,7 @@ import json
 import numpy as np
 import pickle
 import pytest
+import random
 from beta_move.beta_move import BetaMove
 from beta_move.climb import Climb
 from beta_move.moonboard import Moonboard
@@ -138,7 +139,8 @@ def test_all() -> None:
         except Exception:
             exceptions.append(key)
     tot_fail = len(failures) + len(missing) + len(exceptions)
-    fail_map = map(str, [len(failures), len(missing), len(exceptions), len(good)])
+    stats = [len(failures), len(missing), len(exceptions), len(good)]
+    fail_map = map(str, stats)
     fail_str = '/'.join(list(fail_map))
     assert tot_fail == 0, \
         f'{mod}: {tot_fail} out of {len(all_climbs)} failed. {fail_str}'
