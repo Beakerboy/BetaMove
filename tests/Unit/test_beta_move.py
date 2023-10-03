@@ -130,7 +130,8 @@ def test_all() -> None:
                 result = app.process_data(climb)
                 if not np.array_equal(result, expected[0:3]):
                     failures.append(key)
-                else good.append(key)
+                else:
+                    good.append(key)
             else:
                 if not in_dict:
                     missing.append(key)
@@ -140,7 +141,7 @@ def test_all() -> None:
     fail_map = map(str, [len(failures), len(missing), len(exceptions), len(good)])
     fail_str = '/'.join(list(fail_map))
     assert tot_fail == 0, \
-        f'{tot_fail} out of {len(all_climbs)} failed. {fail_str}'
+        f'{mod}: {tot_fail} out of {len(all_climbs)} failed. {fail_str}'
 
 
 def test_success_by_hold() -> None:
