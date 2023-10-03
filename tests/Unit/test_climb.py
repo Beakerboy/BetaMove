@@ -1,5 +1,6 @@
 import json
 import pytest
+import warnings
 from beta_move.climb import Climb
 
 
@@ -119,7 +120,7 @@ def test_too_many_holds() -> None:
     climb = Climb()
     for i in range(14):
         climb.add_hold(("A" + str(i + 1), False, False))
-    with pytest.raises(Exception):
+    with pytest.raises(Warning):
         climb.add_hold(("A15", False, False))
 
 
