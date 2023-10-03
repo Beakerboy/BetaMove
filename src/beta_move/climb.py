@@ -42,7 +42,7 @@ class Climb:
         return self._name
 
     def add_hold(self: T, hold: tuple) -> None:
-        ""
+        """
         Add a hold to the list of 'on' holds for this problem.
 
         Parameters
