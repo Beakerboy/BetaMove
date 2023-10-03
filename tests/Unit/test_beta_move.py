@@ -123,9 +123,9 @@ def test_all() -> None:
     good = []
     mod = random.randint(0, 7)
     for key in all_climbs:
-        try:
-            if int(key[-3]) % mod == 0:
-                if key in all_results['X_dict_seq']:
+        if int(key[-3]) % 8 == mod:
+            if key in all_results['X_dict_seq']:
+                try:
                     climb = Climb.from_old_json(key, all_climbs[key])
                     expected = all_results['X_dict_seq'][key]
                     result = app.process_data(climb)
@@ -133,10 +133,10 @@ def test_all() -> None:
                         failures.append(key)
                     else:
                         good.append(key)
-                else:
-                    missing.append(key)
-        except Exception:
-            exceptions.append(key)
+                except Exception:
+                    exceptions.append(key)
+            else:
+                missing.append(key)
     tot_fail = len(failures) + len(missing) + len(exceptions)
     stats = [len(failures), len(missing), len(exceptions), len(good)]
     fail_map = map(str, stats)
