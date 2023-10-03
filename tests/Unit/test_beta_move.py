@@ -121,9 +121,9 @@ def test_all() -> None:
     missing = []
     exceptions = []
     good = []
+    mod = random.randint(0, 7)
     for key in all_climbs:
         try:
-            mod = random.randint(0, 7)
             in_dict = key in all_results['X_dict_seq']
             if in_dict and int(key[-3]) % mod == 0:
                 climb = Climb.from_old_json(key, all_climbs[key])
