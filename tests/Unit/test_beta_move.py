@@ -124,17 +124,16 @@ def test_all() -> None:
     mod = random.randint(0, 7)
     for key in all_climbs:
         try:
-            in_dict = key in all_results['X_dict_seq']
-            if in_dict and int(key[-3]) % mod == 0:
-                climb = Climb.from_old_json(key, all_climbs[key])
-                expected = all_results['X_dict_seq'][key]
-                result = app.process_data(climb)
-                if not np.array_equal(result, expected[0:3]):
-                    failures.append(key)
+            if int(key[-3]) % mod == 0:
+                if key in all_results['X_dict_seq']:
+                    climb = Climb.from_old_json(key, all_climbs[key])
+                    expected = all_results['X_dict_seq'][key]
+                    result = app.process_data(climb)
+                    if not np.array_equal(result, expected[0:3]):
+                        failures.append(key)
+                    else:
+                        good.append(key)
                 else:
-                    good.append(key)
-            else:
-                if not in_dict:
                     missing.append(key)
         except Exception:
             exceptions.append(key)
