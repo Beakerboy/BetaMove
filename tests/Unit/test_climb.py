@@ -1,6 +1,5 @@
 import json
 import pytest
-import warnings
 from beta_move.climb import Climb
 
 
