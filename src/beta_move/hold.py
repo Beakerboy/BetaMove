@@ -1,4 +1,4 @@
-from typing import TypeVar, Type
+from typing import TypeVar
 
 
 T = TypeVar('T', bound='Hold')
@@ -22,7 +22,7 @@ class Hold:
         return self._difficulties
 
     def get_right_difficulty(self: T) -> int:
-         """
+        """
         return the right hand difficulty
         """
         return self._difficulties[1]
