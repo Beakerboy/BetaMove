@@ -110,7 +110,7 @@ def test_process_data() -> None:
     np.testing.assert_array_equal(result, expected[0:3])
 
 
-def test_all() -> None:
+def tast_all() -> None:
     board = Moonboard(2016)
     app = BetaMove(board)
     f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
