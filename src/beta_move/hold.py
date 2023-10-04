@@ -1,3 +1,4 @@
+import numpy as np
 from typing import TypeVar
 
 
@@ -43,4 +44,5 @@ class Hold:
         """
         Calculate the distance between this hold and another hold
         """
-        pass
+        diff = np.array(self._loacation) - np.array(hold._loacation)
+        return np.linalg.norm(diff)
