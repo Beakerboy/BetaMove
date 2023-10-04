@@ -12,7 +12,7 @@ T = TypeVar('T', bound='BetaMove')
 class BetaMove:
 
     # class default constructor
-    def __init__(self: T, board: Moonboard=Moonboard()) -> None:
+    def __init__(self: T, board: Moonboard = Moonboard()) -> None:
 
         # Instance Attributes
         self._board: Moonboard = board
