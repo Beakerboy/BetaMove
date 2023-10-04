@@ -1,3 +1,4 @@
+import pytest
 from beta_move.beta_generator import BetaGenerator
 
 
