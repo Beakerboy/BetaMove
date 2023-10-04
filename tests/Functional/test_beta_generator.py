@@ -1,5 +1,7 @@
+import pickle
 import pytest
 from beta_move.beta_generator import BetaGenerator
+from beta_move.climb import Climb
 
 
 create_movement_data = [
