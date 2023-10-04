@@ -15,7 +15,7 @@ class BetaGenerator:
     @classmethod
     def create_movement(cls: Type[T], climb: Climb) -> BetaMove:
         board = Moonboard()
-        beta = BetaMove(board, climb)
+        beta = BetaMove(board)
         x_vectors = beta.match_hold_features(climb)
         beta.allHolds = x_vectors.T
         beta.totalNumOfHold = np.size(x_vectors.T, axis=0)
