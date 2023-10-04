@@ -10,6 +10,8 @@ class Hold:
     def __init__(self: T, id: int) -> None:
         # Instance Attributes
         self._id = id
+
+        # (x, y)
         self._location = (0, 0)
 
         # (left, right)
