@@ -3,6 +3,7 @@ import json
 import numpy as np
 import pickle
 import pytest
+import random
 from beta_move.beta_move import BetaMove
 from beta_move.climb import Climb
 from beta_move.moonboard import Moonboard
@@ -105,7 +106,43 @@ def test_process_data() -> None:
     all_results = pickle.load(f)
     expected = all_results['X_dict_seq']['342797']
     result = app.process_data(climb)
-    np.testing.assert_array_equal(result[0:3], expected[0:3])
+    # the last row is missing
+    np.testing.assert_array_equal(result, expected[0:3])
+
+
+def test_all() -> None:
+    board = Moonboard(2016)
+    app = BetaMove(board)
+    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
+    all_climbs = pickle.load(f)
+    f2 = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
+    all_results = pickle.load(f2)
+    failures = []
+    missing = []
+    exceptions = []
+    good = []
+    mod = random.randint(0, 7)
+    for key in all_climbs:
+        if int(key[-3]) % 8 == mod:
+            if key in all_results['X_dict_seq']:
+                try:
+                    climb = Climb.from_old_json(key, all_climbs[key])
+                    expected = all_results['X_dict_seq'][key]
+                    result = app.process_data(climb)
+                    if not np.array_equal(result, expected[0:3]):
+                        failures.append(key)
+                    else:
+                        good.append(key)
+                except Exception:
+                    exceptions.append(key)
+            else:
+                missing.append(key)
+    tot_fail = len(failures) + len(missing) + len(exceptions)
+    stats = [len(failures), len(missing), len(exceptions), len(good)]
+    fail_map = map(str, stats)
+    fail_str = '/'.join(list(fail_map))
+    assert tot_fail == 0, \
+        f'{mod}: {tot_fail} out of {len(all_climbs)} failed. {fail_str}'
 
 
 def test_success_by_hold() -> None:

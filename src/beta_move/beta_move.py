@@ -16,6 +16,9 @@ class BetaMove:
 
         # Instance Attributes
         self._board: Moonboard = board
+        self.reset_state()
+
+    def reset_state(self: T) -> None:
         self.allHolds: np.ndarray = np.zeros((1, 1))
         self.totalNumOfHold: int = 0
         # the index values of unused holds.
@@ -84,6 +87,8 @@ class BetaMove:
         return x_vectors
 
     def create_movement(self: T, climb: Climb) -> T:
+        # reset onject state
+        self.reset_state()
         # movement = []
         x_vectors = self.match_hold_features(climb)
         self.allHolds = x_vectors.T
@@ -121,8 +126,7 @@ class BetaMove:
             self.allHolds.T[6:8, movement.handSequence],
             ((np.array(movement.handOperator) == 'LH') * (-1)
              + (np.array(movement.handOperator) == 'RH') * 1),
-            ((np.array(movement.handOperator) == 'LH') * (-1)
-             + (np.array(movement.handOperator) == 'RH') * 1)
+            # missing code for the last line
         ])
         return output
 
