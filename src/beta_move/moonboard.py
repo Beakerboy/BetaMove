@@ -25,12 +25,12 @@ class Moonboard:
         self._angle: int = angle
         self._height: int = 18
         if year == 2016:
-            base_path = pathlib.Path(__file__).parent
-            path = (base_path / "../../data/hold_features_2016_LH.csv").resolve()
+            base_path = pathlib.Path(__file__).parent.parent.parent
+            path = (base_path / "data/hold_features_2016_LH.csv").resolve()
             self._lh = self._transform2(path.absolute())
-            path = (base_path / "../../data/hold_features_2016_RH.csv").resolve()
+            path = (base_path / "data/hold_features_2016_RH.csv").resolve()
             self._rh = self._transform2(path.absolute())
-            path = (base_path / "../../data/hold_features.csv").resolve()
+            path = (base_path / "data/hold_features.csv").resolve()
             self._features = self._transform(path.absolute())
 
     def get_features(self: T, position: Tuple[int, int]) -> np.ndarray:
