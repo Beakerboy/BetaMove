@@ -47,4 +47,4 @@ class Hold:
         Calculate the distance between this hold and another hold
         """
         diff = np.array(self._location) - np.array(hold._location)
-        return np.linalg.norm(diff)
+        return np.linalg.norm(diff).item()
