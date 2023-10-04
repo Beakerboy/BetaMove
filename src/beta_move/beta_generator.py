@@ -11,7 +11,7 @@ T = TypeVar('T', bound='BetaGenerator')
 
 
 class BetaGenerator:
-    
+
     @classmethod
     def create_movement(cls: Type[T], climb: Climb) -> BetaMove:
         board = Moonboard()
