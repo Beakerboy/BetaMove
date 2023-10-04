@@ -38,7 +38,7 @@ class Hold:
         return the features
         """
         return self._features
-    
+
     def distance_to(self: T, hold: T) -> float:
         """
         Calculate the distance between this hold and another hold
