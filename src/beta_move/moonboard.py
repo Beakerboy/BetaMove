@@ -69,7 +69,7 @@ class Moonboard:
         """
         return 11
 
-    def _transform(self: T, file: str) -> Dict[Tuple[int, int], np.ndarray]:
+    def _transform(self: T, file: pathlib.Path) -> Dict[Tuple[int, int], np.ndarray]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
@@ -84,7 +84,7 @@ class Moonboard:
             ).astype(int)
         return dict
 
-    def _transform2(self: T, file: str) -> Dict[Tuple[int, int], int]:
+    def _transform2(self: T, file: pathlib.Path) -> Dict[Tuple[int, int], int]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
