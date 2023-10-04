@@ -27,11 +27,11 @@ class Moonboard:
         if year == 2016:
             base_path = pathlib.Path(__file__).parent
             path = (base_path / "../../data/hold_features_2016_LH.csv").resolve()
-            self._lh = self._transform2(path)
+            self._lh = self._transform2(path.absolute())
             path = (base_path / "../../data/hold_features_2016_RH.csv").resolve()
-            self._rh = self._transform2(path)
+            self._rh = self._transform2(path.absolute())
             path = (base_path / "../../data/hold_features.csv").resolve()
-            self._features = self._transform(path)
+            self._features = self._transform(path.absolute())
 
     def get_features(self: T, position: Tuple[int, int]) -> np.ndarray:
         """
