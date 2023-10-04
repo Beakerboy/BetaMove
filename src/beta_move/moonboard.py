@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import pathlib
+from pathlib import Path
 from typing import Any, Dict, Tuple, Type, TypeVar
 
 
@@ -25,8 +25,9 @@ class Moonboard:
         self._angle: int = angle
         self._height: int = 18
         if year == 2016:
-            base_path = pathlib.Path(__file__).parent.parent.parent
+            base_path = Path(__file__).parent.parent.parent
             path = (base_path / "data/hold_features_2016_LH.csv").resolve()
+            print(path.absolute())
             self._lh = self._transform2(path.absolute())
             path = (base_path / "data/hold_features_2016_RH.csv").resolve()
             self._rh = self._transform2(path.absolute())
@@ -69,7 +70,7 @@ class Moonboard:
         """
         return 11
 
-    def _transform(self: T, file: pathlib.Path) -> Dict[Tuple[int, int], np.ndarray]:
+    def _transform(self: T, file: Path) -> Dict[Tuple[int, int], np.ndarray]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
@@ -84,7 +85,7 @@ class Moonboard:
             ).astype(int)
         return dict
 
-    def _transform2(self: T, file: pathlib.Path) -> Dict[Tuple[int, int], int]:
+    def _transform2(self: T, file: Path) -> Dict[Tuple[int, int], int]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
