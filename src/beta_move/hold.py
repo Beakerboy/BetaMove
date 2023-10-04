@@ -14,6 +14,8 @@ class Hold:
 
         # (x, y)
         self._location = (0, 0)
+        # int 0-7 clockwise starting North
+        self._orientation = 0
 
         # (left, right)
         self._difficulties = (0, 0)
