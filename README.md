@@ -1,3 +1,6 @@
+[![Coverage Status](https://coveralls.io/repos/github/Beakerboy/BetaMove/badge.svg?branch=dev)](https://coveralls.io/github/Beakerboy/BetaMove?branch=dev)
+[![Python package](https://github.com/Beakerboy/BetaMove/actions/workflows/python-package.yml/badge.svg?branch=dev)](https://github.com/Beakerboy/BetaMove/actions/workflows/python-package.yml)
+
 ## About
 BetaMove converts a MoonBoard problem into a move sequence that is similar to the predicted move sequence of climbing experts.
 
