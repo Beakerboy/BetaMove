@@ -32,17 +32,13 @@ def main() -> None:
                 list(item['Difficulties'])
             ).astype(int)
         return problem
-
-    # Create moonboard with he specified layout
-    board = Moonboard()
-    # Create movement generator.
-    app = BetaGenerator(board)
+    
     # Load the json file
     f = open(args.filename)
     data = json.load(f)
     for id in data:
         climb = Climb.from_json(id, data[id])
         # validate climb against moonboard.
-        movement = app.create_movement(climb)
+        movement = BetaGenerator.create_movement(climb)
         with open(args.output, 'a') as convert_file:
             convert_file.write(json.dumps(movement))
