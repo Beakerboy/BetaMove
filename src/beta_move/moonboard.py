@@ -78,7 +78,13 @@ class Moonboard:
             ] = item['Hold']
         return dict
 
-    def _transform4(self: T, file: Path) -> Dict[str, Tuple[np.ndarray, int, int]]:
+    def _transform4(
+                    self: T,
+                    file: Path
+                    ) -> Dict[
+                              str,
+                              Tuple[np.ndarray, int, int]
+                              ]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
