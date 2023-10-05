@@ -84,7 +84,7 @@ class BetaMove:
             raise Exception("Climb is invalid.")
         return x_vectors
 
-    def process_data(self: T, climb: Climb) -> np.ndarray:
+    def process_data(self: T) -> np.ndarray:
         output = np.vstack([
             self.allHolds.T[6:8, self.handSequence],
             ((np.array(self.handOperator) == 'LH') * (-1)
