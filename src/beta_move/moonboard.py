@@ -14,10 +14,10 @@ class Moonboard:
 
         # Instance Attributes
         # hold specific atributes
-        self._db: Dict[Tuple[int, int], Tuple[np.ndarray, int, int]] = {}
+        self._db: Dict[str, Tuple[np.ndarray, int, int]] = {}
 
         # which hold is in which location
-        self._location: Dict[Tuple[int, int], int] = {}
+        self._locations: Dict[Tuple[int, int], str] = {}
 
         self._angle: int = angle
         self._height: int = 18
@@ -67,7 +67,7 @@ class Moonboard:
         """
         return 11
 
-    def _transform3(self: T, file: Path) -> Dict[Tuple[int, int], int]:
+    def _transform3(self: T, file: Path) -> Dict[Tuple[int, int], str]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
@@ -75,10 +75,10 @@ class Moonboard:
             position = item['Position']
             dict[
                 self.position_to_location(position)
-            ] = int(item['Hold'])
+            ] = item['Hold']
         return dict
 
-    def _transform4(self: T, file: Path) -> Dict[Tuple[int, int], int]:
+    def _transform4(self: T, file: Path) -> Dict[str, Tuple[np.ndarray, int, int]]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
@@ -89,7 +89,7 @@ class Moonboard:
             left = int(item['Left'])
             right = int(item['Right'])
             dict[
-                int(item['Hold'])
+                item['Hold']
             ] = (features, left, right)
         return dict
 
