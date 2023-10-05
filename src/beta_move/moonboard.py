@@ -53,7 +53,7 @@ class Moonboard:
         """
         Check a hold is present on the board at a given location
         """
-        return position in self._features
+        return position in self._locations
 
     def get_height(self: T) -> int:
         """
