@@ -46,16 +46,13 @@ def test_match_hold_features() -> None:
 
 
 def test_hand_string_sequence() -> None:
-    app = BetaMove()
-    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
-    all_climbs = pickle.load(f)
-    climb = Climb.from_old_json('342797', all_climbs['342797'])
+    app = setup_standard()
     expected = [
         'F5-LH', 'F5-RH',
         'E8-LH', 'H10-RH', 'D12-LH',
         'E13-RH', 'B16-LH', 'D18-RH'
     ]
-    results = app.generate_hand_string_sequence(climb)
+    results = app.generate_hand_string_sequence()
     assert results == expected
 
 
