@@ -28,14 +28,14 @@ class Moonboard:
             path = (base_path / "data/Hold_Database.csv").resolve()
             self._db = self._transform4(path.absolute())
 
-    def get_features(self: T, position: Tuple[int, int]) -> np.ndarray:
+    def get_features(self: T, location: Tuple[int, int]) -> np.ndarray:
         """
         Return the features for the hold at a particular location
         """
         hold_id = self._locations[location]
         return self._db[hold_id][0]
 
-    def get_rh_difficulty(self: T, position: Tuple[int, int]) -> int:
+    def get_rh_difficulty(self: T, location: Tuple[int, int]) -> int:
         """
         Return the right hand difficulty for the hold at a particular location
         """
