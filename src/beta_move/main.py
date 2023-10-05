@@ -4,7 +4,6 @@ import numpy as np
 import pandas as pd
 from beta_move.beta_generator import BetaGenerator
 from beta_move.climb import Climb
-from beta_move.moonboard import Moonboard
 
 
 def main() -> None:
@@ -32,7 +31,7 @@ def main() -> None:
                 list(item['Difficulties'])
             ).astype(int)
         return problem
-    
+
     # Load the json file
     f = open(args.filename)
     data = json.load(f)
