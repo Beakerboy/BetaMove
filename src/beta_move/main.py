@@ -2,9 +2,8 @@ import argparse
 import json
 import numpy as np
 import pandas as pd
-from beta_move.beta_move import BetaMove
+from beta_move.beta_generator import BetaGenerator
 from beta_move.climb import Climb
-from beta_move.moonboard import Moonboard
 
 
 def main() -> None:
@@ -33,16 +32,12 @@ def main() -> None:
             ).astype(int)
         return problem
 
-    # Create moonboard with he specified layout
-    board = Moonboard()
-    # Create movement generator.
-    app = BetaMove(board)
     # Load the json file
     f = open(args.filename)
     data = json.load(f)
     for id in data:
         climb = Climb.from_json(id, data[id])
         # validate climb against moonboard.
-        movement = app.create_movement(climb)
+        movement = BetaGenerator.create_movement(climb)
         with open(args.output, 'a') as convert_file:
             convert_file.write(json.dumps(movement))
