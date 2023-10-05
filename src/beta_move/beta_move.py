@@ -96,7 +96,7 @@ class BetaMove:
     def generate_hand_string_sequence(self: T) -> list:
         result = []
         for i, index in enumerate(self.handSequence):
-            xy = movement.get_xy_from_order(index)
+            xy = self.get_xy_from_order(index)
             location = Moonboard.coordinate_to_string(xy)
             movement_string = location + '-' + self.handOperator[i]
             result.append(movement_string)
