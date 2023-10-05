@@ -40,3 +40,7 @@ def test_lh_difficulty() -> None:
 def test_rh_difficulty() -> None:
     board = Moonboard()
     assert board.get_rh_difficulty((0, 15)) == 2
+
+def test_position_to_location() -> None:
+    assert Moonboard.position_to_location('A1') == (0, 0)
+
