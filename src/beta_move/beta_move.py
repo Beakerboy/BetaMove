@@ -1,5 +1,3 @@
-import copy
-import heapq
 import numpy as np
 from beta_move.climb import Climb
 from beta_move.moonboard import Moonboard
