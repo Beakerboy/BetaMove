@@ -6,7 +6,6 @@ import pytest
 import random
 from beta_move.beta_move import BetaMove
 from beta_move.climb import Climb
-from beta_move.moonboard import Moonboard
 
 
 x_342797 = np.array([
@@ -22,7 +21,7 @@ x_342797 = np.array([
 ])
 
 
-def setup_standard() -> Moonboard:
+def setup_standard() -> BetaMove:
     app = BetaMove()
     app.allHolds = x_342797
     self.totalNumOfHold = 9
@@ -33,15 +32,13 @@ def setup_standard() -> Moonboard:
 
 
 def test_constructor() -> None:
-    board = Moonboard(2016)
-    app = BetaMove(board)
+    app = BetaMove()
     assert isinstance(app, BetaMove)
 
 
 def test_match_hold_features() -> None:
     expected = x_342797.T
-    board = Moonboard(2016)
-    app = BetaMove(board)
+    app = BetaMove()
     f = open('tests/Unit/342797.json')
     data = json.load(f)
     climb = Climb.from_json("342797", data["342797"])
@@ -49,8 +46,7 @@ def test_match_hold_features() -> None:
 
 
 def test_hand_string_sequence() -> None:
-    board = Moonboard(2016)
-    app = BetaMove(board)
+    app = BetaMove()
     f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
     all_climbs = pickle.load(f)
     climb = Climb.from_old_json('342797', all_climbs['342797'])
@@ -64,8 +60,7 @@ def test_hand_string_sequence() -> None:
 
 
 def test_process_data() -> None:
-    board = Moonboard(2016)
-    app = BetaMove(board)
+    app = BetaMove()
     f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
     all_climbs = pickle.load(f)
     climb = Climb.from_old_json('342797', all_climbs['342797'])
@@ -78,8 +73,7 @@ def test_process_data() -> None:
 
 
 def tast_all() -> None:
-    board = Moonboard(2016)
-    app = BetaMove(board)
+    app = BetaMove()
     f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
     all_climbs = pickle.load(f)
     f2 = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
@@ -120,7 +114,7 @@ def test_success_by_hold() -> None:
 
 
 def test_add_start() -> None:
-    app = BetaMove(Moonboard())
+    app = BetaMove()
     app.allHolds = x_342797
     app.totalNumOfHold = np.size(app.allHolds, axis=1)
     app.holdsNotUsed = list(range(app.totalNumOfHold))
@@ -137,8 +131,7 @@ last_move_success_data = [
 
 @pytest.mark.parametrize("input, expected", last_move_success_data)
 def test_last_move_success(input: list, expected: int) -> None:
-    board = Moonboard(2016)
-    app = BetaMove(board)
+    app = BetaMove()
     app.allHolds = x_342797
     app.totalNumOfHold = np.size(app.allHolds, axis=1)
     app.holdsNotUsed = input[0]
@@ -162,14 +155,14 @@ def test_get_all() -> None:
 
 
 def test_get_left_hand_order() -> None:
-    app = BetaMove(Moonboard())
+    app = BetaMove()
     app.handOperator = ["LH", "RH", "RH", "LH"]
     app.handSequence = [0, 1, 7, 9]
     assert app.get_left_hand_order() == 9
 
 
 def test_get_right_hand_order() -> None:
-    app = BetaMove(Moonboard())
+    app = BetaMove()
     app.handOperator = ["LH", "RH", "RH", "LH"]
     app.handSequence = [0, 1, 7, 9]
     assert app.get_right_hand_order() == 7
@@ -214,7 +207,6 @@ def test_success_rate(input: list, expected: float) -> None:
 
 def test_bad_climb() -> None:
     climb = Climb()
-    board = Moonboard()
-    app = BetaMove(board)
+    app = BetaMove()
     with pytest.raises(Exception):
         app.match_hold_features(climb)
