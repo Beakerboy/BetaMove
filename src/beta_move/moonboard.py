@@ -100,7 +100,7 @@ class Moonboard:
         return dict
 
     @classmethod
-    def position_to_location(cls: Type[T], position: str) -> tuple:
+    def position_to_location(cls: Type[T], position: str) -> Tuple[int, int]:
         x = ord(position[0]) - ord('A')
         y = int(position[1:]) - 1
         return (x, y)
