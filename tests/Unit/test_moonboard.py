@@ -46,13 +46,13 @@ difficulty_data = [
 ]
 
 
-@pytest.mark.parametrize("input, expected", difficulty_data)
+@pytest.mark.parametrize("input, difficulty", difficulty_data)
 def test_lh_difficulty(input: tuple, difficulty: list) -> None:
     board = Moonboard()
     assert board.get_lh_difficulty(input) == difficulty[0]
 
 
-@pytest.mark.parametrize("input, expected", difficulty_data)
+@pytest.mark.parametrize("input, difficulty", difficulty_data)
 def test_rh_difficulty(input: tuple, difficulty: list) -> None:
     board = Moonboard()
     assert board.get_rh_difficulty(input) == difficulty[1]
