@@ -1,4 +1,5 @@
 import re
+import warnings
 from typing import TypeVar, Type
 
 
@@ -41,6 +42,16 @@ class Climb:
         return self._name
 
     def add_hold(self: T, hold: tuple) -> None:
+        """
+        Add a hold to the list of 'on' holds for this problem.
+
+        Parameters
+        ----------
+        hold : tuple[str, bool, bool]
+            location, ie A14
+            is_start
+            is_finish
+        """
         if hold[1] and len(self._start_holds) == 2:
             raise Exception("Too many start holds")
         if hold[1] and int(hold[0][1:]) > 6:
@@ -51,7 +62,7 @@ class Climb:
             msg = "Finish hold must be on top row (18). Hold is on row "
             raise Exception(msg + hold[0][1:])
         if self.num_holds() == 14:
-            raise Exception("Too many holds")
+            warnings.warn("Too many holds")
         # Mini Moonboard will need different criteria
         _rex = re.compile("[A-K]([1-9]|(1[0-8]))")
         if not _rex.fullmatch(hold[0]):

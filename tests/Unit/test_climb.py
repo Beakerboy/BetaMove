@@ -1,4 +1,5 @@
 import json
+import pickle
 import pytest
 from beta_move.climb import Climb
 
@@ -35,6 +36,15 @@ def test_old_factory() -> None:
     climb = Climb.from_old_json("20149", data)
     assert climb.get_name() == "ladybug"
     assert climb.url() == "https://moonboard.com/Problems/View/20149/ladybug"
+
+
+def tast_old_fact_real_data() -> None:
+    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
+    all_climbs = pickle.load(f)
+    assert 1 == 2, f'CLIMB DATA: {all_climbs["311586"]}'
+    climb = Climb.from_old_json("311586", all_climbs["311586"])
+    assert climb.url() == "https://moonboard.com/Problems/View/311586/ladybug"
+
 
 # Setters and Getters
 
@@ -119,7 +129,7 @@ def test_too_many_holds() -> None:
     climb = Climb()
     for i in range(14):
         climb.add_hold(("A" + str(i + 1), False, False))
-    with pytest.raises(Exception):
+    with pytest.warns(UserWarning):
         climb.add_hold(("A15", False, False))
 
 

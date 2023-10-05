@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
-from typing import Any, Dict, Tuple, TypeVar
+from pathlib import Path
+from typing import Any, Dict, Tuple, Type, TypeVar
 
 
 T = TypeVar('T', bound='Moonboard')
@@ -24,9 +25,14 @@ class Moonboard:
         self._angle: int = angle
         self._height: int = 18
         if year == 2016:
-            self._lh = self._transform2("data/hold_features_2016_LH.csv")
-            self._rh = self._transform2("data/hold_features_2016_RH.csv")
-            self._features = self._transform("data/hold_features.csv")
+            base_path = Path(__file__).parent.parent.parent
+            path = (base_path / "data/hold_features_2016_LH.csv").resolve()
+            print(path.absolute())
+            self._lh = self._transform2(path.absolute())
+            path = (base_path / "data/hold_features_2016_RH.csv").resolve()
+            self._rh = self._transform2(path.absolute())
+            path = (base_path / "data/hold_features.csv").resolve()
+            self._features = self._transform(path.absolute())
 
     def get_features(self: T, position: Tuple[int, int]) -> np.ndarray:
         """
@@ -64,7 +70,7 @@ class Moonboard:
         """
         return 11
 
-    def _transform(self: T, file: str) -> Dict[Tuple[int, int], np.ndarray]:
+    def _transform(self: T, file: Path) -> Dict[Tuple[int, int], np.ndarray]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
@@ -79,7 +85,7 @@ class Moonboard:
             ).astype(int)
         return dict
 
-    def _transform2(self: T, file: str) -> Dict[Tuple[int, int], int]:
+    def _transform2(self: T, file: Path) -> Dict[Tuple[int, int], int]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
@@ -91,3 +97,7 @@ class Moonboard:
                 )
             ] = int(item['Difficulties'])
         return dict
+
+    @classmethod
+    def coordinate_to_string(cls: Type[T], coordinate: tuple) -> str:
+        return chr(coordinate[0] + ord('A')) + str(coordinate[1] + 1)

@@ -12,10 +12,13 @@ T = TypeVar('T', bound='BetaMove')
 class BetaMove:
 
     # class default constructor
-    def __init__(self: T, board: Moonboard) -> None:
+    def __init__(self: T, board: Moonboard = Moonboard()) -> None:
 
         # Instance Attributes
         self._board: Moonboard = board
+        self.reset_state()
+
+    def reset_state(self: T) -> None:
         self.allHolds: np.ndarray = np.zeros((1, 1))
         self.totalNumOfHold: int = 0
         # the index values of unused holds.
@@ -84,6 +87,8 @@ class BetaMove:
         return x_vectors
 
     def create_movement(self: T, climb: Climb) -> T:
+        # reset onject state
+        self.reset_state()
         # movement = []
         x_vectors = self.match_hold_features(climb)
         self.allHolds = x_vectors.T
@@ -114,6 +119,26 @@ class BetaMove:
         key_func = final_score.__getitem__
         largest_index = heapq.nlargest(1, iter, key=key_func)
         return status[largest_index[0]]
+
+    def process_data(self: T, climb: Climb) -> np.ndarray:
+        movement = self.create_movement(climb)
+        output = np.vstack([
+            self.allHolds.T[6:8, movement.handSequence],
+            ((np.array(movement.handOperator) == 'LH') * (-1)
+             + (np.array(movement.handOperator) == 'RH') * 1),
+            # missing code for the last line
+        ])
+        return output
+
+    def generate_hand_string_sequence(self: T, climb: Climb) -> list:
+        movement = self.create_movement(climb)
+        result = []
+        for i, index in enumerate(movement.handSequence):
+            xy = movement.get_xy_from_order(index)
+            location = Moonboard.coordinate_to_string(xy)
+            movement_string = location + '-' + movement.handOperator[i]
+            result.append(movement_string)
+        return result
 
     def add_start_holds(self: T, right_first: bool) -> None:
         """
@@ -188,7 +213,9 @@ class BetaMove:
         return a coordinate tuple giving holdOrder
         (a num in processed data)
         """
-        return ((self.allHolds[hold_order][6]), (self.allHolds[hold_order][7]))
+        x = int(self.allHolds[hold_order][6])
+        y = int(self.allHolds[hold_order][7])
+        return (x, y)
 
     def get_left_hand_order(self: T) -> int:
         """
