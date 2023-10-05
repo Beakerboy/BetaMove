@@ -24,7 +24,7 @@ x_342797 = np.array([
 def setup_standard() -> BetaMove:
     app = BetaMove()
     app.allHolds = x_342797
-    self.totalNumOfHold = 9
+    app.totalNumOfHold = 9
     app.handSequence = [0, 0, 1, 3, 4, 5, 7, 8]
     app.handOperator = ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH']
     app.holdsNotUsed = [2, 6]
