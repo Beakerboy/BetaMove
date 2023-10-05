@@ -60,14 +60,11 @@ def test_hand_string_sequence() -> None:
 
 
 def test_process_data() -> None:
-    app = BetaMove()
-    f = open('tests/pickle_data/moonGen_scrape_2016_final.pkl', 'rb')
-    all_climbs = pickle.load(f)
-    climb = Climb.from_old_json('342797', all_climbs['342797'])
+    app = setup_standard()
     f = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
     all_results = pickle.load(f)
     expected = all_results['X_dict_seq']['342797']
-    result = app.process_data(climb)
+    result = app.process_data()
     # the last row is missing
     np.testing.assert_array_equal(result, expected[0:3])
 
