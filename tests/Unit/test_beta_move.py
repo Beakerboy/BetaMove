@@ -23,12 +23,12 @@ x_342797 = np.array([
 
 
 def setup_standard() -> Moonboard:
-    board = Moonboard(2016)
-    app = BetaMove(board)
-    f = open('tests/Unit/342797.json')
-    data = json.load(f)
-    climb = Climb.from_json("342797", data["342797"])
-    app.create_movement(climb)
+    app = BetaMove()
+    app.allHolds = x_342797
+    self.totalNumOfHold = 9
+    app.handSequence = [0, 0, 1, 3, 4, 5, 7, 8]
+    app.handOperator = ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH']
+    app.holdsNotUsed = [2, 6]
     return app
 
 
