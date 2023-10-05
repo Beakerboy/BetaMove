@@ -85,10 +85,10 @@ class Moonboard:
                               str,
                               Tuple[np.ndarray, int, int]
                               ]:
-        features = pd.read_csv(file, dtype=str)
+        data = pd.read_csv(file, dtype=str)
         dict = {}
-        for index in features.index:
-            item = features.loc[index]
+        for index in data.index:
+            item = data.loc[index]
             features = np.array(
                 list(item['Features'])
             ).astype(int)
