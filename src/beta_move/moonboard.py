@@ -13,44 +13,41 @@ class Moonboard:
     def __init__(self: T, year: int = 2016, angle: int = 40) -> None:
 
         # Instance Attributes
-        # Left Hand Difficulties
-        self._lh: Dict[Tuple[int, int], int] = {}
+        # hold specific atributes
+        self._db: Dict[Tuple[int, int], Tuple[np.ndarray, int, int]] = {}
 
-        # Right Hand Difficulties
-        self._rh: Dict[Tuple[int, int], int] = {}
-
-        # Hold Features
-        self._features: Dict[Tuple[int, int], np.ndarray] = {}
+        # which hold is in which location
+        self._location: Dict[Tuple[int, int], int] = {}
 
         self._angle: int = angle
         self._height: int = 18
         if year == 2016:
-            base_path = Path(__file__).parent.parent.parent
-            path = (base_path / "data/hold_features_2016_LH.csv").resolve()
-            print(path.absolute())
-            self._lh = self._transform2(path.absolute())
-            path = (base_path / "data/hold_features_2016_RH.csv").resolve()
-            self._rh = self._transform2(path.absolute())
-            path = (base_path / "data/hold_features.csv").resolve()
-            self._features = self._transform(path.absolute())
+            base_path = Path(__file__).parent
+            path = (base_path / "data/Hold_Positions_2016.csv").resolve()
+            self._locations = self._transform3(path.absolute())
+            path = (base_path / "data/Hold_Database.csv").resolve()
+            self._db = self._transform4(path.absolute())
 
     def get_features(self: T, position: Tuple[int, int]) -> np.ndarray:
         """
         Return the features for the hold at a particular location
         """
-        return self._features[position]
+        hold_id = self._locations[location]
+        return self._db[hold_id][0]
 
     def get_rh_difficulty(self: T, position: Tuple[int, int]) -> int:
         """
         Return the right hand difficulty for the hold at a particular location
         """
-        return self._rh[position]
+        hold_id = self._locations[location]
+        return self._db[hold_id][2]
 
-    def get_lh_difficulty(self: T, position: Tuple[int, int]) -> int:
+    def get_lh_difficulty(self: T, location: Tuple[int, int]) -> int:
         """
         Return the left hand difficulty for the hold at a particular location
         """
-        return self._lh[position]
+        hold_id = self._locations[location]
+        return self._db[hold_id][1]
 
     def hold_exists(self: T, position: Tuple[Any]) -> bool:
         """
@@ -70,33 +67,37 @@ class Moonboard:
         """
         return 11
 
-    def _transform(self: T, file: Path) -> Dict[Tuple[int, int], np.ndarray]:
+    def _transform3(self: T, file: Path) -> Dict[Tuple[int, int], int]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
             item = features.loc[index]
+            position = item['Position']
             dict[
-                (
-                    int(item['X_coord']),
-                    int(item['Y_coord'])
-                )
-            ] = np.array(
-                list(item['Difficulties'])
-            ).astype(int)
+                self.position_to_location(position)
+            ] = int(item['Hold'])
         return dict
 
-    def _transform2(self: T, file: Path) -> Dict[Tuple[int, int], int]:
+    def _transform4(self: T, file: Path) -> Dict[Tuple[int, int], int]:
         features = pd.read_csv(file, dtype=str)
         dict = {}
         for index in features.index:
             item = features.loc[index]
+            features = np.array(
+                list(item['Features'])
+            ).astype(int)
+            left = int(item['Left'])
+            right = int(item['Right'])
             dict[
-                (
-                    int(item['X_coord']),
-                    int(item['Y_coord'])
-                )
-            ] = int(item['Difficulties'])
+                int(item['Hold'])
+            ] = (features, left, right)
         return dict
+
+    @classmethod
+    def position_to_location(cls: Type[T], position: str) -> tuple:
+        x = ord(position[0]) - ord('A')
+        y = int(position[1:]) - 1
+        return (x, y)
 
     @classmethod
     def coordinate_to_string(cls: Type[T], coordinate: tuple) -> str:
