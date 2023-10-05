@@ -2,7 +2,7 @@ import argparse
 import json
 import numpy as np
 import pandas as pd
-from beta_move.beta_move import BetaMove
+from beta_move.beta_generator import BetaGenerator
 from beta_move.climb import Climb
 from beta_move.moonboard import Moonboard
 
@@ -36,7 +36,7 @@ def main() -> None:
     # Create moonboard with he specified layout
     board = Moonboard()
     # Create movement generator.
-    app = BetaMove(board)
+    app = BetaGenerator(board)
     # Load the json file
     f = open(args.filename)
     data = json.load(f)
