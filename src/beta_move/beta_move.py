@@ -86,9 +86,9 @@ class BetaMove:
 
     def process_data(self: T, climb: Climb) -> np.ndarray:
         output = np.vstack([
-            self.allHolds.T[6:8, movement.handSequence],
-            ((np.array(movement.handOperator) == 'LH') * (-1)
-             + (np.array(movement.handOperator) == 'RH') * 1),
+            self.allHolds.T[6:8, self.handSequence],
+            ((np.array(self.handOperator) == 'LH') * (-1)
+             + (np.array(self.handOperator) == 'RH') * 1),
             # missing code for the last line
         ])
         return output
