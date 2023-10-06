@@ -383,7 +383,8 @@ class BetaMove:
         x_vectors = beta.match_hold_features(climb)
         beta.allHolds = x_vectors.T
         holds = {}
-        for i: int in enumerate(beta.allHolds):
+        i: int = 0
+        for i in enumerate(beta.allHolds):
             x: int = beta.allHolds[i][6]
             y: int = beta.allHolds[i][7]
             hold_location = (x, y)
