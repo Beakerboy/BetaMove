@@ -384,13 +384,13 @@ class BetaMove:
         beta.allHolds = x_vectors.T
         holds = {}
         i: int = 0
-        for i in enumerate(beta.allHolds):
-            x: int = beta.allHolds[i][6]
-            y: int = beta.allHolds[i][7]
+        for i, hold in enumerate(beta.allHolds):
+            x: int = hold[6]
+            y: int = hold[7]
             hold_location = (x, y)
             holds[hold_location] = i
-        for i in enumerate(data[0]):
-            x = data[0][i]
+        for i, datum in enumerate(data[0]):
+            x = datum
             y = data[1][i]
             hold_location = (x, y)
             hold_index = holds[hold_location]
