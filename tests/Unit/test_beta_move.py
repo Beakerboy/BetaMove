@@ -199,6 +199,18 @@ def test_success_rate(input: list, expected: float) -> None:
     assert actual == expected
 
 
+def test_betamove_factory() -> None:
+    f = open('tests/Unit/342797.json')
+    all_climbs = json.load(f)
+    climb = Climb.from_json("342797", all_climbs["342797"])
+    f = open('tests/pickle_data/processed_data_seq.pkl', 'rb')
+    all_results = pickle.load(f)
+    data = all_results['X_dict_seq']['342797']
+    app = BetaMove.from_process_data(climb, data)
+    assert app.handSequence == [0, 0, 1, 3, 4, 5, 7, 8]
+    assert app.handOperator == ['LH', 'RH', 'LH', 'RH', 'LH', 'RH', 'LH', 'RH']
+
+
 def test_bad_climb() -> None:
     climb = Climb()
     app = BetaMove()

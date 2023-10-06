@@ -379,17 +379,26 @@ class BetaMove:
 
     @classmethod
     def from_process_data(cls: Type[T], climb: Climb, data: np.ndarray) -> T:
-        x_vectors = cls.match_hold_features(climb)
-        cls.allHolds = x_vectors.T
+        beta = cls()
+        x_vectors = beta.match_hold_features(climb)
+        beta.allHolds = x_vectors.T
         holds = {}
-        for i in cls.allHolds:
-            holds[(cls.allHolds[i][6], cls.allHolds[i][7])] = i
-        for i in data:
-            cls.handSequence.append(holds[(holds[0], holds[1])])
-        
+        i: int = 0
+        for i, hold in enumerate(beta.allHolds):
+            x: int = hold[6]
+            y: int = hold[7]
+            hold_location = (x, y)
+            holds[hold_location] = i
+        for i, datum in enumerate(data[0]):
+            x = datum
+            y = data[1][i]
+            hold_location = (x, y)
+            hold_index = holds[hold_location]
+            beta.handSequence.append(hold_index)
+
         hand_values = data[2]
-        hand_values[hand_values == -1] = "LH"
-        hand_values[hand_values == 1] = "RH"
-        cls.handOperator = hand_values.tolist()
-        return cls
-        
+        hand_values_str = []
+        for val in hand_values:
+            hand_values_str.append("LH" if val == -1 else "RH")
+        beta.handOperator = hand_values_str
+        return beta
