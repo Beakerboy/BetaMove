@@ -376,3 +376,20 @@ class BetaMove:
         alphabet_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K"]
         str1 = alphabet_list[int(coordinate[0])]
         return str(str1) + str(int(coordinate[1]) + 1)
+
+    @classmethod
+    def from_process_data(cls: Type[T], climb: Climb, data: np.ndarray) -> T:
+        x_vectors = cls.match_hold_features(climb)
+        cls.allHolds = x_vectors.T
+        holds = {}
+        for i in cls.allHolds:
+            holds[(cls.allHolds[i][6], cls.allHolds[i][7])] = i
+        for i in data:
+            cls.handSequence.append(holds[(holds[0], holds[1])])
+        
+        hand_values = data[2]
+        hand_values[hand_values == -1] = "LH"
+        hand_values[hand_values == 1] = "RH"
+        cls.handOperator = hand_values.tolist()
+        return cls
+        
