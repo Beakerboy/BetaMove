@@ -397,7 +397,8 @@ class BetaMove:
             beta.handSequence.append(hold_index)
 
         hand_values = data[2]
-        hand_values[hand_values == -1] = "LH"
-        hand_values[hand_values == 1] = "RH"
+        hand_values_str = []
+        hand_values_str[hand_values == -1] = "LH"
+        hand_values_str[hand_values == 1] = "RH"
         beta.handOperator = hand_values.tolist()
         return beta
