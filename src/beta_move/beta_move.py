@@ -1,7 +1,7 @@
 import numpy as np
 from beta_move.climb import Climb
 from beta_move.moonboard import Moonboard
-from typing import TypeVar, Type
+from typing import TypeVar, Type, List
 
 
 T = TypeVar('T', bound='BetaMove')
@@ -397,7 +397,7 @@ class BetaMove:
             beta.handSequence.append(hold_index)
 
         hand_values = data[2]
-        hand_values_str = []
+        hand_values_str: List[str] = []
         hand_values_str[hand_values == -1] = "LH"
         hand_values_str[hand_values == 1] = "RH"
         beta.handOperator = hand_values.tolist()
