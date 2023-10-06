@@ -400,5 +400,5 @@ class BetaMove:
         hand_values_str = []
         for val in hand_values:
             hand_values_str.append("LH" if val == -1 else "RH")
-        beta.handOperator = hand_values.tolist()
+        beta.handOperator = hand_values_str
         return beta
