@@ -386,10 +386,9 @@ class BetaMove:
             holds[(cls.allHolds[i][6], cls.allHolds[i][7])] = i
         for i in data:
             cls.handSequence.append(holds[(holds[0], holds[1])])
-        
+    
         hand_values = data[2]
         hand_values[hand_values == -1] = "LH"
         hand_values[hand_values == 1] = "RH"
         cls.handOperator = hand_values.tolist()
         return cls
-        
