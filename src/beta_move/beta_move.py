@@ -383,10 +383,16 @@ class BetaMove:
         x_vectors = beta.match_hold_features(climb)
         beta.allHolds = x_vectors.T
         holds = {}
-        for i in beta.allHolds:
-            holds[(beta.allHolds[i][6], beta.allHolds[i][7])] = i
-        for i in data:
-            beta.handSequence.append(holds[(holds[0], holds[1])])
+        for i in enumerate(beta.allHolds):
+            x = beta.allHolds[i][6]
+            y = beta.allHolds[i][7]
+            hold_location = (x, y)
+            holds[hold_location] = i
+        for i in enumerate(data):
+            hold = data[i]
+            hold_location = (hold[0], hold[1])
+            hold_index = holds[hold_location]
+            beta.handSequence.append(hold_index)
 
         hand_values = data[2]
         hand_values[hand_values == -1] = "LH"
