@@ -388,9 +388,8 @@ class BetaMove:
             y = beta.allHolds[i][7]
             hold_location = (x, y)
             holds[hold_location] = i
-        for i in enumerate(data):
-            hold = data[i]
-            hold_location = (hold[0], hold[1])
+        for i in enumerate(data[0]):
+            hold_location = (data[0][i], data[1][i])
             hold_index = holds[hold_location]
             beta.handSequence.append(hold_index)
 
