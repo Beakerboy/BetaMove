@@ -25,6 +25,9 @@ classifiers = [
 "Homepage" = "https://github.com/Beakerboy/BetaMove"
 "Bug Tracker" = "https://github.com/Beakerboy/BetaMove/issues"
 
+[tool.setuptools.package-data]
+"beta_move.data" = ["*.csv"]
+
 [tool.pytest.ini_options]
 pythonpath = "src"
 testpaths = [
