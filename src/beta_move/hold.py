@@ -47,6 +47,8 @@ class Hold:
         return self._location
         
     def get_position(self: T) -> str:
+        x, y = self._location
+        return chr(x + ord('A')) + str(y + 1)
 
     def get_x(self: T) -> int:
         return self._location[0]
