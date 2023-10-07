@@ -51,7 +51,7 @@ class BetaMove:
     def get_start_hold(self: T) -> list:
         start_holds = []
         for hold in self.allHolds:
-            if hold[8] == 1:
+            if hold[2] == 1:
                 start_holds.append(hold)
         return start_holds
 
