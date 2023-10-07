@@ -27,15 +27,15 @@ positional arguments:
 ```
 
 ## Objects
-# Moonboard
+### Moonboard
 The moonboard object manages all the holds.
-# Hold
+### Hold
 A hold is a specific hold with a location and orientation.
-# Climb
+### Climb
 A climb is a list of golds that make up a specific moonboard problem.
-# BetaGenerator
+### BetaGenerator
 The BetaGenerator creates the optimal Beta for a specific Climb.
-# BetaMove
+### BetaMove
 A series of hand movements between holds.
 
 ## Tests
