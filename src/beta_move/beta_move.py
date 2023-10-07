@@ -69,7 +69,7 @@ class BetaMove:
         numpy.ndarray
             A table of hold characteristics, locations, and start/end flags
         """
-        x_vectors = np.zeros((10, climb.num_holds()))
+        x_vectors = np.zeros((4, climb.num_holds()))
         if climb.is_valid():
             i = 0
             holds = climb.get_holds()
