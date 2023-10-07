@@ -21,6 +21,7 @@ class Hold:
         self._difficulties = (0, 0)
         self._features = (0, 0, 0, 0, 0, 0)
 
+    # Setters and Getters
     def get_difficulties(self: T) -> tuple:
         return self._difficulties
 
@@ -42,6 +43,13 @@ class Hold:
         """
         return self._features
 
+    def get_location() -> Tuple[int, int]:
+
+    def get_position() -> str:
+
+    def get_x() -> int:
+
+    def get_y() -> int:
     def distance_to(self: T, hold: T) -> float:
         """
         Calculate the distance between this hold and another hold
