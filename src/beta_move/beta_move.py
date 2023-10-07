@@ -74,19 +74,18 @@ class BetaMove:
             i = 0
             holds = climb.get_holds()
             for (x, y) in holds:
-                x_vectors[0:6, i] = self._board.get_features((x, y))
-                x_vectors[6:8, i] = [x, y]
+                x_vectors[0:2, i] = [x, y]
                 i += 1
-            x_vectors[8:, 0:climb.num_starts()] = np.array([[1], [0]])
+            x_vectors[2:, 0:climb.num_starts()] = np.array([[1], [0]])
             num_non_end = climb.num_holds() - climb.num_finish()
-            x_vectors[8:, num_non_end:] = np.array([[0], [1]])
+            x_vectors[2:, num_non_end:] = np.array([[0], [1]])
         else:
             raise Exception("Climb is invalid.")
         return x_vectors
 
     def process_data(self: T) -> np.ndarray:
         output = np.vstack([
-            self.allHolds.T[6:8, self.handSequence],
+            self.allHolds.T[0:2, self.handSequence],
             ((np.array(self.handOperator) == 'LH') * (-1)
              + (np.array(self.handOperator) == 'RH') * 1),
             # missing code for the last line
@@ -175,8 +174,8 @@ class BetaMove:
         return a coordinate tuple giving holdOrder
         (a num in processed data)
         """
-        x = int(self.allHolds[hold_order][6])
-        y = int(self.allHolds[hold_order][7])
+        x = int(self.allHolds[hold_order][0])
+        y = int(self.allHolds[hold_order][1])
         return (x, y)
 
     def get_left_hand_order(self: T) -> int:
@@ -234,8 +233,8 @@ class BetaMove:
             The climber's center of mass coordinates
         """
         all_holds = self.allHolds
-        x_com = (all_holds[hold1order][6] + all_holds[hold2order][6]) / 2
-        y_com = (all_holds[hold1order][7] + all_holds[hold2order][7]) / 2
+        x_com = (all_holds[hold1order][0] + all_holds[hold2order][0]) / 2
+        y_com = (all_holds[hold1order][1] + all_holds[hold2order][1]) / 2
         return (x_com, y_com)
 
     def get_current_com(self: T) -> tuple:
@@ -265,14 +264,14 @@ class BetaMove:
         Evaluate the difficulty to hold on a hold applying LH or RH (op)
         """
         if operation == "LH":
-            return self._board.get_lh_difficulty((hold[6], hold[7]))
-        return self._board.get_rh_difficulty((hold[6], hold[7]))
+            return self._board.get_lh_difficulty((hold[0], hold[1]))
+        return self._board.get_rh_difficulty((hold[0], hold[1]))
 
     def get_end_hold_order(self: T) -> list:
         """return endHold list with 2 element of np array"""
         end_hold_order = []
         for i in range(self.totalNumOfHold):
-            if self.allHolds[i][9] == 1:
+            if self.allHolds[i][3] == 1:
                 end_hold_order.append(i)
         if len(end_hold_order) == 1:
             end_hold_order.append(self.totalNumOfHold)
