@@ -384,8 +384,8 @@ class BetaMove:
         holds = {}
         i: int = 0
         for i, hold in enumerate(beta.allHolds):
-            x: int = hold[6]
-            y: int = hold[7]
+            x: int = hold[0]
+            y: int = hold[1]
             hold_location = (x, y)
             holds[hold_location] = i
         for i, datum in enumerate(data[0]):
