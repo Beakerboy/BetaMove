@@ -55,7 +55,7 @@ class Hold:
 
     def get_y(self: T) -> int:
         return self._location[0]
-        
+
     def distance_to(self: T, hold: T) -> float:
         """
         Calculate the distance between this hold and another hold
