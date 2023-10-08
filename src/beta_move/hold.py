@@ -59,7 +59,7 @@ class Hold:
         return self._location[0]
 
     def get_y(self: T) -> int:
-        return self._location[0]
+        return self._location[1]
 
     def distance_to(self: T, hold: T) -> float:
         """
