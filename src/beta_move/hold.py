@@ -22,9 +22,11 @@ class Hold:
         # int 0-7 clockwise starting North
         self._orientation = orientation
 
+        path = (base_path / "data/Hold_Database.csv").resolve()
+        db = self._transform(path.absolute())
         # (left, right)
-        self._difficulties = (0, 0)
-        self._features = (0, 0, 0, 0, 0, 0)
+        self._difficulties = (db[hold_id][1], db[hold_id][db[hold_id][0]])
+        self._features = db[hold_id][0]
 
     # Setters and Getters
     def get_difficulties(self: T) -> tuple:
@@ -67,3 +69,24 @@ class Hold:
         """
         diff = np.array(self._location) - np.array(hold._location)
         return np.linalg.norm(diff).item()
+
+    def _transform(
+                    self: T,
+                    file: Path
+                    ) -> Dict[
+                              str,
+                              Tuple[np.ndarray, int, int]
+                              ]:
+        data = pd.read_csv(file, dtype=str)
+        dict = {}
+        for index in data.index:
+            item = data.loc[index]
+            features = np.array(
+                list(item['Features'])
+            ).astype(int)
+            left = int(item['Left'])
+            right = int(item['Right'])
+            dict[
+                item['Hold']
+            ] = (features, left, right)
+        return dict
