@@ -26,6 +26,18 @@ positional arguments:
                         The output file name.
 ```
 
+## Objects
+### Moonboard
+The moonboard object manages all the holds.
+### Hold
+A hold is a specific hold with a location and orientation.
+### Climb
+A climb is a list of golds that make up a specific moonboard problem.
+### BetaGenerator
+The BetaGenerator creates the optimal Beta for a specific Climb.
+### BetaMove
+A series of hand movements between holds.
+
 ## Tests
 The tests directory contains examples of how the classes can be used within other projects. There are also complete functional tests that include full working examples of creating the output file from CLI or using the module's objects.
 
