@@ -24,6 +24,7 @@ class Hold:
         # int 0-7 clockwise starting North
         self._orientation = orientation
 
+        base_path = Path(__file__).parent
         path = (base_path / "data/Hold_Database.csv").resolve()
         db = self._transform(path.absolute())
         # (left, right)
