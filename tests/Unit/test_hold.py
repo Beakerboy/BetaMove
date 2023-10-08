@@ -1,3 +1,4 @@
+import numpy as np
 from beta_move.hold import Hold
 
 
