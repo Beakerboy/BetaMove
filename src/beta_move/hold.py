@@ -28,7 +28,7 @@ class Hold:
         path = (base_path / "data/Hold_Database.csv").resolve()
         db = self._transform(path.absolute())
         # (left, right)
-        self._difficulties = (db[id][1], db[id][db[hold_id][0]])
+        self._difficulties = (db[id][1], db[id][2])
         self._features = db[id][0]
 
     # Setters and Getters
