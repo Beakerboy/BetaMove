@@ -90,6 +90,6 @@ class Hold:
             left = int(item['Left'])
             right = int(item['Right'])
             dict[
-                item['Hold']
+                str(item['Hold'])
             ] = (features, left, right)
         return dict
