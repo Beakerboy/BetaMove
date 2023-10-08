@@ -31,3 +31,15 @@ def test_distance_to() -> None:
     hold1 = Hold("1", (0, 0), 0)
     hold2 = Hold("2", (3, 4), 0)
     assert hold1.distance_to(hold2) == 5.0
+
+
+def test_lh_difficulty() -> None:
+    board = Moonboard()
+    hold = Hold("89", (5, 4), 0)
+    assert hold.get_left_difficulty(input) == 8
+
+
+def test_rh_difficulty() -> None:
+    board = Moonboard()
+    hold = Hold("89", (5, 4), 0)
+    assert hold.get_right_difficulty(input) == 9
