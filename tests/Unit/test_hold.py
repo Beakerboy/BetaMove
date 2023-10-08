@@ -35,9 +35,9 @@ def test_distance_to() -> None:
 
 def test_lh_difficulty() -> None:
     hold = Hold("89", (5, 4), 0)
-    assert hold.get_left_difficulty(input) == 8
+    assert hold.get_left_difficulty() == 8
 
 
 def test_rh_difficulty() -> None:
     hold = Hold("89", (5, 4), 0)
-    assert hold.get_right_difficulty(input) == 9
+    assert hold.get_right_difficulty() == 9
