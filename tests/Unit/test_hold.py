@@ -51,4 +51,4 @@ def test_difficulties() -> None:
 
 def test_features() -> None:
     hold = Hold("89", (5, 4), 0)
-    assert hold.get_features() == np.ndarray([5, 4, 9, 4, 1, 1])
+    assert all(hold.get_features() == np.ndarray([5, 4, 9, 4, 1, 1]))
