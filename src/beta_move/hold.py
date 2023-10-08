@@ -47,7 +47,7 @@ class Hold:
         """
         return self._difficulties[0]
 
-    def get_features(self: T) -> tuple:
+    def get_features(self: T) -> np.ndarray:
         """
         return the features
         """
