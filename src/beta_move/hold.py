@@ -8,14 +8,14 @@ T = TypeVar('T', bound='Hold')
 class Hold:
 
     # class default constructor
-    def __init__(self: T, id: int) -> None:
+    def __init__(self: T, id: int, location: Tuple[int, int], orientation: int) -> None:
         # Instance Attributes
         self._id = id
 
         # (x, y)
-        self._location = (0, 0)
+        self._location = location
         # int 0-7 clockwise starting North
-        self._orientation = 0
+        self._orientation = orientation
 
         # (left, right)
         self._difficulties = (0, 0)
