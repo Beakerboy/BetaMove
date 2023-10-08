@@ -8,7 +8,12 @@ T = TypeVar('T', bound='Hold')
 class Hold:
 
     # class default constructor
-    def __init__(self: T, id: int, location: Tuple[int, int], orientation: int) -> None:
+    def __init__(
+                 self: T,
+                 id: int,
+                 location: Tuple[int, int],
+                 orientation: int
+                 ) -> None:
         # Instance Attributes
         self._id = id
 
