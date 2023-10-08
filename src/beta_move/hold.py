@@ -1,5 +1,5 @@
 import numpy as np
-import pandas
+import pandas as pd
 from pathlib import Path
 from typing import Dict, Tuple, TypeVar
 
