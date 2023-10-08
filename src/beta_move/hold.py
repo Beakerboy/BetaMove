@@ -12,7 +12,7 @@ class Hold:
     # class default constructor
     def __init__(
                  self: T,
-                 id: int,
+                 id: str,
                  location: Tuple[int, int],
                  orientation: int
                  ) -> None:
