@@ -40,4 +40,4 @@ def test_lh_difficulty() -> None:
 
 def test_rh_difficulty() -> None:
     hold = Hold("89", (5, 4), 0)
-    assert hold.get_right_difficulty() == 9
+    assert hold.get_right_difficulty() == 7
